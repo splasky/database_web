@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-19 16:26:36
+# Last modified: 2017-11-19 17:43:41
 
 """
 Django settings for myweb project.
@@ -82,9 +82,8 @@ WSGI_APPLICATION = 'myweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.path.join(BASE_DIR, 'db.mysql'),
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'my.cnf'),
+        'OPTINOS': {
+            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf')
         }
     }
 }
