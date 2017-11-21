@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-21 10:34:37
+# Last modified: 2017-11-21 21:30:12
 
 """myweb URL Configuration
 
@@ -18,14 +18,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth.views import login, logout
-from myweb.views import index
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/$', login, name='login'),
-    url(r'^accounts/logout/$', logout, name='logout'),
-    url(r'^$', index),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    #  url(r'^$', index, name='my_index'),
 ]
