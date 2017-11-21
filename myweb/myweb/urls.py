@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-21 10:31:12
+# Last modified: 2017-11-21 10:34:37
 
 """myweb URL Configuration
 
@@ -21,10 +21,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+from myweb.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/$', login),
-    url(r'^accounts/logout/$', logout),
-    url(r'^index/$', index),
+    url(r'^accounts/login/$', login, name='login'),
+    url(r'^accounts/logout/$', logout, name='logout'),
+    url(r'^$', index),
 ]
