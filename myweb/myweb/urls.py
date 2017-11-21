@@ -1,3 +1,8 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2017-11-21 09:44:11
+
 """myweb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,7 +20,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from myweb.views import login, logout, index
+
+app_name = 'logins'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', index),
+    url(r'^account/login/$', login, name='login'),
+    url(r'^account/logout/$', logout, name='logout'),
 ]
