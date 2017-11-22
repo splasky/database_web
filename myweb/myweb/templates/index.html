@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>index</title>
+{% block title %}index{% endblock %}
 
-</head>
+{% block content %}
 
-<body>
-    {% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-    {% else %} {% if request.user.is_authenticated %}
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% else %}
+    {% if request.user.is_authenticated %}
     <p> Hello {{request.user}}
-        <a href="{% url 'logout' %}">logout</a>
     </p>
     {% else %}
     <p>Hello world
-        <a href="{% url 'login' %}">login</a>
     </p>
-    {% endif %} {% endif %}
+    {% endif %}
+{% endif %}
 
-</body>
-
-</html>
+{% endblock %}
