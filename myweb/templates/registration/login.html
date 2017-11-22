@@ -9,11 +9,6 @@
     <input type="submit" name="" id="" value="login" />
 </form>
 
-{% if form.non_field_errors %}
-{{form.non_field_errors}}
-{% endif %}
-
-{# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}
