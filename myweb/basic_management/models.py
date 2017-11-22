@@ -12,7 +12,7 @@ class Company_Info(models.Model):
     comp_person_in_charge = models.CharField(max_length=20)
     comp_NUM_employee = models.IntegerField()
     comp_email = models.CharField(max_length=254)
-    comp_introduction=models.TextField(blank=True,null=True)
+    comp_introduction = models.TextField(blank=True, null=True)
 
 
 class Employee_Info(models.Model):
