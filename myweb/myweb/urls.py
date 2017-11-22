@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-22 13:28:15
+# Last modified: 2017-11-22 14:22:22
 
 """myweb URL Configuration
 
@@ -25,6 +25,7 @@ from myweb.views import index
 
 
 urlpatterns = [
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', index, name='index'),
