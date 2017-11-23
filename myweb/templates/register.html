@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>註冊</title>
-	<meta charset="utf-8">
-</head>
-<body>
-<div>
-	<div>
+{% extends 'base.html' %}
+
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
 		<form action="" method="post">
 			{% csrf_token %}
 			{{form.as_p}}
@@ -15,10 +11,4 @@
 
 
 		</form>
-	</div>
-
-
-
-</div>
-</body>
-</html>
+{% endblock %}
