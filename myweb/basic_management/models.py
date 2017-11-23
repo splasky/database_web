@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-22 19:45:00
+# Last modified: 2017-11-22 23:47:56
 
 from django.db import models
 
@@ -9,7 +9,6 @@ from django.db import models
 class Categories(models.Model):
 
     """Merchandise Categories"""
-    Categories_id = models.UUIDField(primary_key=True)
     Categories_name = models.CharField(max_length=100)
 
     class Mate:
@@ -19,7 +18,6 @@ class Categories(models.Model):
 class Product_Information(models.Model):
 
     """Product's information"""
-    Product_id = models.UUIDField(primary_key=True)
     Product_name = models.CharField(max_length=100)
     Hight = models.FloatField()
     Weight = models.FloatField()
@@ -32,7 +30,6 @@ class Product_Information(models.Model):
 class Manufacturer_Information(models.Model):
 
     """Manufacturer's information"""
-    Manufacturer_id = models.UUIDField(primary_key=True)
     Uniform_numbers = models.CharField(max_length=100)
     ManuFacturer_name = models.CharField(max_length=100)
     Total_capital = models.IntegerField()
