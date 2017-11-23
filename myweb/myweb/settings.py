@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-22 18:42:13
+# Last modified: 2017-11-23 16:19:39
 
 """
 Django settings for myweb project.
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'basic_management',
 ]
 
 MIDDLEWARE = [
