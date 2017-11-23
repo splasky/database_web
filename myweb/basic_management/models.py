@@ -7,34 +7,51 @@ from django.db import models
 
 
 class Company_Info(models.Model):
-    comp_id = models.UUIDField(primary_key=True)
     comp_name = models.CharField(max_length=100)
-    comp_address = models.EmailField(max_length=200)
+    comp_address = models.CharField(max_length=200)
     comp_phonenumber = models.CharField(max_length=200)
     comp_EIN = models.CharField(max_length=50)
     comp_person_in_charge = models.CharField(max_length=20)
     comp_NUM_employee = models.IntegerField()
-    comp_email = models.CharField(max_length=254)
+    comp_email = models.EmailField(max_length=254)
     comp_introduction = models.TextField(blank=True, null=True)
+
+    class Mate:
+        db_table = 'Company_Info'
 
 
 class Employee_Info(models.Model):
-    emp_id = models.UUIDField(primary_key=True)
+    M = 'male'
+    F = 'female'
+
     emp_name = models.CharField(max_length=100)
-    emp_address = models.EmailField(max_length=200)
+    emp_address = models.CharField(max_length=200)
+    emp_email = models.EmailField(max_length=200, null=True)
     emp_phonenumber = models.CharField(max_length=200)
-    emp_gender = models.BooleanField()
+    EMP_gender = ((M, 'male'), (F, 'female'))
+    emp_gender = models.CharField(max_length=2, choices=EMP_gender)
+
     emp_birthday = models.DateField()
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
 
+    class Mate:
+        db_table = 'Employee_Info'
+
 
 class Client_Info(models.Model):
-    client_id = models.UUIDField(primary_key=True)
+    M = 'male'
+    F = 'female'
+
     client_name = models.CharField(max_length=100)
-    client_address = models.EmailField(max_length=200)
+    client_address = models.CharField(max_length=200)
+    client_email = models.EmailField(max_length=200, null=True)
     client_phonenumber = models.CharField(max_length=200)
-    client_gender = models.BooleanField()
+    CLIENT_gender = ((M, 'male'), (F, 'female'))
+    client_gender = models.CharField(max_length=2, choices=CLIENT_gender)
     client_birthday = models.DateField()
+
+    class Mate:
+        db_table = 'Client_Info'
 
 
 class Categories(models.Model):
