@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'basic_management',
     'm_models',
     'grappelli',
     'django.contrib.admin',
