@@ -29,7 +29,7 @@ from myweb.views import index
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/register/$',register,),
+    url(r'^accounts/register/$',register,name= 'register'),
     url(r'^$', index, name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
