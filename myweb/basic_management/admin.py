@@ -1,6 +1,10 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2017-11-23 18:30:47
+
 from django.contrib import admin
 from basic_management.models import *
-# Register your models here.
 
 
 class Company_InfoAdmin(admin.ModelAdmin):
@@ -20,9 +24,9 @@ class Client_InfoAdmin(admin.ModelAdmin):
     list_display = ('name', 'phonenumber', 'gender')
 
 
-class CategoriesAdmin(admin.ModelAdmin):
+class CategorieAdmin(admin.ModelAdmin):
 
-    list_display = ('Categories_name',)
+    list_display = ('Categorie_name',)
 
 
 class Product_InformationAdmin(admin.ModelAdmin):
@@ -31,13 +35,12 @@ class Product_InformationAdmin(admin.ModelAdmin):
 
 
 class Manufacturer_InformationAdmin(admin.ModelAdmin):
-    list_display = ('Uniform_numbers', 'ManuFacturer_name',
-                    'Name_of_representative')
+    list_display = ('Uniform_numbers',)
 
 
 admin.site.register(Company_Info, Company_InfoAdmin)
 admin.site.register(Employee_Info, Employee_InfoAdmin)
 admin.site.register(Client_Info, Client_InfoAdmin)
-admin.site.register(Categories, CategoriesAdmin)
+admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Product_Information, Product_InformationAdmin)
 admin.site.register(Manufacturer_Information, Manufacturer_InformationAdmin)

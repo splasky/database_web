@@ -1,12 +1,12 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-23 16:37:43
-
+# Last modified: 2017-11-23 19:24:52
 from django.db import models
 
 
 class Company_Info(models.Model):
+
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     phonenumber = models.CharField(max_length=200)
@@ -21,6 +21,7 @@ class Company_Info(models.Model):
 
 
 class Employee_Info(models.Model):
+
     M = 'male'
     F = 'female'
 
@@ -54,10 +55,10 @@ class Client_Info(models.Model):
         db_table = 'Client_Info'
 
 
-class Categories(models.Model):
+class Categorie(models.Model):
 
     """Merchandise Categories"""
-    Categories_name = models.CharField(max_length=100)
+    Categorie_name = models.CharField(max_length=100)
 
     class Mate:
         db_table = 'categories'
@@ -69,20 +70,17 @@ class Product_Information(models.Model):
     Product_name = models.CharField(max_length=100)
     Hight = models.FloatField()
     Weight = models.FloatField()
-    Categories_id = models.ForeignKey('Categories', on_delete=models.CASCADE)
+    Categories_id = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Mate:
         db_table = 'product_information'
 
 
-class Manufacturer_Information(models.Model):
+class Manufacturer_Information(Company_Info):
 
     """Manufacturer's information"""
     Uniform_numbers = models.CharField(max_length=100)
-    ManuFacturer_name = models.CharField(max_length=100)
     Total_capital = models.IntegerField()
-    Name_of_representative = models.CharField(max_length=100)
-    Company_location = models.CharField(max_length=200)
 
     class Mate:
         db_table = 'manufacturer information'
