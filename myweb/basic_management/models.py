@@ -7,14 +7,14 @@ from django.db import models
 
 
 class Company_Info(models.Model):
-    comp_name = models.CharField(max_length=100)
-    comp_address = models.CharField(max_length=200)
-    comp_phonenumber = models.CharField(max_length=200)
-    comp_EIN = models.CharField(max_length=50)
-    comp_person_in_charge = models.CharField(max_length=20)
-    comp_NUM_employee = models.IntegerField()
-    comp_email = models.EmailField(max_length=254)
-    comp_introduction = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    phonenumber = models.CharField(max_length=200)
+    EIN = models.CharField(max_length=50)
+    person_in_charge = models.CharField(max_length=20)
+    NUM_employee = models.IntegerField()
+    email = models.EmailField(max_length=254)
+    introduction = models.TextField(blank=True, null=True)
 
     class Mate:
         db_table = 'Company_Info'
@@ -24,14 +24,14 @@ class Employee_Info(models.Model):
     M = 'male'
     F = 'female'
 
-    emp_name = models.CharField(max_length=100)
-    emp_address = models.CharField(max_length=200)
-    emp_email = models.EmailField(max_length=200, null=True)
-    emp_phonenumber = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    phonenumber = models.CharField(max_length=200)
     EMP_gender = ((M, 'male'), (F, 'female'))
-    emp_gender = models.CharField(max_length=2, choices=EMP_gender)
+    gender = models.CharField(max_length=6, choices=EMP_gender)
 
-    emp_birthday = models.DateField()
+    birthday = models.DateField()
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
 
     class Mate:
@@ -42,13 +42,13 @@ class Client_Info(models.Model):
     M = 'male'
     F = 'female'
 
-    client_name = models.CharField(max_length=100)
-    client_address = models.CharField(max_length=200)
-    client_email = models.EmailField(max_length=200, null=True)
-    client_phonenumber = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    phonenumber = models.CharField(max_length=200)
     CLIENT_gender = ((M, 'male'), (F, 'female'))
-    client_gender = models.CharField(max_length=2, choices=CLIENT_gender)
-    client_birthday = models.DateField()
+    gender = models.CharField(max_length=6, choices=CLIENT_gender)
+    birthday = models.DateField()
 
     class Mate:
         db_table = 'Client_Info'
