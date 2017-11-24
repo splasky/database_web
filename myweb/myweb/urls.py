@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-22 14:22:22
+# Last modified: 2017-11-23 20:49:16
 
 """myweb URL Configuration
 
@@ -19,17 +19,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.contrib import admin
-from myweb.views import *
-from templates import *
 from django.contrib.auth import views as auth_views
-from myweb.views import index
+from myweb.views import index, register
+from basic_management.views import basic_management
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/register/$',register,name= 'register'),
+    url(r'^accounts/register/$', register, name='register'),
     url(r'^$', index, name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^basic_management/$', basic_management, name='basic-management'),
 ]
