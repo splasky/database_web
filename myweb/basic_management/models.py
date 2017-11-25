@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-25 11:42:20
+# Last modified: 2017-11-25 17:43:18
 from django.db import models
 from django.urls import reverse
 
@@ -26,10 +26,7 @@ class Company_Info(models.Model):
         return reverse('company-detail', args=[str(self.id)])
 
     def __str__(self):
-        """
-        String for representing the Model object.
-        """
-        return self.title
+        return self.comp_name
 
 
 class Employee_Info(models.Model):
