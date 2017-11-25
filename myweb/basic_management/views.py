@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-25 12:54:46
+# Last modified: 2017-11-25 13:05:03
 
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
@@ -22,6 +22,7 @@ def basic_management(request):
 class CompanyInfoListView(generic.ListView):
     model = Company_Info
     context_object_name = 'CompanyInfoList'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoListView, self).get_context_data(**kwargs)
