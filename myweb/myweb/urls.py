@@ -23,7 +23,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from myweb.views import index, register
-from basic_management.views import basic_management
+from basic_management.views import basic_management, employeeView
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^basic_management/$', basic_management, name='basic-management'),
+    url(r'^employee/$', employeeView.as_view()),
 ]

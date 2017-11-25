@@ -7,14 +7,14 @@ from django.db import models
 
 class Company_Info(models.Model):
 
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
-    phonenumber = models.CharField(max_length=200)
-    EIN = models.CharField(max_length=50)
-    person_in_charge = models.CharField(max_length=20)
-    NUM_employee = models.IntegerField()
+    name = models.CharField('公司名稱', max_length=100)
+    address = models.CharField('地址', max_length=200)
+    phonenumber = models.CharField('公司電話', max_length=200)
+    EIN = models.CharField('統一編號', max_length=50)
+    person_in_charge = models.CharField('負責人', max_length=20)
+    NUM_employee = models.IntegerField('公司人數',)
     email = models.EmailField(max_length=254)
-    introduction = models.TextField(blank=True, null=True)
+    introduction = models.TextField('公司簡介', blank=True, null=True)
 
     class Mate:
         db_table = 'Company_Info'
@@ -25,14 +25,14 @@ class Employee_Info(models.Model):
     M = 'male'
     F = 'female'
 
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
+    name = models.CharField('員工姓名', max_length=100)
+    address = models.CharField('地址', max_length=200)
     email = models.EmailField(max_length=200, null=True)
-    phonenumber = models.CharField(max_length=200)
+    phonenumber = models.CharField('電話', max_length=200)
     EMP_gender = ((M, 'male'), (F, 'female'))
-    gender = models.CharField(max_length=6, choices=EMP_gender)
+    gender = models.CharField('性別', max_length=6, choices=EMP_gender)
 
-    birthday = models.DateField()
+    birthday = models.DateField('生日',)
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
 
     class Mate:
@@ -43,13 +43,13 @@ class Client_Info(models.Model):
     M = 'male'
     F = 'female'
 
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
+    name = models.CharField('客戶名稱', max_length=100)
+    address = models.CharField('地址', max_length=200)
     email = models.EmailField(max_length=200, null=True)
-    phonenumber = models.CharField(max_length=200)
+    phonenumber = models.CharField('電話', max_length=200)
     CLIENT_gender = ((M, 'male'), (F, 'female'))
-    gender = models.CharField(max_length=6, choices=CLIENT_gender)
-    birthday = models.DateField()
+    gender = models.CharField('性別', max_length=6, choices=CLIENT_gender)
+    birthday = models.DateField('生日',)
 
     class Mate:
         db_table = 'Client_Info'
@@ -58,7 +58,7 @@ class Client_Info(models.Model):
 class Categorie(models.Model):
 
     """Merchandise Categories"""
-    Categorie_name = models.CharField(max_length=100)
+    Categorie_name = models.CharField('分類', max_length=100)
 
     class Mate:
         db_table = 'categories'
@@ -67,9 +67,9 @@ class Categorie(models.Model):
 class Product_Information(models.Model):
 
     """Product's information"""
-    Product_name = models.CharField(max_length=100)
-    Hight = models.FloatField()
-    Weight = models.FloatField()
+    Product_name = models.CharField('產品名稱', max_length=100)
+    Hight = models.FloatField('高度',)
+    Weight = models.FloatField('重量',)
     Categories_id = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Mate:
@@ -79,8 +79,8 @@ class Product_Information(models.Model):
 class Manufacturer_Information(Company_Info):
 
     """Manufacturer's information"""
-    Uniform_numbers = models.CharField(max_length=100)
-    Total_capital = models.IntegerField()
+    Uniform_numbers = models.CharField('統一編號', max_length=100)
+    Total_capital = models.IntegerField('資本額',)
 
     class Mate:
         db_table = 'manufacturer information'
