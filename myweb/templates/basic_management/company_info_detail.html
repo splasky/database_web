@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail of company info{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+
+    {% if company_detail %}
+    <p><strong>Company name:</strong>{{ company_detail.comp_name }}</p>
+    <p><strong>Address:</strong>{{ company_detail.comp_address }}</p>
+    <p><strong>Phone number:</strong>{{ company_detail.comp_phonenumber }}</p>
+    <p><strong>EIN:</strong>{{ company_detail.comp_EIN }}</p>
+    <p><strong>Persion in charge:</strong>{{ company_detail.comp_person_in_charge }}</p>
+    <p><strong>Num of employees:</strong>{{ company_detail.comp_NUM_employee }}</p>
+    <p><strong>email:</strong>{{ company_detail.comp_email }}</p>
+    <p><strong>Introduction:</strong>{{ company_detail.comp_introduction }}</p>
+    {% else %}
+        <p>There are no company infos.</p>
+    {% endif %}
+{% endblock %}
