@@ -1,8 +1,9 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-23 19:24:52
+# Last modified: 2017-11-25 17:43:18
 from django.db import models
+from django.urls import reverse
 
 
 class Company_Info(models.Model):
@@ -18,6 +19,15 @@ class Company_Info(models.Model):
 
     class Mate:
         db_table = 'Company_Info'
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('company-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.comp_name
 
 
 class Employee_Info(models.Model):

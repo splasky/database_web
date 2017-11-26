@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}List company info{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+    {% if CompanyInfoList %}
+    <table>
+        <tr>
+        <th>Company name</th>
+        <th>Company EIN</th>
+        <th>Company introduction</th>
+        </tr>
+        {% for c in CompanyInfoList %}
+        <tr>
+            <td><a href="{{c.get_absolute_url}}" target="_blank">{{c.comp_name}}</a></td>
+        <td>{{c.comp_EIN}}</td>
+        <td>{{c.comp_introduction}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>There are no company infos.</p>
+    {% endif %}
+  {% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+          {% if page_obj.has_previous %}
+              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+          <span class="page-current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+          {% if page_obj.has_next %}
+              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+        </span>
+    </div>
+  {% endif %}
+{% endblock %}
