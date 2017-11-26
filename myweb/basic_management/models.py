@@ -7,17 +7,18 @@ from django.urls import reverse
 
 
 class Company_Info(models.Model):
-    comp_name = models.CharField(max_length=100)
-    comp_address = models.EmailField(max_length=200)
-    comp_phonenumber = models.CharField(max_length=200)
-    comp_EIN = models.CharField(max_length=50)
-    comp_person_in_charge = models.CharField(max_length=20)
-    comp_NUM_employee = models.IntegerField()
-    comp_email = models.CharField(max_length=254)
-    comp_introduction = models.TextField(blank=True, null=True)
+
+    name = models.CharField('公司名稱', max_length=100)
+    address = models.CharField('地址', max_length=200)
+    phonenumber = models.CharField('公司電話', max_length=200)
+    EIN = models.CharField('統一編號', max_length=50)
+    person_in_charge = models.CharField('負責人', max_length=20)
+    NUM_employee = models.IntegerField('公司人數',)
+    email = models.EmailField(max_length=254)
+    introduction = models.TextField('公司簡介', blank=True, null=True)
 
     class Mate:
-        db_table = 'company_info'
+        db_table = 'Company_Info'
 
     def get_absolute_url(self):
         """
@@ -30,32 +31,44 @@ class Company_Info(models.Model):
 
 
 class Employee_Info(models.Model):
-    emp_name = models.CharField(max_length=100)
-    emp_address = models.EmailField(max_length=200)
-    emp_phonenumber = models.CharField(max_length=200)
-    emp_gender = models.BooleanField()
-    emp_birthday = models.DateField()
+
+    M = 'male'
+    F = 'female'
+
+    name = models.CharField('員工姓名', max_length=100)
+    address = models.CharField('地址', max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    phonenumber = models.CharField('電話', max_length=200)
+    EMP_gender = ((M, 'male'), (F, 'female'))
+    gender = models.CharField('性別', max_length=6, choices=EMP_gender)
+
+    birthday = models.DateField('生日',)
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
 
     class Mate:
-        db_table = 'employee_info'
+        db_table = 'Employee_Info'
 
 
 class Client_Info(models.Model):
-    client_name = models.CharField(max_length=100)
-    client_address = models.EmailField(max_length=200)
-    client_phonenumber = models.CharField(max_length=200)
-    client_gender = models.BooleanField()
-    client_birthday = models.DateField()
+    M = 'male'
+    F = 'female'
+
+    name = models.CharField('客戶名稱', max_length=100)
+    address = models.CharField('地址', max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    phonenumber = models.CharField('電話', max_length=200)
+    CLIENT_gender = ((M, 'male'), (F, 'female'))
+    gender = models.CharField('性別', max_length=6, choices=CLIENT_gender)
+    birthday = models.DateField('生日',)
 
     class Mate:
-        db_table = 'client_info'
+        db_table = 'Client_Info'
 
 
 class Categorie(models.Model):
 
     """Merchandise Categories"""
-    Categorie_name = models.CharField(max_length=100)
+    Categorie_name = models.CharField('分類', max_length=100)
 
     class Mate:
         db_table = 'categories'
@@ -64,9 +77,9 @@ class Categorie(models.Model):
 class Product_Information(models.Model):
 
     """Product's information"""
-    Product_name = models.CharField(max_length=100)
-    Hight = models.FloatField()
-    Weight = models.FloatField()
+    Product_name = models.CharField('產品名稱', max_length=100)
+    Hight = models.FloatField('高度',)
+    Weight = models.FloatField('重量',)
     Categories_id = models.ForeignKey(Categorie, on_delete=models.CASCADE)
 
     class Mate:
@@ -76,8 +89,8 @@ class Product_Information(models.Model):
 class Manufacturer_Information(Company_Info):
 
     """Manufacturer's information"""
-    Uniform_numbers = models.CharField(max_length=100)
-    Total_capital = models.IntegerField()
+    Uniform_numbers = models.CharField('統一編號', max_length=100)
+    Total_capital = models.IntegerField('資本額',)
 
     class Mate:
         db_table = 'manufacturer information'

@@ -11,6 +11,8 @@ from basic_management.models import Client_Info
 from basic_management.models import Categorie
 from basic_management.models import Product_Information
 from basic_management.models import Manufacturer_Information
+from django.views.generic.list import ListView
+from django import template
 
 
 def basic_management(request):
@@ -18,6 +20,11 @@ def basic_management(request):
     company_infos = Company_Info.objects.all()
     return render(request, 'basic_management.html', locals())
 
+
+class employeeView(ListView):
+    model = Employee_Info
+    template_name = 'employee_info.html'
+    context_object_name = 'employee'
 
 class CompanyInfoListView(generic.ListView):
     model = Company_Info
@@ -28,7 +35,6 @@ class CompanyInfoListView(generic.ListView):
         context = super(CompanyInfoListView, self).get_context_data(**kwargs)
         context['table_name'] = 'Company Info'
         return context
-
 
 class CompanyDetailView(generic.DetailView):
     model = Company_Info
