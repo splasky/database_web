@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^basic_management/$', basic_management, name='basic-management'),
-    url(r'^employee/$', employeeView.as_view()),
+    url(r'^employee/$', employeeView.as_view(),name='employee'),
 ]

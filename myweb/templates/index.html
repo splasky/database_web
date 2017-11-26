@@ -10,7 +10,7 @@
     {% if request.user.is_authenticated %}
     <p> Hello {{request.user}}
     </p>
-    <a href="/employee/">employee</a>
+    <a href="{% url 'employee' %}">employee</a>
   
 
     {% else %}
