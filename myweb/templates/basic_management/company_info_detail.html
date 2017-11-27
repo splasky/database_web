@@ -7,14 +7,14 @@
 <h2>{{table_name}}</h2>
 
     {% if company_detail %}
-    <p><strong>Company name:</strong>{{ company_detail.comp_name }}</p>
-    <p><strong>Address:</strong>{{ company_detail.comp_address }}</p>
-    <p><strong>Phone number:</strong>{{ company_detail.comp_phonenumber }}</p>
-    <p><strong>EIN:</strong>{{ company_detail.comp_EIN }}</p>
-    <p><strong>Persion in charge:</strong>{{ company_detail.comp_person_in_charge }}</p>
-    <p><strong>Num of employees:</strong>{{ company_detail.comp_NUM_employee }}</p>
-    <p><strong>email:</strong>{{ company_detail.comp_email }}</p>
-    <p><strong>Introduction:</strong>{{ company_detail.comp_introduction }}</p>
+    <p><strong>Company name:</strong>{{ company_detail.name }}</p>
+    <p><strong>Address:</strong>{{ company_detail.address }}</p>
+    <p><strong>Phone number:</strong>{{ company_detail.phonenumber }}</p>
+    <p><strong>EIN:</strong>{{ company_detail.EIN }}</p>
+    <p><strong>Persion in charge:</strong>{{ company_detail.person_in_charge }}</p>
+    <p><strong>Num of employees:</strong>{{ company_detail.NUM_employee }}</p>
+    <p><strong>email:</strong>{{ company_detail.email }}</p>
+    <p><strong>Introduction:</strong>{{ company_detail.introduction }}</p>
     {% else %}
         <p>There are no company infos.</p>
     {% endif %}

@@ -14,9 +14,9 @@
         </tr>
         {% for c in CompanyInfoList %}
         <tr>
-            <td><a href="{{c.get_absolute_url}}" target="_blank">{{c.comp_name}}</a></td>
-        <td>{{c.comp_EIN}}</td>
-        <td>{{c.comp_introduction}}</td>
+            <td><a href="{{c.get_absolute_url}}" target="_blank">{{c.name}}</a></td>
+        <td>{{c.EIN}}</td>
+        <td>{{c.introduction}}</td>
         </tr>
         {% endfor %}
     </table>

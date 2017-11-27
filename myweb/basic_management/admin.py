@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-23 18:30:47
+# Last modified: 2017-11-26 22:47:35
 
 from django.contrib import admin
 from basic_management.models import *
