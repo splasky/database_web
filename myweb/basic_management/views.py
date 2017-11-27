@@ -47,3 +47,14 @@ class CompanyDetailView(generic.DetailView):
         context = super(CompanyDetailView, self).get_context_data(**kwargs)
         context['table_name'] = 'Company Detail'
         return context
+
+class ClientInfoListView(generic.ListView):
+    model = Client_Info
+    context_object_name = 'Client_Info'
+    template_name='basic_management/client_Info_list.html'
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientInfoListView, self).get_context_data(**kwargs)
+        context['table_name'] = 'Client Info'
+        return context
