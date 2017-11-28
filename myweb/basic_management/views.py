@@ -30,15 +30,25 @@ class employeeListView(generic.ListView):
 
 # class employeeCreateView(generic.FormView,SingleObjectMixin):
 #     model=Employee_Info
-    
+
+def search(request):
+    q = request.GET.get('name')
+   
+
+    employee_list = Employee_Info.objects.filter(name=str(q))
+    return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
+# class searchview(generic.ListView):
+#     model = Employee_Info
+#     template_name = 'basic_management/employee_info_search.html'
+#     context_object_name = 'employee_list'
 
 
-
-
-
-
+#     def get_context_data(self, **kwargs):
+#         context = super(searchview, self).get_context_data(**kwargs)
+#         context['employee_list'] = Employee_Info.objects.filter(name=pk)
+#         return context
 class CompanyInfoListView(generic.ListView):
     model = Company_Info
     context_object_name = 'CompanyInfoList'
@@ -59,10 +69,11 @@ class CompanyDetailView(generic.DetailView):
         context['table_name'] = 'Company Detail'
         return context
 
+
 class ClientInfoListView(generic.ListView):
     model = Client_Info
     context_object_name = 'Client_Info'
-    template_name='basic_management/client_Info_list.html'
+    template_name = 'basic_management/client_Info_list.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):

@@ -15,7 +15,7 @@
 	
 	<div class="div-menu">
 		<h2>員工列表</h2>
-		<form action="" method="get"></form>
+
 		<table class="table table-bordered " >
 		<tr>
 			<th>員工名稱</th>
@@ -37,14 +37,20 @@
 
 
 		</tr>
-		</table>
+	
 		{% endfor %}
+		</table>
+		<form action="{% url 'employee_search'  %}" method="get">
+			{% csrf_token %}
+			<label for='name'>名子 </label>
+			<input type="text" name="name" id='name'>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
+
+		</form>
 	</div>
 
-	<a href="">新增</a>
 
-	<a href="">修改</a>
 
 
 </div>

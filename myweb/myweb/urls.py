@@ -23,7 +23,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from myweb.views import index, register
-from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView
+from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView,search
 
 
 urlpatterns = [
@@ -36,5 +36,7 @@ urlpatterns = [
     url(r'^company/$', CompanyInfoListView.as_view(), name='company-list'),
     url(r'^company/(?P<pk>\d+)$', CompanyDetailView.as_view(), name='company-detail'),
     url(r'^client/$', ClientInfoListView.as_view(), name='client-list'),
+    url(r'^employee_search/$', search, name='employee_search'),
+
 
 ]
