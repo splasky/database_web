@@ -1,33 +1,53 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-25 13:05:03
+# Last modified: 2017-11-28 20:12:09
 
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views import generic
-from basic_management.models import Company_Info
-from basic_management.models import Employee_Info
-from basic_management.models import Client_Info
-from basic_management.models import Categorie
-from basic_management.models import Product_Information
-from basic_management.models import Manufacturer_Information
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import template
+from basic_management import models
+from basic_management import forms
 
 
 def basic_management(request):
     table_name = 'Company_Infos'
-    company_infos = Company_Info.objects.all()
+    company_infos = models.Company_Info.objects.all()
     return render(request, 'basic_management.html', locals())
 
 
-class employeeView(ListView):
-    model = Employee_Info
+class EmployeeView(ListView):
+    model = models.Employee_Info
     template_name = 'employee_info.html'
     context_object_name = 'employee'
 
+
+class CompanyInfoCreate(CreateView):
+    model = models.Company_Info
+    fields = ['name', 'address', 'phonenumber',
+              'EIN', 'person_in_charge', 'NUM_employee',
+              'email', 'introduction']
+
+
+class CompanyInfoUpdate(UpdateView):
+    model = models.Company_Info
+    fields = ['name', 'address', 'phonenumber',
+              'EIN', 'person_in_charge', 'NUM_employee',
+              'email', 'introduction']
+
+
+class CompanyInfoDelete(DeleteView):
+    model = models.Company_Info
+    fields = ['name']
+    success_url = reverse_lazy('company-list')
+
+
 class CompanyInfoListView(generic.ListView):
-    model = Company_Info
+    model = models.Company_Info
     context_object_name = 'CompanyInfoList'
     paginate_by = 10
 
@@ -36,8 +56,9 @@ class CompanyInfoListView(generic.ListView):
         context['table_name'] = 'Company Info'
         return context
 
+
 class CompanyDetailView(generic.DetailView):
-    model = Company_Info
+    model = models.Company_Info
     context_object_name = 'company_detail'
 
     def get_context_data(self, **kwargs):

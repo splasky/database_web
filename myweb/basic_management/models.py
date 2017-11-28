@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-27 16:47:48
+# Last modified: 2017-11-28 11:14:00
 from django.db import models
 from django.urls import reverse
 
@@ -86,7 +86,6 @@ class Product_Information(models.Model):
 
 class Manufacturer_Information(Company_Info):
     """Manufacturer's information"""
-    Uniform_numbers = models.CharField('統一編號', max_length=100)
     Total_capital = models.IntegerField('資本額', )
 
     class Mate:
