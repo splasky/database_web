@@ -5,17 +5,12 @@
 {% block content %}
 
 {% if error_message %}
-<p><strong>{{ error_message }}</strong></p>
-{% else %}
-    {% if request.user.is_authenticated %}
-    <p> Hello {{request.user}}
-    </p>
-    <a href="{% url 'employee' %}">employee</a>
-  
-
+    <p><strong>{{ error_message }}</strong></p>
     {% else %}
-    <p>Hello world
-    </p>
+    {% if request.user.is_authenticated %}
+    <p> Hello {{request.user}} </p>
+    {% else %}
+    <p>Hello world </p>
     {% endif %}
 {% endif %}
 
