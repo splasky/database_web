@@ -4,6 +4,7 @@
 # Last modified: 2017-11-27 16:47:48
 from django.db import models
 from django.urls import reverse
+from m_models.models import AuthUser
 
 
 class Company_Info(models.Model):
@@ -44,6 +45,7 @@ class Employee_Info(models.Model):
 
     birthday = models.DateField('生日', )
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Mate:
         db_table = 'Employee_Info'
@@ -86,7 +88,7 @@ class Product_Information(models.Model):
 
 class Manufacturer_Information(Company_Info):
     """Manufacturer's information"""
-    Uniform_numbers = models.CharField('統一編號', max_length=100)
+    
     Total_capital = models.IntegerField('資本額', )
 
     class Mate:

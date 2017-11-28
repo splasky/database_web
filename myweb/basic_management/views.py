@@ -22,10 +22,21 @@ def basic_management(request):
     return render(request, 'basic_management.html', locals())
 
 
-class employeeView(generic.ListView):
+class employeeListView(generic.ListView):
     model = Employee_Info
     template_name = 'basic_management/employee_info.html'
     context_object_name = 'employee'
+
+
+# class employeeCreateView(generic.FormView,SingleObjectMixin):
+#     model=Employee_Info
+    
+
+
+
+
+
+
 
 
 class CompanyInfoListView(generic.ListView):

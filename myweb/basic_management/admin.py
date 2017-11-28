@@ -35,7 +35,7 @@ class Product_InformationAdmin(admin.ModelAdmin):
 
 
 class Manufacturer_InformationAdmin(admin.ModelAdmin):
-    list_display = ('Uniform_numbers',)
+    list_display = ('name',)
 
 
 admin.site.register(Company_Info, Company_InfoAdmin)

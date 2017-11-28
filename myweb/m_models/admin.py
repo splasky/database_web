@@ -8,12 +8,12 @@ from m_models.models import *
 #     list_display = ('name',)
 
 
-# class AuthGroupPermissionsAdmin(admin.ModelAdmin):
-#     list_display = ('group', 'permission')
+class AuthGroupPermissionsAdmin(admin.ModelAdmin):
+    list_display = ('group', 'permission')
 
 
-# class AuthPermissionAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'content_type', 'codename')
+class AuthPermissionAdmin(admin.ModelAdmin):
+    list_display = ('name', 'content_type', 'codename')
 
 
 # class AuthUserAdmin(admin.ModelAdmin):
@@ -26,8 +26,8 @@ from m_models.models import *
 #     list_display = ('user', 'group')
 
 
-# class AuthUserUserPermissionsAdmin(admin.ModelAdmin):
-#     list_display = ('user', 'permission')
+class AuthUserUserPermissionsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'permission')
 
 
 # class DjangoAdminLogAdmin(admin.ModelAdmin):
@@ -35,8 +35,8 @@ from m_models.models import *
 #                     'action_flag', 'change_message', 'content_type', 'user')
 
 
-# class DjangoContentTypeAdmin(admin.ModelAdmin):
-#     list_display = ('app_label', 'model')
+class DjangoContentTypeAdmin(admin.ModelAdmin):
+    list_display = ('app_label', 'model')
 
 
 # class DjangoMigrationsAdmin(admin.ModelAdmin):
@@ -48,12 +48,12 @@ from m_models.models import *
 
 
 # admin.site.register(AuthGroup, AuthGroupAdmin)
-# admin.site.register(AuthGroupPermissions, AuthGroupPermissionsAdmin)
-# admin.site.register(AuthPermission, AuthPermissionAdmin)
+admin.site.register(AuthGroupPermissions, AuthGroupPermissionsAdmin)
+admin.site.register(AuthPermission, AuthPermissionAdmin)
 # admin.site.register(AuthUser, AuthUserAdmin)
 # admin.site.register(AuthUserGroups, AuthUserGroupsAdmin)
-# admin.site.register(AuthUserUserPermissions, AuthUserUserPermissionsAdmin)
+admin.site.register(AuthUserUserPermissions, AuthUserUserPermissionsAdmin)
 # admin.site.register(DjangoAdminLog, DjangoAdminLogAdmin)
-# admin.site.register(DjangoContentType, DjangoContentTypeAdmin)
+admin.site.register(DjangoContentType, DjangoContentTypeAdmin)
 # admin.site.register(DjangoMigrations, DjangoMigrationsAdmin)
 # admin.site.register(DjangoSession, DjangoSessionAdmin)
