@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-26 22:47:35
+# Last modified: 2017-11-28 11:19:12
 
 from django.contrib import admin
 from basic_management.models import *
@@ -34,8 +34,8 @@ class Product_InformationAdmin(admin.ModelAdmin):
     list_display = ('Product_name', 'Hight', 'Weight', 'Categories_id')
 
 
-class Manufacturer_InformationAdmin(admin.ModelAdmin):
-    list_display = ('Uniform_numbers',)
+class Manufacturer_InformationAdmin(Company_InfoAdmin):
+    pass
 
 
 admin.site.register(Company_Info, Company_InfoAdmin)
