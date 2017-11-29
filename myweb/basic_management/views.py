@@ -32,11 +32,21 @@ class employeeListView(generic.ListView):
 #     model=Employee_Info
 
 def search(request):
-    q = request.GET.get('name')
-   
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            employee_list = Employee_Info.objects.filter(name__contains=name)
+        if key == '2':
+            employee_list = Employee_Info.objects.filter(
+                comp_id__contains=name)
+        if key == '3':
+            employee_list = Employee_Info.objects.filter(user__contains=name)
+        if key == '4':
+            employee_list = Employee_Info.objects.filter(
+                phonenumber__contains=name)
 
-    employee_list = Employee_Info.objects.filter(name=str(q))
-    return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
+        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
 # class searchview(generic.ListView):
