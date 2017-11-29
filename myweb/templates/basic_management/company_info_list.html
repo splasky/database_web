@@ -5,6 +5,7 @@
 {% block content %}
 
 <h2>{{table_name}}</h2>
+    <a href="{% url 'company-create' %}" target="_blank">Create company info</a>
     {% if CompanyInfoList %}
     <table>
         <tr>
