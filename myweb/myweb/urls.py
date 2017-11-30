@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-26 22:42:00
+# Last modified: 2017-11-28 20:51:02
 
 """myweb URL Configuration
 
@@ -19,24 +19,54 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
+# from framework
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+
 from myweb.views import index, register
 from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView,search
-
+from django.contrib.auth.decorators import login_required
+# create by us
+from myweb.views import index, register
+from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
+from basic_management.views import CompanyInfoDelete, CompanyInfoListView
+from basic_management.views import CompanyDetailView
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/register/$', register, name='register'),
-    url(r'^$', index, name='index'),
+    url(r'^$', login_required(index), name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^employee/$', employeeListView.as_view(), name='employee'),
-    url(r'^company/$', CompanyInfoListView.as_view(), name='company-list'),
-    url(r'^company/(?P<pk>\d+)$', CompanyDetailView.as_view(), name='company-detail'),
-    url(r'^client/$', ClientInfoListView.as_view(), name='client-list'),
-    url(r'^employee_search/$', search, name='employee_search'),
 
+]
+
+urlpatterns += [
+    url(r'^employee/$',
+        login_required(employeeListView.as_view()),
+        name='employee'),
+    url(r'^employee_search/$', 
+        login_required(search), 
+        name='employee_search'),
+
+]
+
+urlpatterns += [
+    url(r'company/create/$',
+        login_required(CompanyInfoCreate.as_view()),
+        name='company-create'),
+    url(r'company/(?P<pk>\d+)/update/$',
+        login_required(CompanyInfoUpdate.as_view()),
+        name='company-update'),
+    url(r'company/(?P<pk>\d+)/delete/$',
+        login_required(CompanyInfoDelete.as_view()),
+        name='company-delete'),
+    url(r'^company/$',
+        login_required(CompanyInfoListView.as_view()),
+        name='company-list'),
+    url(r'^company/(?P<pk>\d+)$',
+        login_required(CompanyDetailView.as_view()),
+        name='company-detail'),
 
 ]
