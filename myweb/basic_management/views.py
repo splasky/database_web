@@ -24,6 +24,7 @@ def basic_management(request):
 
 class employeeListView(generic.ListView):
     model = Employee_Info
+    employee_field = model._meta.get_fields()
     template_name = 'basic_management/employee_info.html'
     context_object_name = 'employee'
 
