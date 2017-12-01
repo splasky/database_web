@@ -25,13 +25,13 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 from myweb.views import index, register
-from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView,search
+from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView
 from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
 from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
 from basic_management.views import CompanyInfoDelete, CompanyInfoListView
-from basic_management.views import CompanyDetailView
+from basic_management.views import CompanyDetailView, employee_search
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
@@ -46,8 +46,8 @@ urlpatterns += [
     url(r'^employee/$',
         login_required(employeeListView.as_view()),
         name='employee'),
-    url(r'^employee_search/$', 
-        login_required(search), 
+    url(r'^employee_search/$',
+        login_required(employee_search),
         name='employee_search'),
 
 ]

@@ -89,6 +89,7 @@ class Product_Information(models.Model):
 class Manufacturer_Information(Company_Info):
     """Manufacturer's information"""
 
+    Total_capital = models.IntegerField('資本額',)
 
     class Mate:
         db_table = 'manufacturer information'
