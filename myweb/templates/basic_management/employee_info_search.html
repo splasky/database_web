@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block CSS %}
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
+{% endblock %}
+
+{% block title %}basic management{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+	
+	<div class="div-menu">
+		<h2>員工列表</h2>
+		<form action="" method="get"></form>
+		<table class="table table-bordered " >
+		<tr>
+			
+			<th>員工名稱</th>			
+			<th>所屬公司</th>
+			<th>性別</th>
+			<th>帳號</th>
+			<th>電話</th>
+
+		</tr>
+		{%for e in employee_list%}
+		<tr>
+
+			<td>{{e.name}}</td>
+			<td>{{e.comp_id}}</td>
+			<td>{{e.gender}}</td>
+		
+			<td>{{e.user}}</td>
+			<td>{{e.phonenumber}}</td>
+
+
+		</tr>
+		{% endfor %}
+
+		</table>
+
+	</div>
+
+	<a href="{% url 'employee' %}">返回列表</a>
+
+
+
+</div>
+
+{% endblock %}

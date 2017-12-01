@@ -34,8 +34,10 @@ class Product_InformationAdmin(admin.ModelAdmin):
     list_display = ('Product_name', 'Hight', 'Weight', 'Categories_id')
 
 
+
 class Manufacturer_InformationAdmin(Company_InfoAdmin):
     pass
+
 
 
 admin.site.register(Company_Info, Company_InfoAdmin)

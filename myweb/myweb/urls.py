@@ -23,14 +23,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.decorators import login_required
 
+from myweb.views import index, register
+from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView
+from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
-from basic_management.views import EmployeeView
 from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
 from basic_management.views import CompanyInfoDelete, CompanyInfoListView
-from basic_management.views import CompanyDetailView
+from basic_management.views import CompanyDetailView, employee_search
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
@@ -38,12 +39,17 @@ urlpatterns = [
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+
 ]
 
 urlpatterns += [
     url(r'^employee/$',
-        login_required(EmployeeView.as_view()),
+        login_required(employeeListView.as_view()),
         name='employee'),
+    url(r'^employee_search/$',
+        login_required(employee_search),
+        name='employee_search'),
+
 ]
 
 urlpatterns += [
@@ -62,4 +68,5 @@ urlpatterns += [
     url(r'^company/(?P<pk>\d+)$',
         login_required(CompanyDetailView.as_view()),
         name='company-detail'),
+
 ]

@@ -8,7 +8,9 @@
     <p><strong>{{ error_message }}</strong></p>
     {% else %}
     {% if request.user.is_authenticated %}
+
     <p> Hello {{request.user}} </p>
+
     {% else %}
     <p>Hello world </p>
     {% endif %}
