@@ -3,12 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="" id="" value="login" />
-</form>
 
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:-200;margin-left:300px;">
+    <form method="post" actions="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input class="w3-button w3-black" type="submit" name="" id="" value="Login" />
+    </form>
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+</div>
 {% endblock %}

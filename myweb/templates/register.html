@@ -3,6 +3,8 @@
 {% block title %}Sign in{% endblock %}
 
 {% block content %}
+
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:-120px;margin-left:100px;">
 		<form action="" method="post">
 			{% csrf_token %}
 			{{form.as_p}}
@@ -11,4 +13,5 @@
 
 
 		</form>
+		</div>
 {% endblock %}
