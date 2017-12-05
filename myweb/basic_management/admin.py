@@ -31,7 +31,7 @@ class CategorieAdmin(admin.ModelAdmin):
 
 class Product_InformationAdmin(admin.ModelAdmin):
 
-    list_display = ('Product_name', 'Hight', 'Weight', 'Categories_id')
+    list_display = ('product_name', 'height', 'weight', 'categories_id')
 
 
 
