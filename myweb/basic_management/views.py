@@ -110,3 +110,17 @@ class ClientInfoListView(generic.ListView):
         context = super(ClientInfoListView, self).get_context_data(**kwargs)
         context['table_name'] = 'Client Info'
         return context
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

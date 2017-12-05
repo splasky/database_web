@@ -16,7 +16,7 @@
 	<div class="div-menu">
 		<h2>員工列表</h2>
 
-		<form action="{% url 'employee_search'  %}" method="get">
+		<form action="{% url 'employee-search'  %}" method="get">
 			{% csrf_token %}
 			<select name="key">
 				<option value="1">員工</option>
