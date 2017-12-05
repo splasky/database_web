@@ -37,7 +37,7 @@ def employee_search(request):
             employee_list = Employee_Info.objects.filter(name__contains=name)
         if key == '2':
             employee_list = Employee_Info.objects.filter(
-                comp_id__contains=name)
+                comp_id__name__contains=name)
         if key == '3':
             employee_list = Employee_Info.objects.filter(
                 user__username__contains=name)
