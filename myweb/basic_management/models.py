@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-28 11:14:00
+# Last modified: 2017-12-05 10:33:08
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
@@ -50,6 +50,10 @@ class Employee_Info(models.Model):
     class Mate:
         db_table = 'Employee_Info'
 
+    def __str__(self):
+
+        return self.name
+
 
 class Client_Info(models.Model):
     M = 'male'
@@ -66,6 +70,9 @@ class Client_Info(models.Model):
     class Mate:
         db_table = 'Client_Info'
 
+    def __str__(self):
+        return self.name
+
 
 class Categorie(models.Model):
     """Merchandise Categories"""
@@ -73,6 +80,9 @@ class Categorie(models.Model):
 
     class Mate:
         db_table = 'categories'
+
+    def __str__(self):
+        return self.Categorie_name
 
 
 class Product_Information(models.Model):
@@ -85,11 +95,25 @@ class Product_Information(models.Model):
     class Mate:
         db_table = 'product_information'
 
+    def __str__(self):
+        return self.Product_name
 
-class Manufacturer_Information(Company_Info):
+
+class Manufacturer_Information(models.Model):
     """Manufacturer's information"""
 
-    Total_capital = models.IntegerField('資本額',)
+    name = models.CharField('公司名稱', max_length=100)
+    address = models.CharField('地址', max_length=200)
+    phonenumber = models.CharField('公司電話', max_length=200)
+    EIN = models.CharField('統一編號', max_length=50)
+    person_in_charge = models.CharField('負責人', max_length=20)
+    NUM_employee = models.IntegerField('公司人數', )
+    email = models.EmailField(max_length=254)
+    introduction = models.TextField('公司簡介', blank=True, null=True)
+    Total_capital = models.IntegerField('資本額', )
 
     class Mate:
         db_table = 'manufacturer information'
+
+    def __str__(self):
+        return self.name
