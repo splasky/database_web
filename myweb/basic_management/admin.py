@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-28 11:19:12
+# Last modified: 2017-12-06 17:52:48
 
 from django.contrib import admin
 from basic_management.models import *
@@ -26,18 +26,16 @@ class Client_InfoAdmin(admin.ModelAdmin):
 
 class CategorieAdmin(admin.ModelAdmin):
 
-    list_display = ('Categorie_name',)
+    list_display = ('name',)
 
 
 class Product_InformationAdmin(admin.ModelAdmin):
 
-    list_display = ('product_name', 'height', 'weight', 'categories_id')
-
+    list_display = ('name', 'height', 'weight', 'categories_id')
 
 
 class Manufacturer_InformationAdmin(Company_InfoAdmin):
     pass
-
 
 
 admin.site.register(Company_Info, Company_InfoAdmin)
