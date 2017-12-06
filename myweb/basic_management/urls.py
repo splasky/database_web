@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-05 20:17:54
+# Last modified: 2017-12-06 15:04:05
 
 """myweb URL Configuration
 
@@ -26,33 +26,112 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 
 # create by us
-from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
-from basic_management.views import CompanyInfoDelete, CompanyInfoListView
-from basic_management.views import CompanyDetailView, employee_search, employeeListView
+from basic_management import views
 
 urlpatterns = [
+    url(r'employee/create/$',
+        login_required(views.EmployeeInfoCreate.as_view()),
+        name='employee-create'),
+    url(r'employee/(?P<pk>\d+)/update/$',
+        login_required(views.EmployeeInfoUpdate.as_view()),
+        name='employee-update'),
+    url(r'employee/(?P<pk>\d+)/delete/$',
+        login_required(views.EmployeeInfoDelete.as_view()),
+        name='employee-delete'),
     url(r'^employee/$',
-        login_required(employeeListView.as_view()),
-        name='employee'),
+        login_required(views.employeeListView.as_view()),
+        name='employee-list'),
     url(r'^employee_search/$',
-        login_required(employee_search),
+        login_required(views.employee_search),
         name='employee_search'),
 ]
 
 urlpatterns += [
     url(r'company/create/$',
-        login_required(CompanyInfoCreate.as_view()),
+        login_required(views.CompanyInfoCreate.as_view()),
         name='company-create'),
     url(r'company/(?P<pk>\d+)/update/$',
-        login_required(CompanyInfoUpdate.as_view()),
+        login_required(views.CompanyInfoUpdate.as_view()),
         name='company-update'),
     url(r'company/(?P<pk>\d+)/delete/$',
-        login_required(CompanyInfoDelete.as_view()),
+        login_required(views.CompanyInfoDelete.as_view()),
         name='company-delete'),
     url(r'^company/$',
-        login_required(CompanyInfoListView.as_view()),
+        login_required(views.CompanyInfoListView.as_view()),
         name='company-list'),
     url(r'^company/(?P<pk>\d+)$',
-        login_required(CompanyDetailView.as_view()),
+        login_required(views.CompanyDetailView.as_view()),
         name='company-detail'),
+]
+
+urlpatterns += [
+    url(r'client_info/create/$',
+        login_required(views.ClientInfoCreate.as_view()),
+        name='client_info-create'),
+    url(r'client_info/(?P<pk>\d+)/update/$',
+        login_required(views.ClientInfoUpdate.as_view()),
+        name='client_info-update'),
+    url(r'client_info/(?P<pk>\d+)/delete/$',
+        login_required(views.ClientInfoDelete.as_view()),
+        name='client_info-delete'),
+    url(r'^client_info/$',
+        login_required(views.ClientInfoListView.as_view()),
+        name='client_info-list'),
+    #  url(r'^client_info/(?P<pk>\d+)$',
+    #  login_required(views.ClientDetailView.as_view()),
+    #  name='client_info-detail'),
+]
+
+urlpatterns += [
+    url(r'product_information/create/$',
+        login_required(views.ProductInformationCreate.as_view()),
+        name='product_information-create'),
+    url(r'product_information/(?P<pk>\d+)/update/$',
+        login_required(views.ProductInformationUpdate.as_view()),
+        name='product_information-update'),
+    url(r'product_information/(?P<pk>\d+)/delete/$',
+        login_required(views.ProductInformationDelete.as_view()),
+        name='product_information-delete'),
+    #  url(r'^product_information/$',
+    #  login_required(views.ProductInformationListView.as_view()),
+    #      name='product_information-list'),
+    #  url(r'^client_info/(?P<pk>\d+)$',
+    #  login_required(views.ClientDetailView.as_view()),
+    #  name='client_info-detail'),
+]
+
+urlpatterns += [
+    url(r'categories/create/$',
+        login_required(views.CategoriesCreate.as_view()),
+        name='categories-create'),
+    url(r'categories/(?P<pk>\d+)/update/$',
+        login_required(views.CategoriesUpdate.as_view()),
+        name='categories-update'),
+    url(r'categories/(?P<pk>\d+)/delete/$',
+        login_required(views.CategorieDelete.as_view()),
+        name='categories-delete'),
+    #  url(r'^product_information/$',
+    #  login_required(views.ProductInformationListView.as_view()),
+    #      name='product_information-list'),
+    #  url(r'^client_info/(?P<pk>\d+)$',
+    #  login_required(views.ClientDetailView.as_view()),
+    #  name='client_info-detail'),
+]
+
+urlpatterns += [
+    url(r'manufacturer_information/create/$',
+        login_required(views.ManufacturerInformationCreate.as_view()),
+        name='manufacturer_information-create'),
+    url(r'manufacturer_information/(?P<pk>\d+)/update/$',
+        login_required(views.ManufacturerInformationUpdate.as_view()),
+        name='manufacturer_information-update'),
+    url(r'manufacturer_information/(?P<pk>\d+)/delete/$',
+        login_required(views.ManufacturerInformationDelete.as_view()),
+        name='manufacturerinformation-delete'),
+    #  url(r'^product_information/$',
+    #  login_required(views.ProductInformationListView.as_view()),
+    #      name='product_information-list'),
+    #  url(r'^client_info/(?P<pk>\d+)$',
+    #  login_required(views.ClientDetailView.as_view()),
+    #  name='client_info-detail'),
 ]
