@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 15:43:40
+# Last modified: 2017-12-06 17:02:02
 
 """myweb URL Configuration
 
@@ -118,10 +118,6 @@ urlpatterns += [
         login_required(views.generic_list),
         {'model': models.Categorie, 'table_name': 'Categories'},
         name='categories-list'),
-    url(r'^categories/(?P<pk>\d+)$',
-        login_required(views.generic_detail),
-        {'model': models.Categorie, 'table_name': 'Categorie detail'},
-        name='categories-detail'),
 ]
 
 urlpatterns += [
