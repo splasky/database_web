@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 14:43:34
+# Last modified: 2017-12-06 15:21:53
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -13,12 +13,17 @@ from templates import basic_management
 from basic_management import models
 from django.views.generic.list import ListView
 from django import template
+from django.contrib.auth.decorators import login_required
 
 
-def basic_management(request):
-    table_name = 'Company_Infos'
-    company_infos = models.Company_Info.objects.all()
-    return render(request, 'basic_management.html', locals())
+@login_required
+def generic_list(request, model, table_name=''):
+    objects = model.objects.all()
+    table_name = table_name
+    paginate_by = 10
+    return render(request,
+                  '{}s_list.html'.format(model.__name__.lower()),
+                  locals())
 
 
 class employeeListView(generic.ListView):

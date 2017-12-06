@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 15:04:05
+# Last modified: 2017-12-06 15:29:47
 
 """myweb URL Configuration
 
@@ -27,6 +27,7 @@ from django.contrib.auth.decorators import login_required
 
 # create by us
 from basic_management import views
+from basic_management import models
 
 urlpatterns = [
     url(r'employee/create/$',
@@ -92,9 +93,10 @@ urlpatterns += [
     url(r'product_information/(?P<pk>\d+)/delete/$',
         login_required(views.ProductInformationDelete.as_view()),
         name='product_information-delete'),
-    #  url(r'^product_information/$',
-    #  login_required(views.ProductInformationListView.as_view()),
-    #      name='product_information-list'),
+    url(r'^product_information/$',
+        login_required(views.generic_list),
+        {'model': models.Product_Information, 'table_name': 'Product information'},
+        name='product_information-list'),
     #  url(r'^client_info/(?P<pk>\d+)$',
     #  login_required(views.ClientDetailView.as_view()),
     #  name='client_info-detail'),
@@ -110,9 +112,10 @@ urlpatterns += [
     url(r'categories/(?P<pk>\d+)/delete/$',
         login_required(views.CategorieDelete.as_view()),
         name='categories-delete'),
-    #  url(r'^product_information/$',
-    #  login_required(views.ProductInformationListView.as_view()),
-    #      name='product_information-list'),
+    url(r'^categories/$',
+        login_required(views.generic_list),
+        {'model': models.Product_Information, 'table_name': 'Categories'},
+        name='categories-list'),
     #  url(r'^client_info/(?P<pk>\d+)$',
     #  login_required(views.ClientDetailView.as_view()),
     #  name='client_info-detail'),
@@ -127,10 +130,11 @@ urlpatterns += [
         name='manufacturer_information-update'),
     url(r'manufacturer_information/(?P<pk>\d+)/delete/$',
         login_required(views.ManufacturerInformationDelete.as_view()),
-        name='manufacturerinformation-delete'),
-    #  url(r'^product_information/$',
-    #  login_required(views.ProductInformationListView.as_view()),
-    #      name='product_information-list'),
+        name='manufacturer_information-delete'),
+    url(r'^manufacturer/$',
+        login_required(views.generic_list),
+        {'model': models.Manufacturer_Information, 'table_name': 'Manufacturer information'},
+        name='manufacturer_information-list'),
     #  url(r'^client_info/(?P<pk>\d+)$',
     #  login_required(views.ClientDetailView.as_view()),
     #  name='client_info-detail'),
