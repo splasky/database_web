@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 15:29:47
+# Last modified: 2017-12-06 15:43:40
 
 """myweb URL Configuration
 
@@ -78,9 +78,10 @@ urlpatterns += [
     url(r'^client_info/$',
         login_required(views.ClientInfoListView.as_view()),
         name='client_info-list'),
-    #  url(r'^client_info/(?P<pk>\d+)$',
-    #  login_required(views.ClientDetailView.as_view()),
-    #  name='client_info-detail'),
+    url(r'^client_info/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Client_Info, 'table_name': 'Client info'},
+        name='client_info-detail'),
 ]
 
 urlpatterns += [
@@ -97,9 +98,10 @@ urlpatterns += [
         login_required(views.generic_list),
         {'model': models.Product_Information, 'table_name': 'Product information'},
         name='product_information-list'),
-    #  url(r'^client_info/(?P<pk>\d+)$',
-    #  login_required(views.ClientDetailView.as_view()),
-    #  name='client_info-detail'),
+    url(r'^product_information/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Product_Information, 'table_name': 'Product information'},
+        name='product_information-detail'),
 ]
 
 urlpatterns += [
@@ -114,11 +116,12 @@ urlpatterns += [
         name='categories-delete'),
     url(r'^categories/$',
         login_required(views.generic_list),
-        {'model': models.Product_Information, 'table_name': 'Categories'},
+        {'model': models.Categorie, 'table_name': 'Categories'},
         name='categories-list'),
-    #  url(r'^client_info/(?P<pk>\d+)$',
-    #  login_required(views.ClientDetailView.as_view()),
-    #  name='client_info-detail'),
+    url(r'^categories/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Categorie, 'table_name': 'Categorie detail'},
+        name='categories-detail'),
 ]
 
 urlpatterns += [
@@ -135,7 +138,8 @@ urlpatterns += [
         login_required(views.generic_list),
         {'model': models.Manufacturer_Information, 'table_name': 'Manufacturer information'},
         name='manufacturer_information-list'),
-    #  url(r'^client_info/(?P<pk>\d+)$',
-    #  login_required(views.ClientDetailView.as_view()),
-    #  name='client_info-detail'),
+    url(r'^manufacturer_information/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Manufacturer_Information, 'table_name': 'Manufacturer detail'},
+        name='manufacturer_information-detail'),
 ]

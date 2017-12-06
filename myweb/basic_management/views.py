@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 15:21:53
+# Last modified: 2017-12-06 15:34:25
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -23,6 +23,16 @@ def generic_list(request, model, table_name=''):
     paginate_by = 10
     return render(request,
                   '{}s_list.html'.format(model.__name__.lower()),
+                  locals())
+
+
+@login_required
+def generic_detail(request, pk, model, table_name):
+    objects = model.objects.get(id=pk)
+    table_name = table_name
+
+    return render(request,
+                  '{}s_detail.html'.format(model.__name__.lower()),
                   locals())
 
 
