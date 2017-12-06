@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-05 16:59:39
+# Last modified: 2017-12-06 17:58:30
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
@@ -54,6 +54,12 @@ class Employee_Info(models.Model):
 
         return self.name
 
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('employee-detail', args=[str(self.id)])
+
 
 class Client_Info(models.Model):
     M = 'male'
@@ -73,21 +79,33 @@ class Client_Info(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('client_info-list', args=[str(self.id)])
+
 
 class Categorie(models.Model):
     """Merchandise Categories"""
-    Categorie_name = models.CharField('分類', max_length=100)
+    name = models.CharField('分類', max_length=100)
 
     class Mate:
         db_table = 'categories'
 
     def __str__(self):
-        return self.Categorie_name
+        return self.name
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('categories-list')
 
 
 class Product_Information(models.Model):
     """Product's information"""
-    product_name = models.CharField('產品名稱', max_length=100)
+    name = models.CharField('產品名稱', max_length=100)
     height = models.FloatField('高度', )
     weight = models.FloatField('重量', )
     price = models.FloatField('價錢', )
@@ -97,7 +115,13 @@ class Product_Information(models.Model):
         db_table = 'product_information'
 
     def __str__(self):
-        return self.Product_name
+        return self.name
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('product_information-detail', args=[str(self.id)])
 
 
 class Manufacturer_Information(models.Model):
@@ -118,3 +142,9 @@ class Manufacturer_Information(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('manufacturer_information-detail', args=[str(self.id)])
