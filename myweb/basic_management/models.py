@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 17:58:30
+# Last modified: 2017-12-07 16:37:09
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
@@ -109,7 +109,11 @@ class Product_Information(models.Model):
     height = models.FloatField('高度', )
     weight = models.FloatField('重量', )
     price = models.FloatField('價錢', )
-    categories_id = models.ForeignKey(Categorie, on_delete=models.CASCADE)
+    categories_id = models.ForeignKey(
+        Categorie,
+        on_delete=models.CASCADE,
+        verbose_name='商品分類',
+    )
 
     class Mate:
         db_table = 'product_information'
