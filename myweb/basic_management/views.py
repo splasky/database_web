@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 17:52:28
+# Last modified: 2017-12-07 16:19:11
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -98,9 +98,7 @@ class CompanyDetailView(generic.DetailView):
 
 class CompanyInfoCreate(CreateView):
     model = models.Company_Info
-    fields = ['name', 'address', 'phonenumber',
-              'EIN', 'person_in_charge', 'NUM_employee',
-              'email', 'introduction']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -111,9 +109,7 @@ class CompanyInfoCreate(CreateView):
 
 class CompanyInfoUpdate(UpdateView):
     model = models.Company_Info
-    fields = ['name', 'address', 'phonenumber',
-              'EIN', 'person_in_charge', 'NUM_employee',
-              'email', 'introduction']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -125,9 +121,8 @@ class CompanyInfoUpdate(UpdateView):
 class CompanyInfoDelete(DeleteView):
     model = models.Company_Info
     fields = ['name']
-    success_url = reverse_lazy('company-list')
-
     template_name = 'generic_confirm_delete.html'
+    success_url = reverse_lazy('company-list')
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoDelete, self).get_context_data(**kwargs)
@@ -137,9 +132,7 @@ class CompanyInfoDelete(DeleteView):
 
 class EmployeeInfoCreate(CreateView):
     model = models.Employee_Info
-    fields = ['name', 'address', 'phonenumber',
-              'email', 'phonenumber', 'EMP_gender',
-              'gender', 'birthday', 'comp_id', 'user']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -150,10 +143,7 @@ class EmployeeInfoCreate(CreateView):
 
 class EmployeeInfoUpdate(UpdateView):
     model = models.Employee_Info
-    fields = ['name', 'address', 'phonenumber',
-              'email', 'phonenumber', 'EMP_gender',
-              'gender', 'birthday', 'comp_id', 'user']
-
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -189,9 +179,7 @@ class ClientInfoListView(generic.ListView):
 
 class ClientInfoCreate(CreateView):
     model = models.Client_Info
-    fields = ['name', 'address', 'phonenumber',
-              'email', 'gender',
-              'birthday']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -202,9 +190,7 @@ class ClientInfoCreate(CreateView):
 
 class ClientInfoUpdate(UpdateView):
     model = models.Client_Info
-    fields = ['name', 'address', 'phonenumber',
-              'email', 'gender',
-              'birthday']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -228,7 +214,7 @@ class ClientInfoDelete(DeleteView):
 
 class ProductInformationCreate(CreateView):
     model = models.Product_Information
-    fields = ['name', 'height', 'weight', 'price', 'categories_id']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -240,7 +226,7 @@ class ProductInformationCreate(CreateView):
 
 class ProductInformationUpdate(UpdateView):
     model = models.Product_Information
-    fields = ['name', 'height', 'weight', 'price', 'categories_id']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -266,7 +252,7 @@ class ProductInformationDelete(DeleteView):
 
 class CategoriesCreate(CreateView):
     model = models.Categorie
-    fields = ['name']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -277,7 +263,7 @@ class CategoriesCreate(CreateView):
 
 class CategoriesUpdate(UpdateView):
     model = models.Categorie
-    fields = ['name']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -301,8 +287,7 @@ class CategorieDelete(DeleteView):
 
 class ManufacturerInformationCreate(CreateView):
     model = models.Manufacturer_Information
-    fields = ['name', 'address', 'phonenumber', 'EIN', 'person_in_charge',
-              'NUM_employee', 'email', 'introduction', 'Total_capital']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
@@ -314,8 +299,7 @@ class ManufacturerInformationCreate(CreateView):
 
 class ManufacturerInformationUpdate(UpdateView):
     model = models.Manufacturer_Information
-    fields = ['name', 'address', 'phonenumber', 'EIN', 'person_in_charge',
-              'NUM_employee', 'email', 'introduction', 'Total_capital']
+    fields = '__all__'
     template_name = 'generic_form.html'
 
     def get_context_data(self, **kwargs):
