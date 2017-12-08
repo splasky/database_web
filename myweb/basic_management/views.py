@@ -1,46 +1,86 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-25 13:05:03
+# Last modified: 2017-11-28 20:12:09
 
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views import generic
-from basic_management.models import Company_Info
-from basic_management.models import Employee_Info
-from basic_management.models import Client_Info
-from basic_management.models import Categorie
-from basic_management.models import Product_Information
-from basic_management.models import Manufacturer_Information
-
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import template
 from templates import basic_management
+from basic_management import models
+from django.views.generic.list import ListView
+from django import template
 
 
 def basic_management(request):
     table_name = 'Company_Infos'
-    company_infos = Company_Info.objects.all()
+    company_infos = models.Company_Info.objects.all()
     return render(request, 'basic_management.html', locals())
 
 
 class employeeListView(generic.ListView):
-    model = Employee_Info
+    model = models.Employee_Info
+    employee_field = model._meta.get_fields()
     template_name = 'basic_management/employee_info.html'
     context_object_name = 'employee'
 
 
-# class employeeCreateView(generic.FormView,SingleObjectMixin):
-#     model=Employee_Info
-    
+def employee_search(request):
+    Employee_Info = models.Employee_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            employee_list = Employee_Info.objects.filter(name__contains=name)
+        if key == '2':
+            employee_list = Employee_Info.objects.filter(
+                comp_id__name__contains=name)
+        if key == '3':
+            employee_list = Employee_Info.objects.filter(
+                user__username__contains=name)
+        if key == '4':
+            employee_list = Employee_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
+# class searchview(generic.ListView):
+#     model = Employee_Info
+#     template_name = 'basic_management/employee_info_search.html'
+#     context_object_name = 'employee_list'
 
 
+#     def get_context_data(self, **kwargs):
+#         context = super(searchview, self).get_context_data(**kwargs)
+#         context['employee_list'] = Employee_Info.objects.filter(name=pk)
+#         return context
+
+class CompanyInfoCreate(CreateView):
+    model = models.Company_Info
+    fields = ['name', 'address', 'phonenumber',
+              'EIN', 'person_in_charge', 'NUM_employee',
+              'email', 'introduction']
 
 
+class CompanyInfoUpdate(UpdateView):
+    model = models.Company_Info
+    fields = ['name', 'address', 'phonenumber',
+              'EIN', 'person_in_charge', 'NUM_employee',
+              'email', 'introduction']
+
+
+class CompanyInfoDelete(DeleteView):
+    model = models.Company_Info
+    fields = ['name']
+    success_url = reverse_lazy('company-list')
 
 
 class CompanyInfoListView(generic.ListView):
-    model = Company_Info
+    model = models.Company_Info
     context_object_name = 'CompanyInfoList'
     paginate_by = 10
 
@@ -51,7 +91,7 @@ class CompanyInfoListView(generic.ListView):
 
 
 class CompanyDetailView(generic.DetailView):
-    model = Company_Info
+    model = models.Company_Info
     context_object_name = 'company_detail'
 
     def get_context_data(self, **kwargs):
@@ -59,13 +99,28 @@ class CompanyDetailView(generic.DetailView):
         context['table_name'] = 'Company Detail'
         return context
 
+
 class ClientInfoListView(generic.ListView):
-    model = Client_Info
+    model = models.Client_Info
     context_object_name = 'Client_Info'
-    template_name='basic_management/client_Info_list.html'
+    template_name = 'basic_management/client_Info_list.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoListView, self).get_context_data(**kwargs)
         context['table_name'] = 'Client Info'
         return context
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

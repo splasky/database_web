@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-27 16:47:48
+# Last modified: 2017-11-28 11:14:00
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
@@ -88,8 +88,8 @@ class Product_Information(models.Model):
 
 class Manufacturer_Information(Company_Info):
     """Manufacturer's information"""
-    
-    Total_capital = models.IntegerField('資本額', )
+
+    Total_capital = models.IntegerField('資本額',)
 
     class Mate:
         db_table = 'manufacturer information'
