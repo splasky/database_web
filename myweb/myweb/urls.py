@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-28 20:51:02
+# Last modified: 2017-12-05 20:23:16
 
 """myweb URL Configuration
 
@@ -25,17 +25,18 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 from myweb.views import index, register
-from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView
 from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
 from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
-from basic_management.views import CompanyInfoDelete, CompanyInfoListView
-from basic_management.views import CompanyDetailView, employee_search,Client_search
+from basic_management.views import CompanyInfoDelete, CompanyInfoListView,EmployeeListView
+from basic_management.views import CompanyDetailView, employee_search, Client_search
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^basic_management/', include('basic_management.urls')),
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
@@ -44,14 +45,11 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^employee/$',
-        login_required(employeeListView.as_view()),
+        login_required(EmployeeListView.as_view()),
         name='employee'),
     url(r'^employee_search/$',
         login_required(employee_search),
         name='employee-search'),
-    url(r'^client/$',
-        login_required(ClientInfoListView.as_view()),
-        name='client-list'),
     url(r'^client/search/$',
         login_required(Client_search),
         name='client-search'),
@@ -74,5 +72,6 @@ urlpatterns += [
     url(r'^company/(?P<pk>\d+)$',
         login_required(CompanyDetailView.as_view()),
         name='company-detail'),
+
 
 ]

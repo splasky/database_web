@@ -1,0 +1,28 @@
+{% extends 'generic_list_base.html' %} 
+
+{% block title %}Categories{% endblock %} 
+
+{% block create_button %}
+<a href="{% url 'categories-create' %}" target="_blank">Create categorie</a>
+{% endblock %} 
+
+{% block table %}
+<table>
+    <tr>
+        <th>Categorie</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for obj in objects %}
+    <tr>
+        <td>{{obj.name}}</td>
+        <td>
+            <a href="{% url 'categories-update' pk=obj.id %}" target="_blank">Update</a>
+        </td>
+        <td>
+            <a href="{% url 'categories-delete' pk=obj.id %}" target="_blank">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

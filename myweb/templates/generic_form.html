@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block title %}Company info update{% endblock %} {% block content %}
+{% extends 'base.html' %} 
+{% block title %}{{ table_name }} update{% endblock %} 
+{% block content %}
 
 <form action="" method="post">
     {% csrf_token %}

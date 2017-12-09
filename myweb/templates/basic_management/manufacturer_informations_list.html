@@ -1,0 +1,36 @@
+{% extends 'generic_list_base.html' %} 
+
+{% block title %}Manufacturer information{% endblock %} 
+
+{% block create_button %}
+<a href="{% url 'manufacturer_information-create' %}" target="_blank">Create manufacturer information</a>
+{% endblock %} 
+
+{% block table %}
+<table>
+    <tr>
+        <th>Manufacturer name</th>
+        <th>Manufacturer address</th>
+        <th>Manufacturer phonenumber</th>
+        <th>Manufacturer EIN</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for obj in objects %}
+    <tr>
+        <td>
+            <a href="{{obj.get_absolute_url}}" target="_blank">{{obj.name}}</a>
+        </td>
+        <td>{{obj.address}}</td>
+        <td>{{obj.phonenumber}}</td>
+        <td>{{obj.EIN}}</td>
+        <td>
+            <a href="{% url 'manufacturer_information-update' pk=obj.id %}" target="_blank">Update</a>
+        </td>
+        <td>
+            <a href="{% url 'manufacturer_information-delete' pk=obj.id %}" target="_blank">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

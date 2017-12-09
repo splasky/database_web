@@ -1,43 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'generic_list_base.html' %} 
 
-{% block CSS %}
-{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
-{% endblock %}
+{% block title %}List Employee info{% endblock %} 
 
-{% block title %}basic management{% endblock %}
+{% block create_button %}
+<a href="{% url 'employee-create' %}" target="_blank">Create Employee Info</a>
+{% endblock %} 
 
-{% block content %}
-
-<div class="container">
-	
-	<div class="div-menu">
-		<h2>查詢結果  共有{{employee|length}}人</h2>
-		<form action="" method="get"></form>
-		<table class="table table-bordered " >
-		<tr>
-			<th>隸屬公司</th>
-			<th>員工名稱</th>
-			<th>帳號</th>
-
-		</tr>
-		{%for e in employee%}
-		<tr>
-			<td>{{e.comp_id}}</td>
-			<td>{{e.name}}</td>
-			<td>{{e.user}}</td>
-
-
-		</tr>
-		</table>
-		{% endfor %}
-
-	</div>
-
-	
-
-</div>
-
-
-
+{% block table %}
+<table>
+    <tr>
+        <th>隸屬公司</th>
+        <th>員工名稱</th>
+        <th>地址</th>
+        <th>帳號</th>
+        <th>電話</th>
+        <th>性別</th>
+    </tr>
+    {% for obj in objects %}
+    <tr>
+    	<td>{{obj.comp_id}}</td>
+        <td>
+            <a href="{{obj.get_absolute_url}}" target="_blank">{{obj.name}}</a>
+        </td>
+        <td>{{obj.address}}</td>
+        <td>{{obj.user}}</td>
+        <td>{{obj.phonenumber}}</td>
+        <td>{{obj.gender}}</td>
+        <td>
+            <a href="{% url 'employee-update' pk=obj.id %}" target="_blank">Update</a>
+        </td>
+        <td>
+            <a href="{% url 'employee-delete' pk=obj.id %}" target="_blank">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

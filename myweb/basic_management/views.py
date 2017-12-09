@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-28 20:12:09
+# Last modified: 2017-12-07 16:19:11
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -13,19 +13,29 @@ from templates import basic_management
 from basic_management import models
 from django.views.generic.list import ListView
 from django import template
+from django.contrib.auth.decorators import login_required
 
 
-def basic_management(request):
-    table_name = 'Company_Infos'
-    company_infos = models.Company_Info.objects.all()
-    return render(request, 'basic_management.html', locals())
+@login_required
+def generic_list(request, model, table_name=''):
+    objects = model.objects.all()
+    table_name = table_name
+    paginate_by = 10
+    return render(request,
+                  'basic_management/{}s_list.html'.format(
+                      model.__name__.lower()),
+                  locals())
 
 
-class employeeListView(generic.ListView):
-    model = models.Employee_Info
-    employee_field = model._meta.get_fields()
-    template_name = 'basic_management/employee_info.html'
-    context_object_name = 'employee'
+@login_required
+def generic_detail(request, pk, model, table_name=''):
+    object = model.objects.get(id=pk)
+    table_name = table_name
+
+    return render(request,
+                  'basic_management/{}s_detail.html'.format(
+                      model.__name__.lower()),
+                  locals())
 
 
 def employee_search(request):
@@ -59,26 +69,7 @@ def employee_search(request):
 #         context['employee_list'] = Employee_Info.objects.filter(name=pk)
 #         return context
 
-class CompanyInfoCreate(CreateView):
-    model = models.Company_Info
-    fields = ['name', 'address', 'phonenumber',
-              'EIN', 'person_in_charge', 'NUM_employee',
-              'email', 'introduction']
-
-
-class CompanyInfoUpdate(UpdateView):
-    model = models.Company_Info
-    fields = ['name', 'address', 'phonenumber',
-              'EIN', 'person_in_charge', 'NUM_employee',
-              'email', 'introduction']
-
-
-class CompanyInfoDelete(DeleteView):
-    model = models.Company_Info
-    fields = ['name']
-    success_url = reverse_lazy('company-list')
-
-
+# =======Company=======================================
 class CompanyInfoListView(generic.ListView):
     model = models.Company_Info
     context_object_name = 'CompanyInfoList'
@@ -86,7 +77,7 @@ class CompanyInfoListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Company Info'
+        context['table_name'] = 'Company info'
         return context
 
 
@@ -96,10 +87,92 @@ class CompanyDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyDetailView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Company Detail'
+        context['table_name'] = 'Company detail'
         return context
 
 
+class CompanyInfoCreate(CreateView):
+    model = models.Company_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyInfoCreate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Company info'
+        return context
+
+
+class CompanyInfoUpdate(UpdateView):
+    model = models.Company_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyInfoUpdate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Company info'
+        return context
+
+
+class CompanyInfoDelete(DeleteView):
+    model = models.Company_Info
+    fields = ['name']
+    template_name = 'generic_confirm_delete.html'
+    success_url = reverse_lazy('company-list')
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyInfoDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Company info'
+        return context
+
+
+# =======employee=======================================
+class EmployeeListView(generic.ListView):
+    model = models.Employee_Info
+    employee_field = model._meta.get_fields()
+    template_name = 'basic_management/employee_info_detail.html'
+    context_object_name = 'employee'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeListView, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info'
+        return context
+
+
+class EmployeeInfoCreate(CreateView):
+    model = models.Employee_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeInfoCreate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info create'
+        return context
+
+
+class EmployeeInfoUpdate(UpdateView):
+    model = models.Employee_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeInfoUpdate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info update'
+        return context
+
+
+class EmployeeInfoDelete(DeleteView):
+    model = models.Employee_Info
+    fields = ['name']
+    success_url = reverse_lazy('Employee-list')
+
+    template_name = 'generic_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeInfoDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info'
+        return context
+
+# =======Client=======================================
 class ClientInfoListView(generic.ListView):
     model = models.Client_Info
     context_object_name = 'Client_Info'
@@ -124,3 +197,149 @@ def Client_search(request):
                 phonenumber__contains=name)
 
         return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
+
+
+class ClientInfoCreate(CreateView):
+    model = models.Client_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientInfoCreate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info create'
+        return context
+
+
+class ClientInfoUpdate(UpdateView):
+    model = models.Client_Info
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientInfoUpdate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Client info update'
+        return context
+
+
+class ClientInfoDelete(DeleteView):
+    model = models.Client_Info
+    fields = ['name']
+    success_url = reverse_lazy('client_info-list')
+
+    template_name = 'generic_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientInfoDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Employee info'
+        return context
+
+# =======Product=======================================
+class ProductInformationCreate(CreateView):
+    model = models.Product_Information
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductInformationCreate,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Product information create'
+        return context
+
+
+class ProductInformationUpdate(UpdateView):
+    model = models.Product_Information
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductInformationUpdate,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Product information update'
+        return context
+
+
+class ProductInformationDelete(DeleteView):
+    model = models.Product_Information
+    fields = ['name']
+    success_url = reverse_lazy('product_information-list')
+
+    template_name = 'generic_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductInformationDelete,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Product information info'
+        return context
+
+# =======Categories=======================================
+class CategoriesCreate(CreateView):
+    model = models.Categorie
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoriesCreate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Categorie create'
+        return context
+
+
+class CategoriesUpdate(UpdateView):
+    model = models.Categorie
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoriesUpdate, self).get_context_data(**kwargs)
+        context['table_name'] = 'Categorie update'
+        return context
+
+
+class CategorieDelete(DeleteView):
+    model = models.Categorie
+    fields = ['name']
+    success_url = reverse_lazy('categories-list')
+
+    template_name = 'generic_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategorieDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Categorie'
+        return context
+# =======Manufacturer=======================================
+
+class ManufacturerInformationCreate(CreateView):
+    model = models.Manufacturer_Information
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ManufacturerInformationCreate,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Manufacturer information create'
+        return context
+
+
+class ManufacturerInformationUpdate(UpdateView):
+    model = models.Manufacturer_Information
+    fields = '__all__'
+    template_name = 'generic_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ManufacturerInformationUpdate,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Manufacturer information update'
+        return context
+
+
+class ManufacturerInformationDelete(DeleteView):
+    model = models.Manufacturer_Information
+    fields = ['name']
+    success_url = reverse_lazy('manufacturer_information-list')
+
+    template_name = 'generic_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ManufacturerInformationDelete,
+                        self).get_context_data(**kwargs)
+        context['table_name'] = 'Manufacturer information info'
+        return context
