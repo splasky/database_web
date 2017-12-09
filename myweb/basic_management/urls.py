@@ -87,7 +87,10 @@ urlpatterns += [
         login_required(views.generic_list),
         {'model': models.Client_Info, 'table_name': 'Client_Info'},
         name='client_info-list'),
-   
+    url(r'^client_info/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Client_Info, 'table_name': 'Client_Info'},
+        name='client_info-detail'),
     url(r'^client/search/$',
         login_required(views.Client_search),
         name='client-search'),
