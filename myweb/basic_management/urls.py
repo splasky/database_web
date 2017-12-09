@@ -68,6 +68,9 @@ urlpatterns += [
     url(r'^company/(?P<pk>\d+)$',
         login_required(views.CompanyDetailView.as_view()),
         name='company-detail'),
+    url(r'^company/search/$',
+        login_required(views.company_search),
+        name='company-search'),
 ]
 
 urlpatterns += [
@@ -82,11 +85,12 @@ urlpatterns += [
         name='client_info-delete'),
     url(r'^client_info/$',
         login_required(views.generic_list),
+        {'model': models.Client_Info, 'table_name': 'Client_Info'},
         name='client_info-list'),
-    url(r'^client_info/(?P<pk>\d+)$',
-        login_required(views.generic_detail),
-        {'model': models.Client_Info, 'table_name': 'Client info'},
-        name='client_info-detail'),
+   
+    url(r'^client/search/$',
+        login_required(views.Client_search),
+        name='client-search'),
 ]
 
 urlpatterns += [
@@ -107,6 +111,9 @@ urlpatterns += [
         login_required(views.generic_detail),
         {'model': models.Product_Information, 'table_name': 'Product information'},
         name='product_information-detail'),
+    url(r'product_information/search/$',
+        login_required(views.product_search),
+        name='product_information-search'),
 ]
 
 urlpatterns += [
@@ -123,6 +130,9 @@ urlpatterns += [
         login_required(views.generic_list),
         {'model': models.Categorie, 'table_name': 'Categories'},
         name='categories-list'),
+    url(r'categories/search/$',
+        login_required(views.Categories_search),
+        name='categories-search'),
 ]
 
 urlpatterns += [
@@ -137,10 +147,15 @@ urlpatterns += [
         name='manufacturer_information-delete'),
     url(r'^manufacturer/$',
         login_required(views.generic_list),
-        {'model': models.Manufacturer_Information, 'table_name': 'Manufacturer information'},
+        {'model': models.Manufacturer_Information,
+            'table_name': 'Manufacturer information'},
         name='manufacturer_information-list'),
     url(r'^manufacturer_information/(?P<pk>\d+)$',
         login_required(views.generic_detail),
-        {'model': models.Manufacturer_Information, 'table_name': 'Manufacturer detail'},
+        {'model': models.Manufacturer_Information,
+            'table_name': 'Manufacturer detail'},
         name='manufacturer_information-detail'),
+    url(r'manufacturer_information/search/$',
+        login_required(views.Manufacturer_search),
+        name='manufacturer_information-search'),
 ]

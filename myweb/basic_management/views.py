@@ -58,6 +58,23 @@ def employee_search(request):
         return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
+def company_search(request):
+    company_Info = models.Company_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            company_list = company_Info.objects.filter(name__contains=name)
+        if key == '2':
+            company_list = company_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '3':
+            company_list = company_Info.objects.filter(
+                phonenumbe__contains=name)
+
+        return render(request, 'basic_management/company_info_search.html', {'company_list': company_list})
+
+
 # class searchview(generic.ListView):
 #     model = Employee_Info
 #     template_name = 'basic_management/employee_info_search.html'
@@ -186,7 +203,7 @@ class ClientInfoCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoCreate, self).get_context_data(**kwargs)
-        context['table_name'] = 'Employee info create'
+        context['table_name'] = 'Client info create'
         return context
 
 
@@ -210,10 +227,32 @@ class ClientInfoDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoDelete, self).get_context_data(**kwargs)
-        context['table_name'] = 'Employee info'
+        context['table_name'] = 'Client info'
         return context
 
 # =======Product=======================================
+
+
+def product_search(request):
+    Product_Info = models.Product_Information
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Product_list = Product_Info.objects.filter(name__contains=name)
+        if key == '2':
+            Product_list = Product_Info.objects.filter(
+                height__contains=name)
+        if key == '3':
+            Product_list = Product_Info.objects.filter(
+                weight__contains=name)
+        if key == '4':
+            Product_list = Product_Info.objects.filter(
+                price__contains=name)
+        if key == '5':
+            Product_list = Product_Info.objects.filter(
+                categories_id__name__contains=name)
+        return render(request, 'basic_management/product_Informations_search.html', {'Product_list': Product_list})
 
 
 class ProductInformationCreate(CreateView):
@@ -256,6 +295,18 @@ class ProductInformationDelete(DeleteView):
 # =======Categories=======================================
 
 
+def Categories_search(request):
+    Categories_Info = models.Categorie
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Categories_list = Categories_Info.objects.filter(
+                name__contains=name)
+
+        return render(request, 'basic_management/Categories_search.html', {'Categories_list': Categories_list})
+
+
 class CategoriesCreate(CreateView):
     model = models.Categorie
     fields = '__all__'
@@ -290,6 +341,26 @@ class CategorieDelete(DeleteView):
         context['table_name'] = 'Categorie'
         return context
 # =======Manufacturer=======================================
+
+
+def Manufacturer_search(request):
+    Manufacturer_Info = models.Manufacturer_Information
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                name__contains=name)
+        if key == '2':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                phonenumber__contains=name)
+        if key == '3':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '4':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                Total_capital__contains=name)
+        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
 
 
 class ManufacturerInformationCreate(CreateView):
