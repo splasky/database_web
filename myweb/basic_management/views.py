@@ -126,16 +126,6 @@ class CompanyInfoDelete(DeleteView):
 
 
 # =======employee=======================================
-class EmployeeListView(generic.ListView):
-    model = models.Employee_Info
-    employee_field = model._meta.get_fields()
-    template_name = 'basic_management/employee_info_detail.html'
-    context_object_name = 'employee'
-
-    def get_context_data(self, **kwargs):
-        context = super(EmployeeListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Employee info'
-        return context
 
 
 class EmployeeInfoCreate(CreateView):
@@ -173,16 +163,6 @@ class EmployeeInfoDelete(DeleteView):
         return context
 
 # =======Client=======================================
-class ClientInfoListView(generic.ListView):
-    model = models.Client_Info
-    context_object_name = 'Client_Info'
-    template_name = 'basic_management/client_Info_list.html'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(ClientInfoListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Client Info'
-        return context
 
 
 def Client_search(request):
@@ -234,6 +214,8 @@ class ClientInfoDelete(DeleteView):
         return context
 
 # =======Product=======================================
+
+
 class ProductInformationCreate(CreateView):
     model = models.Product_Information
     fields = '__all__'
@@ -272,6 +254,8 @@ class ProductInformationDelete(DeleteView):
         return context
 
 # =======Categories=======================================
+
+
 class CategoriesCreate(CreateView):
     model = models.Categorie
     fields = '__all__'
@@ -306,6 +290,7 @@ class CategorieDelete(DeleteView):
         context['table_name'] = 'Categorie'
         return context
 # =======Manufacturer=======================================
+
 
 class ManufacturerInformationCreate(CreateView):
     model = models.Manufacturer_Information

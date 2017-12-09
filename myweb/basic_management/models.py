@@ -45,7 +45,7 @@ class Employee_Info(models.Model):
 
     birthday = models.DateField('生日', )
     comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING,verbose_name='所屬公司',)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING,verbose_name='帳號',)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING,verbose_name='帳號',blank=True,null=True)
 
     class Mate:
         db_table = 'Employee_Info'

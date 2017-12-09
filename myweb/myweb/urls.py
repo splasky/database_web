@@ -29,7 +29,7 @@ from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
 from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
-from basic_management.views import CompanyInfoDelete, CompanyInfoListView,EmployeeListView
+from basic_management.views import CompanyInfoDelete, CompanyInfoListView
 from basic_management.views import CompanyDetailView, employee_search, Client_search
 
 urlpatterns = [
@@ -44,15 +44,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^employee/$',
-        login_required(EmployeeListView.as_view()),
-        name='employee'),
-    url(r'^employee_search/$',
-        login_required(employee_search),
-        name='employee-search'),
-    url(r'^client/search/$',
-        login_required(Client_search),
-        name='client-search'),
+    
 
 ]
 

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Details of Employee{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+
+    {% if object %}
+    <p><strong>Name:</strong>{{ object.name }}</p>
+    <p><strong>Address:</strong>{{ object.address }}</p>
+    <p><strong>phonenumber:</strong>{{ object.phonenumber }}</p>
+    <p><strong>gender:</strong>{{ object.gender }}</p>
+    <p><strong>birthday:</strong>{{ object.birthday }}</p>
+    <p><strong>Email:</strong>{{ object.email }}</p>
+    <p><strong>所屬公司:</strong>{{ object.comp_id }}</p>
+    {% else %}
+        <p>No detail of employee</p>
+    {% endif %}
+    <a href="{% url 'employee-update' object.id %}" target="_blank">Update</a>
+    <a href="{% url 'employee-delete' object.id %}" target="_blank">Delete</a>
+    <a href="{% url 'employee-create' %}" target="_blank">Create new employee</a>
+{% endblock %}

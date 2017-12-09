@@ -41,11 +41,15 @@ urlpatterns = [
         name='employee-delete'),
     url(r'^employee/$',
         login_required(views.generic_list),
-        {'model': models.Product_Information, 'table_name': 'Product information'},
+        {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
         name='employee-list'),
     url(r'^employee/search/$',
         login_required(views.employee_search),
-        name='employee_search'),
+        name='employee-search'),
+    url(r'^employee/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
+        name='employee-detail'),
 ]
 
 urlpatterns += [
@@ -77,7 +81,7 @@ urlpatterns += [
         login_required(views.ClientInfoDelete.as_view()),
         name='client_info-delete'),
     url(r'^client_info/$',
-        login_required(views.ClientInfoListView.as_view()),
+        login_required(views.generic_list),
         name='client_info-list'),
     url(r'^client_info/(?P<pk>\d+)$',
         login_required(views.generic_detail),
