@@ -1,22 +1,22 @@
 #! /usr/bin/python
-# -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-# Last modified: 2017-12-06 17:02:02
+# -*- coding: 2017-12-11 22:15:19
+# vim: 2017-12-11 22:15:19
+# Last modified: 2017-12-11 22:15:19
 
 """myweb URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
+The `urlpatterns` list routes URLs to views. For more information please see: 2017-12-11 22:15:19
+    https: 2017-12-11 22:15:19
+Examples: 2017-12-11 22:15:19
 Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+    1. Add an import: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    1. Add an import: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+    1. Import the include() function: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 """
 
 # from framework
@@ -40,11 +40,16 @@ urlpatterns = [
         login_required(views.EmployeeInfoDelete.as_view()),
         name='employee-delete'),
     url(r'^employee/$',
-        login_required(views.employeeListView.as_view()),
+        login_required(views.generic_list),
+        {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
         name='employee-list'),
     url(r'^employee_search/$',
         login_required(views.employee_search),
-        name='employee_search'),
+        name='employee-search'),
+    url(r'^employee/(?P<pk>\d+)$',
+        login_required(views.generic_detail),
+        {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
+        name='employee-detail'),
 ]
 
 urlpatterns += [
@@ -76,7 +81,7 @@ urlpatterns += [
         login_required(views.ClientInfoDelete.as_view()),
         name='client_info-delete'),
     url(r'^client_info/$',
-        login_required(views.ClientInfoListView.as_view()),
+        login_required(views.generic_list),
         name='client_info-list'),
     url(r'^client_info/(?P<pk>\d+)$',
         login_required(views.generic_detail),

@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-11 19:04:16
+# Last modified: 2017-12-11 22:17:37
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -38,13 +38,6 @@ def generic_detail(request, pk, model, table_name=''):
     return render(request,
                   'basic_management/{}s_detail.html'.format(model.__name__.lower()),
                   locals())
-
-
-class employeeListView(generic.ListView):
-    model = models.Employee_Info
-    employee_field = model._meta.get_fields()
-    template_name = 'basic_management/employee_info.html'
-    context_object_name = 'employee'
 
 
 def employee_search(request):
@@ -134,6 +127,7 @@ class CompanyInfoDelete(DeleteView):
         return context
 
 
+# =======employee=======================================
 class EmployeeInfoCreate(CreateView):
     model = models.Employee_Info
     fields = '__all__'
@@ -169,16 +163,7 @@ class EmployeeInfoDelete(DeleteView):
         return context
 
 
-class ClientInfoListView(generic.ListView):
-    model = models.Client_Info
-    context_object_name = 'Client_Info'
-    template_name = 'basic_management/client_Info_list.html'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(ClientInfoListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Client Info'
-        return context
+# =======Client=======================================
 
 
 class ClientInfoForm(forms.ModelForm):
@@ -226,6 +211,8 @@ class ClientInfoDelete(DeleteView):
         context['table_name'] = 'Employee info'
         return context
 
+# =======Product=======================================
+
 
 class ProductInformationCreate(CreateView):
     model = models.Product_Information
@@ -263,6 +250,8 @@ class ProductInformationDelete(DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Product information info'
         return context
+
+# =======Categories=======================================
 
 
 class CategoriesCreate(CreateView):

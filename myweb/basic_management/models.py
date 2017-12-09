@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-11 19:06:56
+# Last modified: 2017-12-11 22:14:57
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
