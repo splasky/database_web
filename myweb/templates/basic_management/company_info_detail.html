@@ -18,4 +18,7 @@
     {% else %}
         <p>There are no company infos.</p>
     {% endif %}
+    <a href="{% url 'company-update' company_detail.id %}" target="_blank">Update</a>
+    <a href="{% url 'company-delete' company_detail.id %}" target="_blank">Delete</a>
+    <a href="{% url 'company-create' %}" target="_blank">Create company info</a>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Details of manufacturer{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+
+    {% if object %}
+    <p><strong>Name:</strong>{{ object.name }}</p>
+    <p><strong>Address:</strong>{{ object.address }}</p>
+    <p><strong>phonenumber:</strong>{{ object.phonenumber }}</p>
+    <p><strong>EIN:</strong>{{ object.EIN }}</p>
+    <p><strong>Person in charge:</strong>{{ object.person_in_charge }}</p>
+    <p><strong>Num employee:</strong>{{ object.NUM_employee }}</p>
+    <p><strong>Email:</strong>{{ object.email }}</p>
+    <p><strong>Introduction:</strong>{{ object.introduction }}</p>
+    <p><strong>Total capital:</strong>{{ object.Total_capital }}</p>
+    {% else %}
+        <p>No detail of manufacturer.</p>
+    {% endif %}
+    <a href="{% url 'manufacturer_information-update' object.id %}" target="_blank">Update</a>
+    <a href="{% url 'manufacturer_information-delete' object.id %}" target="_blank">Delete</a>
+    <a href="{% url 'manufacturer_information-create' %}" target="_blank">Create new manufacturer</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Details of product{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+
+    {% if object %}
+    <p><strong>Product name:</strong>{{ object.name }}</p>
+    <p><strong>Height:</strong>{{ object.height }}</p>
+    <p><strong>Weight:</strong>{{ object.weight }}</p>
+    <p><strong>Price:</strong>{{ object.price }}</p>
+    <p><strong>Categorie:</strong>{{ object.categories_id }}</p>
+    {% else %}
+        <p>No detail of product.</p>
+    {% endif %}
+    <a href="{% url 'product_information-update' object.id %}" target="_blank">Update</a>
+    <a href="{% url 'product_information-delete' object.id %}" target="_blank">Delete</a>
+    <a href="{% url 'product_information-create' %}" target="_blank">Create new product</a>
+{% endblock %}

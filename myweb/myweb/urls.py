@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-26 22:42:00
+# Last modified: 2017-12-05 20:23:16
 
 """myweb URL Configuration
 
@@ -19,22 +19,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
+# from framework
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from myweb.views import index, register
-from basic_management.views import CompanyInfoListView, CompanyDetailView, employeeListView, ClientInfoListView
 
+from myweb.views import index, register
+from django.contrib.auth.decorators import login_required
+# create by us
+from myweb.views import index, register
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/register/$', register, name='register'),
-    url(r'^$', index, name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-    url(r'^employee/$', employeeListView.as_view(), name='employee'),
-    url(r'^company/$', CompanyInfoListView.as_view(), name='company-list'),
-    url(r'^company/(?P<pk>\d+)$', CompanyDetailView.as_view(), name='company-detail'),
-    url(r'^client/$', ClientInfoListView.as_view(), name='client-list'),
-
+    url(r'^basic_management/', include('basic_management.urls')),
+    url(r'^accounts/register/$', register, name='register'),
+    url(r'^$', login_required(index), name='index'),
 ]
