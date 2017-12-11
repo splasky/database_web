@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-07 16:19:11
+# Last modified: 2017-12-11 19:04:16
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -9,11 +9,15 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import template
+from django import forms
+from django.forms import extras
 from templates import basic_management
 from basic_management import models
 from django.views.generic.list import ListView
 from django import template
 from django.contrib.auth.decorators import login_required
+
+import datetime
 
 
 @login_required
@@ -177,10 +181,24 @@ class ClientInfoListView(generic.ListView):
         return context
 
 
+class ClientInfoForm(forms.ModelForm):
+
+    current = datetime.datetime.now()
+    birthday = forms.DateField(
+        widget=forms.extras.SelectDateWidget(
+            years=range(current.year - 150, current.year + 1)
+        )
+    )
+
+    class Meta:
+        model = models.Client_Info
+        fields = '__all__'
+
+
 class ClientInfoCreate(CreateView):
     model = models.Client_Info
-    fields = '__all__'
     template_name = 'generic_form.html'
+    form_class = ClientInfoForm
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoCreate, self).get_context_data(**kwargs)
@@ -188,10 +206,7 @@ class ClientInfoCreate(CreateView):
         return context
 
 
-class ClientInfoUpdate(UpdateView):
-    model = models.Client_Info
-    fields = '__all__'
-    template_name = 'generic_form.html'
+class ClientInfoUpdate(ClientInfoCreate, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoUpdate, self).get_context_data(**kwargs)
