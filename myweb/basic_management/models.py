@@ -83,7 +83,7 @@ class Client_Info(models.Model):
         """
         Returns the url to access a particular instance of the model.
         """
-        return reverse('client_info-list', args=[str(self.id)])
+        return reverse('client_info-detail', args=[str(self.id)])
 
 
 class Categorie(models.Model):
