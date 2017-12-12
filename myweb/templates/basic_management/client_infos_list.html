@@ -1,0 +1,54 @@
+{% extends 'generic_list_base.html' %} 
+
+{% block title %}List client info{% endblock %} 
+
+{% block create_button %}
+<a href="{% url 'client_info-create' %}" target="_blank">Create client Info</a>
+{% endblock %} 
+
+{% block table %}
+		<form action="{% url 'client-search'  %}" method="get">
+			{% csrf_token %}
+			<select name="key">
+				<option value="1">客戶名稱</option>
+				<option value="2">電話</option>
+				
+			</select>	
+				<input type="text" name="name" id='name' placeholder="輸入">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
+		</form>
+
+<table>
+    <tr>
+        <th>客戶名稱</th>
+        <th>生日</th>
+        <th>地址</th>
+        <th>email</th>
+        <th>電話</th>
+        <th>性別</th>
+    </tr>
+    {% for obj in objects %}
+    <tr>
+
+        <td>
+            <a href="{{obj.get_absolute_url}}" target="_blank">{{obj.name}}</a>
+        </td>
+		<td>{{obj.birthday}}</td>
+        <td>{{obj.address}}</td>
+        <td>{{obj.email}}</td>
+        <td>{{obj.phonenumber}}</td>
+        <td>{{obj.gender}}</td>
+        <td>
+            <a href="{% url 'client_info-update' pk=obj.id %}" target="_blank">Update</a>
+        </td>
+        <td>
+            <a href="{% url 'client_info-delete' pk=obj.id %}" target="_blank">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+

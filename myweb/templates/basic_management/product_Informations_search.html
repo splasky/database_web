@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block CSS %}
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
+{% endblock %}
+
+{% block title %}basic management{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+	
+	<div class="div-menu">
+		<h2>產品列表</h2>
+		<form action="" method="get"></form>
+		<table class="table table-bordered " >
+		<tr>
+			
+			<th>產品名稱</th>
+			<th>高度</th>
+			<th>重量</th>
+			<th>價錢</th>
+			<th>商品分類</th>
+	
+
+		</tr>
+		{%for e in Product_list%}
+		<tr>
+
+			<td>{{e.name}}</td>
+			<td>{{e.height}}</td>
+			<td>{{e.weight}}</td>
+			<td>{{e.price}}</td>
+			<td>{{e.categories_id}}</td>
+			
+			
+
+
+		</tr>
+		{% endfor %}
+
+		</table>
+
+	</div>
+
+	<a href="{% url 'product_information-list' %}">返回列表</a>
+
+
+
+</div>
+
+{% endblock %}

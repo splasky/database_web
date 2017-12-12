@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block CSS %}
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
+{% endblock %}
+
+{% block title %}basic management{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+	
+	<div class="div-menu">
+		<h2>分類列表</h2>
+		<form action="" method="get"></form>
+		<table class="table table-bordered " >
+		<tr>
+			
+			<th>分類</th>			
+		
+
+		</tr>
+		{%for e in Categories_list%}
+		<tr>
+
+			<td>{{e.name}}</td>
+			
+
+
+		</tr>
+		{% endfor %}
+
+		</table>
+
+	</div>
+
+	<a href="{% url 'categories-list' %}">返回列表</a>
+
+
+
+</div>
+
+{% endblock %}
