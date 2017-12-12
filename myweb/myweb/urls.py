@@ -1,7 +1,4 @@
-#! /usr/bin/python
-# -*- coding: 2017-12-11 22:18:59
-# vim: 2017-12-11 22:18:59
-# Last modified: 2017-12-11 22:18:59
+# -*- coding: utf-8 -*-
 
 """myweb URL Configuration
 
@@ -36,5 +33,4 @@ urlpatterns = [
     url(r'^basic_management/', include('basic_management.urls')),
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),
-]
 ]

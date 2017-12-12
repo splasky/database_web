@@ -1,8 +1,3 @@
-#! /usr/bin/python
-# -*- coding: 2017-12-11 22:15:19
-# vim: 2017-12-11 22:15:19
-# Last modified: 2017-12-11 22:15:19
-
 """myweb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see: 2017-12-11 22:15:19

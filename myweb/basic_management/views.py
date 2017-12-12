@@ -39,19 +39,6 @@ def generic_detail(request, pk, model, table_name=''):
                   'basic_management/{}s_detail.html'.format(model.__name__.lower()),
                   locals())
 
-
-# class searchview(generic.ListView):
-#     model = Employee_Info
-#     template_name = 'basic_management/employee_info_search.html'
-#     context_object_name = 'employee_list'
-
-
-#     def get_context_data(self, **kwargs):
-#         context = super(searchview, self).get_context_data(**kwargs)
-#         context['employee_list'] = Employee_Info.objects.filter(name=pk)
-#         return context
-
-
 class CompanyInfoListView(generic.ListView):
     model = models.Company_Info
     context_object_name = 'CompanyInfoList'
@@ -227,6 +214,16 @@ class ClientInfoDelete(DeleteView):
         context = super(ClientInfoDelete, self).get_context_data(**kwargs)
         context['table_name'] = 'Client info'
         return context
+
+def Client_search(request):
+    Client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = Client_Info.objects.filter(name__contains=name)
+
+        return render(request, 'basic_management/employee_info_search.html', {'client_info_list': client_list})
 
 # =======Product=======================================
 
