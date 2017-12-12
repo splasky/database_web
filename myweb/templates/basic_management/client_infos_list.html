@@ -1,3 +1,4 @@
+
 {% extends 'generic_list_base.html' %} 
 
 {% block title %}List client info{% endblock %} 
@@ -5,6 +6,7 @@
 {% block create_button %}
 <a href="{% url 'client_info-create' %}" target="_blank">Create client Info</a>
 {% endblock %} 
+
 
 {% block table %}
 		<form action="{% url 'client-search'  %}" method="get">

@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-07 16:19:11
+# Last modified: 2017-12-11 22:17:37
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -9,11 +9,15 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import template
+from django import forms
+from django.forms import extras
 from templates import basic_management
 from basic_management import models
 from django.views.generic.list import ListView
 from django import template
 from django.contrib.auth.decorators import login_required
+
+import datetime
 
 
 @login_required
@@ -38,6 +42,7 @@ def generic_detail(request, pk, model, table_name=''):
                   locals())
 
 
+
 def employee_search(request):
     Employee_Info = models.Employee_Info
     name = request.GET.get('name')
@@ -58,21 +63,7 @@ def employee_search(request):
         return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
-def company_search(request):
-    company_Info = models.Company_Info
-    name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            company_list = company_Info.objects.filter(name__contains=name)
-        if key == '2':
-            company_list = company_Info.objects.filter(
-                person_in_charge__contains=name)
-        if key == '3':
-            company_list = company_Info.objects.filter(
-                phonenumbe__contains=name)
 
-        return render(request, 'basic_management/company_info_search.html', {'company_list': company_list})
 
 
 # class searchview(generic.ListView):
@@ -87,6 +78,7 @@ def company_search(request):
 #         return context
 
 # =======Company=======================================
+
 class CompanyInfoListView(generic.ListView):
     model = models.Company_Info
     context_object_name = 'CompanyInfoList'
@@ -142,7 +134,43 @@ class CompanyInfoDelete(DeleteView):
         return context
 
 
+def company_search(request):
+    company_Info = models.Company_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            company_list = company_Info.objects.filter(name__contains=name)
+        if key == '2':
+            company_list = company_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '3':
+            company_list = company_Info.objects.filter(
+                phonenumbe__contains=name)
+
+        return render(request, 'basic_management/company_info_search.html', {'company_list': company_list})
 # =======employee=======================================
+
+
+def employee_search(request):
+    Employee_Info = models.Employee_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            employee_list = Employee_Info.objects.filter(name__contains=name)
+        if key == '2':
+            employee_list = Employee_Info.objects.filter(
+                comp_id__name__contains=name)
+        if key == '3':
+            employee_list = Employee_Info.objects.filter(
+                user__username__contains=name)
+        if key == '4':
+            employee_list = Employee_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
+
 
 
 class EmployeeInfoCreate(CreateView):
@@ -182,6 +210,7 @@ class EmployeeInfoDelete(DeleteView):
 # =======Client=======================================
 
 
+
 def Client_search(request):
     client_Info = models.Client_Info
     name = request.GET.get('name')
@@ -196,10 +225,27 @@ def Client_search(request):
         return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
 
 
+
+
+class ClientInfoForm(forms.ModelForm):
+
+    current = datetime.datetime.now()
+    birthday = forms.DateField(
+        widget=forms.extras.SelectDateWidget(
+            years=range(current.year - 150, current.year + 1)
+        )
+    )
+
+    class Meta:
+        model = models.Client_Info
+        fields = '__all__'
+
+
+
 class ClientInfoCreate(CreateView):
     model = models.Client_Info
-    fields = '__all__'
     template_name = 'generic_form.html'
+    form_class = ClientInfoForm
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoCreate, self).get_context_data(**kwargs)
@@ -207,10 +253,7 @@ class ClientInfoCreate(CreateView):
         return context
 
 
-class ClientInfoUpdate(UpdateView):
-    model = models.Client_Info
-    fields = '__all__'
-    template_name = 'generic_form.html'
+class ClientInfoUpdate(ClientInfoCreate, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoUpdate, self).get_context_data(**kwargs)
@@ -229,6 +272,7 @@ class ClientInfoDelete(DeleteView):
         context = super(ClientInfoDelete, self).get_context_data(**kwargs)
         context['table_name'] = 'Client info'
         return context
+
 
 # =======Product=======================================
 
@@ -363,6 +407,26 @@ def Manufacturer_search(request):
         return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
 
 
+def Manufacturer_search(request):
+    Manufacturer_Info = models.Manufacturer_Information
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                name__contains=name)
+        if key == '2':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                phonenumber__contains=name)
+        if key == '3':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '4':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                Total_capital__contains=name)
+        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
+
+
 class ManufacturerInformationCreate(CreateView):
     model = models.Manufacturer_Information
     fields = '__all__'
@@ -399,3 +463,17 @@ class ManufacturerInformationDelete(DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Manufacturer information info'
         return context
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

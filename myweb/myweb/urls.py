@@ -1,22 +1,19 @@
-#! /usr/bin/python
 # -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-# Last modified: 2017-12-05 20:23:16
 
 """myweb URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
+The `urlpatterns` list routes URLs to views. For more information please see: 2017-12-11 22:18:59
+    https: 2017-12-11 22:18:59
+Examples: 2017-12-11 22:18:59
 Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+    1. Add an import: 2017-12-11 22:18:59
+    2. Add a URL to urlpatterns: 2017-12-11 22:18:59
 Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    1. Add an import: 2017-12-11 22:18:59
+    2. Add a URL to urlpatterns: 2017-12-11 22:18:59
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+    1. Import the include() function: 2017-12-11 22:18:59
+    2. Add a URL to urlpatterns: 2017-12-11 22:18:59
 """
 
 # from framework
