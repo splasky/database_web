@@ -44,6 +44,7 @@ class Employee_Info(models.Model):
     gender = models.CharField('性別', max_length=6, choices=EMP_gender)
 
     birthday = models.DateField('生日', )
+
     comp_id = models.ForeignKey(
         Company_Info,
         models.DO_NOTHING,

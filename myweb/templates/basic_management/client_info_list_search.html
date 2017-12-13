@@ -5,15 +5,20 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
 {% endblock %}
 
-{% block title %}Client info{% endblock %}
+{% block title %}basic management{% endblock %}
 
 {% block content %}
+
+
+
 <div class="container">
+	
 	<div class="div-menu">
-		<h2>客戶資料</h2>
+		<h2>客戶列表</h2>
 		<form action="" method="get"></form>
 		<table class="table table-bordered " >
 		<tr>
+			
 			<th>客戶名稱</th>
 			<th>地址</th>
 			<th>email</th>
@@ -22,17 +27,31 @@
 			<th>生日</th>
 
 		</tr>
-		{%for c in Client_Info %}
+		{%for c in client_list%}
 		<tr>
+
 			<td>{{c.name}}</td>
 			<td>{{c.address}}</td>
 			<td>{{c.email}}</td>
 			<td>{{c.phonenumber}}</td>
 			<td>{{c.gender}}</td>
 			<td>{{c.birthday}}</td>
+
+
+
 		</tr>
-		</table>
 		{% endfor %}
+
+		</table>
+
 	</div>
+
+
+	<a href="{% url 'client_info-list' %}">返回列表</a>
+
+
+
+
 </div>
+
 {% endblock %}

@@ -26,7 +26,8 @@ def generic_list(request, model, table_name=''):
     table_name = table_name
     paginate_by = 10
     return render(request,
-                  'basic_management/{}s_list.html'.format(model.__name__.lower()),
+                  'basic_management/{}s_list.html'.format(
+                      model.__name__.lower()),
                   locals())
 
 
@@ -36,8 +37,47 @@ def generic_detail(request, pk, model, table_name=''):
     table_name = table_name
 
     return render(request,
-                  'basic_management/{}s_detail.html'.format(model.__name__.lower()),
+                  'basic_management/{}s_detail.html'.format(
+                      model.__name__.lower()),
                   locals())
+
+
+
+def employee_search(request):
+    Employee_Info = models.Employee_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            employee_list = Employee_Info.objects.filter(name__contains=name)
+        if key == '2':
+            employee_list = Employee_Info.objects.filter(
+                comp_id__name__contains=name)
+        if key == '3':
+            employee_list = Employee_Info.objects.filter(
+                user__username__contains=name)
+        if key == '4':
+            employee_list = Employee_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
+
+
+
+
+
+# class searchview(generic.ListView):
+#     model = Employee_Info
+#     template_name = 'basic_management/employee_info_search.html'
+#     context_object_name = 'employee_list'
+
+
+#     def get_context_data(self, **kwargs):
+#         context = super(searchview, self).get_context_data(**kwargs)
+#         context['employee_list'] = Employee_Info.objects.filter(name=pk)
+#         return context
+
+# =======Company=======================================
 
 class CompanyInfoListView(generic.ListView):
     model = models.Company_Info
@@ -132,6 +172,7 @@ def employee_search(request):
         return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
+
 class EmployeeInfoCreate(CreateView):
     model = models.Employee_Info
     fields = '__all__'
@@ -166,8 +207,24 @@ class EmployeeInfoDelete(DeleteView):
         context['table_name'] = 'Employee info'
         return context
 
-
 # =======Client=======================================
+
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
+
+
 
 
 class ClientInfoForm(forms.ModelForm):
@@ -182,6 +239,7 @@ class ClientInfoForm(forms.ModelForm):
     class Meta:
         model = models.Client_Info
         fields = '__all__'
+
 
 
 class ClientInfoCreate(CreateView):
@@ -215,15 +273,6 @@ class ClientInfoDelete(DeleteView):
         context['table_name'] = 'Client info'
         return context
 
-def Client_search(request):
-    Client_Info = models.Client_Info
-    name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            client_list = Client_Info.objects.filter(name__contains=name)
-
-        return render(request, 'basic_management/employee_info_search.html', {'client_info_list': client_list})
 
 # =======Product=======================================
 
@@ -335,6 +384,27 @@ class CategorieDelete(DeleteView):
         context = super(CategorieDelete, self).get_context_data(**kwargs)
         context['table_name'] = 'Categorie'
         return context
+# =======Manufacturer=======================================
+
+
+def Manufacturer_search(request):
+    Manufacturer_Info = models.Manufacturer_Information
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                name__contains=name)
+        if key == '2':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                phonenumber__contains=name)
+        if key == '3':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '4':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                Total_capital__contains=name)
+        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
 
 
 def Manufacturer_search(request):
@@ -393,3 +463,17 @@ class ManufacturerInformationDelete(DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Manufacturer information info'
         return context
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

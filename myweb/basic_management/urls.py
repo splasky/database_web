@@ -38,7 +38,7 @@ urlpatterns = [
         login_required(views.generic_list),
         {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
         name='employee-list'),
-    url(r'^employee_search/$',
+    url(r'^employee/search/$',
         login_required(views.employee_search),
         name='employee-search'),
     url(r'^employee/(?P<pk>\d+)$',
