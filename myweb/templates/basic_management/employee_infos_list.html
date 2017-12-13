@@ -1,14 +1,11 @@
 {% extends 'generic_list_base.html' %} 
 
-{% block CSS %}
-{% load staticfiles %}
-	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
-{% endblock %}
 
-{% block title %}basic management{% endblock %}
+{% block title %}List Employee info{% endblock %} 
 
 {% block create_button %}
-<a href="{% url 'employee-create' %}" target="_blank">Create employee information</a>
+<a href="{% url 'employee-create' %}" target="_blank">Create Employee Info</a>
+
 {% endblock %} 
 
 {% block table %}
@@ -19,9 +16,13 @@
                 <option value="2">公司</option>
                 <option value="3">帳號</option>
                 <option value="4">電話</option>
-            </select>
+
+                
+            </select>   
                 <input type="text" name="name" id='name' placeholder="輸入">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
         </form>
 
 <table>
