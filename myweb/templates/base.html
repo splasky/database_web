@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -22,126 +22,145 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous"></script>
-		<style>
-	 body {background-color:grey; font-family:Microsoft JhengHei}
-		h1   {color: blue;}
-		p    {color: red;}
-		a    {font-size:16px;font-family:Microsoft JhengHei}
-		
-</style>
-	 }
+    <style>
+        body {
+            background-color: grey;
+            font-family: Microsoft JhengHei
+        }
 
-	 <script>
-function myAccFunc() {
-    var x = document.getElementById("demoAcc");
-	
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } 
-	else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
+        h1 {
+            color: blue;
+        }
 
-function myAccFunc1() {
-    var x = document.getElementById("demoAcc1");
-	
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } 
-	else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
+        p {
+            color: red;
+        }
 
-function myAccFunc2() {
-    var x = document.getElementById("demoAcc2");
-	
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } 
-	else {
-        x.className = x.className.replace(" w3-show", "");
+        a {
+            font-size: 16px;
+            font-family: Microsoft JhengHei
+        }
+    </style>
     }
-}
-function myAccFunc3() {
-    var x = document.getElementById("demoAcc3");
-	
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } 
-	else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
 
-    {% block CSS %}{% endblock %}
+    <script>
+        function myAccFunc() {
+            var x = document.getElementById("demoAcc");
+
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            }
+            else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function myAccFunc1() {
+            var x = document.getElementById("demoAcc1");
+
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            }
+            else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        function myAccFunc2() {
+            var x = document.getElementById("demoAcc2");
+
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            }
+            else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+        function myAccFunc3() {
+            var x = document.getElementById("demoAcc3");
+
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            }
+            else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script> {% block CSS %}{% endblock %}
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 
 <body>
-   <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
-		<nav class="w3-sidebar w3-bar-block w3-card w3-top  w3-animate-left w3-center" style="display:none;z-index:2;width:12%;min-width:100px;font-family:DFKai-sb;font-size:20px;" id="mySidebar">
-		<a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="font-size:26px">返回</a>
-		 
-		 <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-wide">主頁</a>
-		 <a class="w3-bar-item w3-button" href="{% url 'admin:index' %}" onclick="w3_close()">系統管理</a>
-		 <!--<a class="w3-bar-item w3-button" href="{% url 'company-list' %}" onclick="w3_close()">基本資料管理</a> -->
+    <nav class="w3-sidebar w3-bar-block w3-card w3-top  w3-animate-left w3-center" style="display:none;z-index:2;width:12%;min-width:100px;font-family:DFKai-sb;font-size:20px;"
+        id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button" style="font-size:26px">返回</a>
 
-		  <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
-      基本資料管理 <i class="fa fa-caret-down"></i>
-    </a>
-    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-	<a class="dropdown-item" href="{% url 'company-list' %}">公司資料</a>
-    <a class="dropdown-item" href="{% url 'employee' %}">員工資料</a>
-      <!--<a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a> -->
-      
-    </div>
+        <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-wide">主頁</a>
+        <a class="w3-bar-item w3-button" href="{% url 'admin:index' %}" onclick="w3_close()">系統管理</a>
+        <!--<a class="w3-bar-item w3-button" href="{% url 'company-list' %}" onclick="w3_close()">基本資料管理</a> -->
 
-	 <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
-      進貨管理 <i class="fa fa-caret-down"></i>
-    </a>
-    <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-	<a class="dropdown-item" href="#">進貨維護</a>
-     <a class="dropdown-item" href="#">退貨維護</a>
-     
-     
-    </div>
+        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
+            基本資料管理
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a class="dropdown-item" href="{% url 'company-list' %}">公司資料</a>
+            <a class="dropdown-item" href="{% url 'employee-list' %}">員工資料</a>
+            <a class="dropdown-item" href="{% url 'client_info-list' %}">客戶資料</a>
+            <a class="dropdown-item" href="{% url 'product_information-list' %}">廠商資料</a>
+            <a class="dropdown-item" href="{% url 'categories-list' %}">商品分類</a>
+            <a class="dropdown-item" href="{% url 'manufacturer_information-list' %}">商品資料</a>
+            <!--<a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a> -->
 
-	 <a onclick="myAccFunc2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
-      銷貨管理 <i class="fa fa-caret-down"></i>
-    </a>
-    <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-	<a class="dropdown-item" href="#">訂貨維護</a>
-                        <a class="dropdown-item" href="#">出貨維護</a>
-                        <a class="dropdown-item" href="#">退貨處理</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-     
-    </div>
+        </div>
+
+        <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
+            進貨管理
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a class="dropdown-item" href="#">進貨維護</a>
+            <a class="dropdown-item" href="#">退貨維護</a>
 
 
+        </div>
 
-	 <a onclick="myAccFunc3()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
-      庫存管理 <i class="fa fa-caret-down"></i>
-    </a>
-	<div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-    <a class="dropdown-item" href="#">進銷查詢</a>
-                        <a class="dropdown-item" href="#">庫存設定</a>
-                        <a class="dropdown-item" href="#">庫存查詢</a>
-                        <a class="dropdown-item" href="#">庫存結轉</a>
-                        <a class="dropdown-item" href="#">庫存盤點</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-     
-    </div>
-		 
-		 <!--
+        <a onclick="myAccFunc2()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
+            銷貨管理
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a class="dropdown-item" href="#">訂貨維護</a>
+            <a class="dropdown-item" href="#">出貨維護</a>
+            <a class="dropdown-item" href="#">退貨處理</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+
+        </div>
+
+
+
+        <a onclick="myAccFunc3()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-center-align" id="myBtn">
+            庫存管理
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a class="dropdown-item" href="#">進銷查詢</a>
+            <a class="dropdown-item" href="#">庫存設定</a>
+            <a class="dropdown-item" href="#">庫存查詢</a>
+            <a class="dropdown-item" href="#">庫存結轉</a>
+            <a class="dropdown-item" href="#">庫存盤點</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+
+        </div>
+
+        <!--
 		 <div class="dropdown-divider"></div>
 		 <a class="w3-bar-item w3-button" href="" onclick="dropDown1()" id="navbarDropdownMenuLink2" style="font-size:20px;font-color:grey" >進貨管理</a>
 		
@@ -164,15 +183,15 @@ function myAccFunc3() {
 		<div class="dropdown-divider"></div>
 		 <a class="w3-bar-item w3-button" href="" onclick="w3_close()">統計報表</a>
 		 -->
-		</nav>	
-            {% if user.is_authenticated %}
-            <a class="navbar-brand mb-0"> Hi {{user.username}}</a> {% endif %}
-			<div class="w3-top">
-			<div class="w3-bar w3-white w3-card" id="myNavbar">
-			<div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
-			
+    </nav>
+    {% if user.is_authenticated %}
+    <a class="navbar-brand mb-0"> Hi {{user.username}}</a> {% endif %}
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+
             <!--<div class="navbar-nav mr-auto navbar-left">-->
-                <!--<a href="{% url 'index' %}" class="w3-bar-item w3-button w3-wide">Home</a>
+            <!--<a href="{% url 'index' %}" class="w3-bar-item w3-button w3-wide">Home</a>
 				<!--
                 <a class="nav-item nav-link active" href="{% url 'admin:index' %}">系統管理</a>
                 <a class="nav-item nav-link active" href="{% url 'company-list' %}">基本資料管理</a>
@@ -184,63 +203,69 @@ function myAccFunc3() {
                 <a class="nav-item nav-link active" href="">統計報表</a>
 				-->
 
-				 <!-- <form class="form-inline navbar-right">-->
-				 <div class="w3-right w3-hide-small">
+            <!-- <form class="form-inline navbar-right">-->
+            <div class="w3-right w3-hide-small">
                 {% if user.is_authenticated %}
-                <a class="w3-bar-item w3-button" href="{% url 'logout' %}">LOGOUT</a> 
-				{% else %}
+                <a class="w3-bar-item w3-button" href="{% url 'logout' %}">LOGOUT</a>
+                {% else %}
                 <!--<a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 <a class="nav-item nav-link" href="{% url 'register' %}">Sign Up</a>-->
-				
-					<a href="{% url 'login' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> LOGIN</a> 
-					<a href="{% url 'register' %}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> SIGN UP</a>
-				{% endif %}
-                <a class="w3-bar-item w3-button"><input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></a>
-                <a class="w3-bar-item w3-button"><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></a>
-            <!--</form>-->
-			</div>
+
+                <a href="{% url 'login' %}" class="w3-bar-item w3-button">
+                    <i class="fa fa-user"></i> LOGIN</a>
+                <a href="{% url 'register' %}" class="w3-bar-item w3-button">
+                    <i class="fa fa-user"></i> SIGN UP</a>
+                {% endif %}
+                <a class="w3-bar-item w3-button">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                </a>
+                <a class="w3-bar-item w3-button">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </a>
+                <!--</form>-->
+            </div>
 
         </div>
-		<div>
-    </nav>
+        <div>
+            </nav>
 
-				<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-			  <i class="fa fa-bars"></i>
-			</a>
-				
-            </div>
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
 
-          
-
-
-
-    <!--<div class="container-fluid">-->
-	
-      <div class="w3-containt w3-light-grey" style="padding:200px 60px; " >
-        <div class="row">
-            <div class="col-sm-2">
-                {% block sidebar %} {% endblock %}
-            </div>
-
-            <div class="col-sm-10">
-                {% block content %}{% endblock %}
-            </div>
         </div>
-        <footer>
-            {% block foot %}{% endblock %}
-        </footer>
-    </div>
-	
-	<script>
-// Script to open and close sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-}
- 
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+
+
+
+
+
+        <!--<div class="container-fluid">-->
+
+        <div class="w3-containt w3-light-grey" style="padding:200px 60px; ">
+            <div class="row">
+                <div class="col-sm-2">
+                    {% block sidebar %} {% endblock %}
+                </div>
+
+                <div class="col-sm-10">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <footer>
+                {% block foot %}{% endblock %}
+            </footer>
+        </div>
+
+        <script>
+            // Script to open and close sidebar
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+            }
+        </script>
 
 </body>
 
