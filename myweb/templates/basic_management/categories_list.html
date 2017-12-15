@@ -3,7 +3,9 @@
 {% block title %}Categories{% endblock %} 
 
 {% block create_button %}
+{% if perms.basic_management.add_categorie %}
 <a href="{% url 'categories-create' %}" target="_blank">Create categorie</a>
+{% endif %}
 {% endblock %} 
 
 {% block table %}
@@ -11,8 +13,6 @@
       {% csrf_token %}
       <select name="key">
         <option value="1">分類名稱</option>
-        
-        
       </select> 
         <input type="text" name="name" id='name' placeholder="輸入">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -20,18 +20,26 @@
 <table>
     <tr>
         <th>Categorie</th>
+        {% if perms.basic_management.change_categorie %}
         <th>Update</th>
+        {% endif %}
+        {% if perms.basic_management.delete_categorie %}
         <th>Delete</th>
+        {% endif %}
     </tr>
     {% for obj in objects %}
     <tr>
         <td>{{obj.name}}</td>
+        {% if perms.basic_management.change_categorie %}
         <td>
             <a href="{% url 'categories-update' pk=obj.id %}" target="_blank">Update</a>
         </td>
+        {% endif %}
+        {% if perms.basic_management.delete_categorie %}
         <td>
             <a href="{% url 'categories-delete' pk=obj.id %}" target="_blank">Delete</a>
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

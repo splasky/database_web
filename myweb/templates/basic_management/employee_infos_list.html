@@ -4,8 +4,9 @@
 {% block title %}List Employee info{% endblock %} 
 
 {% block create_button %}
+{% if perms.basic_management.add_employee_info %}
 <a href="{% url 'employee-create' %}" target="_blank">Create Employee Info</a>
-
+{% endif %}
 {% endblock %} 
 
 {% block table %}
@@ -44,12 +45,16 @@
         <td>{{obj.user}}</td>
         <td>{{obj.phonenumber}}</td>
         <td>{{obj.gender}}</td>
+        {% if perms.basic_management.change_employee_info %}
         <td>
             <a href="{% url 'employee-update' pk=obj.id %}" target="_blank">Update</a>
         </td>
+        {% endif %}
+        {% if perms.basic_management.delete_employee_info %}
         <td>
             <a href="{% url 'employee-delete' pk=obj.id %}" target="_blank">Delete</a>
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

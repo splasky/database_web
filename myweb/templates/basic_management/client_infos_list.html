@@ -4,7 +4,9 @@
 {% block title %}List client info{% endblock %} 
 
 {% block create_button %}
+{% if perms.basic_management.add_client_info %}
 <a href="{% url 'client_info-create' %}" target="_blank">Create client Info</a>
+{% endif %}
 {% endblock %} 
 
 
@@ -42,12 +44,16 @@
         <td>{{obj.email}}</td>
         <td>{{obj.phonenumber}}</td>
         <td>{{obj.gender}}</td>
+        {% if perms.basic_management.change_client_info %}
         <td>
             <a href="{% url 'client_info-update' pk=obj.id %}" target="_blank">Update</a>
         </td>
+        {% endif %}
+        {% if perms.basic_management.delete_client_info %}
         <td>
             <a href="{% url 'client_info-delete' pk=obj.id %}" target="_blank">Delete</a>
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
