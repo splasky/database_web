@@ -6,18 +6,16 @@
 {% if perms.basic_management.add_company_info %}
 <a href="{% url 'company-create' %}" target="_blank">Create company info</a>
 {% endif %}
-{% endblock %} 
+{% endblock %}
 
-{% block content %}
-
-<h2>{{table_name}}</h2>
+{% block table %}
     <form action="{% url 'company-search'  %}" method="get">
       {% csrf_token %}
       <select name="key">
         <option value="1">公司名稱</option>
         <option value="2">負責人</option>
         <option value="3">電話</option>
-      </select> 
+      </select>
         <input type="text" name="name" id='name' placeholder="輸入">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -33,16 +31,16 @@
         <th>Delete</th>
         {% endif %}
         </tr>
-        {% for c in CompanyInfoList %}
+        {% for object in objects %}
         <tr>
-        <td><a href="{{c.get_absolute_url}}" target="_blank">{{c.name}}</a></td>
-        <td>{{c.EIN}}</td>
-        <td>{{c.introduction}}</td>
+        <td><a href="{{c.get_absolute_url}}" target="_blank">{{object.name}}</a></td>
+        <td>{{object.EIN}}</td>
+        <td>{{object.introduction}}</td>
         {% if perms.basic_management.change_company_info %}
-        <td><a href="{% url 'company-update' pk=c.id %}" target="_blank">Update</a></td>
+        <td><a href="{% url 'company-update' pk=object.id %}" target="_blank">Update</a></td>
         {% endif %}
         {% if perms.basic_management.delete_company_info %}
-        <td><a href="{% url 'company-delete' pk=c.id %}" target="_blank">Delete</a></td>
+        <td><a href="{% url 'company-delete' pk=object.id %}" target="_blank">Delete</a></td>
         {% endif %}
         </tr>
         {% endfor %}

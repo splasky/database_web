@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-15 09:23:01
+# Last modified: 2017-12-15 14:58:41
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -75,17 +75,6 @@ def employee_search(request):
 #         return context
 
 # =======Company=======================================
-
-class CompanyInfoListView(generic.ListView):
-    model = models.Company_Info
-    context_object_name = 'CompanyInfoList'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(CompanyInfoListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Company info'
-        return context
-
 
 class CompanyDetailView(generic.DetailView):
     model = models.Company_Info

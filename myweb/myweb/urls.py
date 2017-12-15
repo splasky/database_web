@@ -1,3 +1,8 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2017-12-15 15:01:11
+
 # -*- coding: utf-8 -*-
 
 """myweb URL Configuration
@@ -25,9 +30,6 @@ from myweb.views import index, register
 from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
-from basic_management.views import CompanyInfoCreate, CompanyInfoUpdate
-from basic_management.views import CompanyInfoDelete, CompanyInfoListView
-from basic_management.views import CompanyDetailView, employee_search, Client_search
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
@@ -37,30 +39,5 @@ urlpatterns = [
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-
-]
-
-urlpatterns += [
-    
-
-]
-
-urlpatterns += [
-    url(r'company/create/$',
-        login_required(CompanyInfoCreate.as_view()),
-        name='company-create'),
-    url(r'company/(?P<pk>\d+)/update/$',
-        login_required(CompanyInfoUpdate.as_view()),
-        name='company-update'),
-    url(r'company/(?P<pk>\d+)/delete/$',
-        login_required(CompanyInfoDelete.as_view()),
-        name='company-delete'),
-    url(r'^company/$',
-        login_required(CompanyInfoListView.as_view()),
-        name='company-list'),
-    url(r'^company/(?P<pk>\d+)$',
-        login_required(CompanyDetailView.as_view()),
-        name='company-detail'),
-
 
 ]

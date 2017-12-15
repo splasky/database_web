@@ -1,3 +1,8 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2017-12-15 15:00:33
+
 """myweb URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see: 2017-12-11 22:15:19
@@ -58,7 +63,8 @@ urlpatterns += [
         login_required(views.CompanyInfoDelete.as_view()),
         name='company-delete'),
     url(r'^company/$',
-        login_required(views.CompanyInfoListView.as_view()),
+        login_required(views.generic_list), {'model': models.Company_Info,
+                                             'table_name': 'Company info'},
         name='company-list'),
     url(r'^company/(?P<pk>\d+)$',
         login_required(views.CompanyDetailView.as_view()),
