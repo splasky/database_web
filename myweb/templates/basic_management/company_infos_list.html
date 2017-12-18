@@ -33,7 +33,7 @@
         </tr>
         {% for object in objects %}
         <tr>
-        <td><a href="{{c.get_absolute_url}}" target="_blank">{{object.name}}</a></td>
+        <td><a href="{{object.get_absolute_url}}" target="_blank">{{object.name}}</a></td>
         <td>{{object.EIN}}</td>
         <td>{{object.introduction}}</td>
         {% if perms.basic_management.change_company_info %}
