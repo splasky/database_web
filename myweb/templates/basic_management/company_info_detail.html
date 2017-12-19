@@ -18,7 +18,13 @@
     {% else %}
         <p>There are no company infos.</p>
     {% endif %}
+    {% if perms.basic_management.change_company_info %}
     <a href="{% url 'company-update' company_detail.id %}" target="_blank">Update</a>
+    {% endif %}
+    {% if perms.basic_management.delete_company_info %}
     <a href="{% url 'company-delete' company_detail.id %}" target="_blank">Delete</a>
+    {% endif %}
+    {% if perms.basic_management.add_company_info %}
     <a href="{% url 'company-create' %}" target="_blank">Create company info</a>
+    {% endif %}
 {% endblock %}

@@ -16,7 +16,13 @@
     {% else %}
         <p>No detail of client.</p>
     {% endif %}
+    {% if perms.basic_management.change_client_info %}
     <a href="{% url 'client_info-update' object.id %}" target="_blank">Update</a>
+    {% endif %}
+    {% if perms.basic_management.delete_client_info %}
     <a href="{% url 'client_info-delete' object.id %}" target="_blank">Delete</a>
+    {% endif %}
+    {% if perms.basic_management.add_client_info %}
     <a href="{% url 'client_info-create' %}" target="_blank">Create new client</a>
+    {% endif %}
 {% endblock %}

@@ -15,7 +15,13 @@
     {% else %}
         <p>No detail of product.</p>
     {% endif %}
+    {% if perms.basic_management.change_product_information %}
     <a href="{% url 'product_information-update' object.id %}" target="_blank">Update</a>
+    {% endif %}
+    {% if perms.basic_management.delete_product_information %}
     <a href="{% url 'product_information-delete' object.id %}" target="_blank">Delete</a>
+    {% endif %}
+    {% if perms.basic_management.add_product_information %}
     <a href="{% url 'product_information-create' %}" target="_blank">Create new product</a>
+    {% endif %}
 {% endblock %}
