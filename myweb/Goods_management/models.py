@@ -25,9 +25,10 @@ class Master(models.Model):
         verbose_name='處理人員',)
 
     contact_person = models.CharField('聯絡人', max_length=16)
-    contact_person_phone=models.IntegerField('聯絡電話',)
-    remarks=models.TextField('備註',max_length=200,blank=True, null=True)
+    contact_person_phone = models.IntegerField('聯絡電話',)
+    remarks = models.TextField('備註', max_length=200, blank=True, null=True)
     address = models.CharField('地址', max_length=200)
+
 
 class Detail(models.Model):
     # 分類
