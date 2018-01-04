@@ -19,7 +19,13 @@
     {% else %}
         <p>No detail of manufacturer.</p>
     {% endif %}
+    {% if perms.basic_management.change_manufacturer_information %}
     <a href="{% url 'manufacturer_information-update' object.id %}" target="_blank">Update</a>
+    {% endif %}
+    {% if perms.basic_management.delete_manufacturer_information %}
     <a href="{% url 'manufacturer_information-delete' object.id %}" target="_blank">Delete</a>
+    {% endif %}
+    {% if perms.basic_management.add_manufacturer_information %}
     <a href="{% url 'manufacturer_information-create' %}" target="_blank">Create new manufacturer</a>
+    {% endif %}
 {% endblock %}
