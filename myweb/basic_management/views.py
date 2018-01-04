@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-07 16:19:11
+# Last modified: 2017-12-15 14:58:41
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -9,11 +9,16 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import template
+from django import forms
+from django.forms import extras
 from templates import basic_management
 from basic_management import models
 from django.views.generic.list import ListView
 from django import template
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+import datetime
 
 
 @login_required
@@ -38,6 +43,11 @@ def generic_detail(request, pk, model, table_name=''):
                   locals())
 
 
+
+
+
+
+
 # class searchview(generic.ListView):
 #     model = Employee_Info
 #     template_name = 'basic_management/employee_info_search.html'
@@ -50,16 +60,6 @@ def generic_detail(request, pk, model, table_name=''):
 #         return context
 
 # =======Company=======================================
-class CompanyInfoListView(generic.ListView):
-    model = models.Company_Info
-    context_object_name = 'CompanyInfoList'
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super(CompanyInfoListView, self).get_context_data(**kwargs)
-        context['table_name'] = 'Company info'
-        return context
-
 
 class CompanyDetailView(generic.DetailView):
     model = models.Company_Info
@@ -71,10 +71,11 @@ class CompanyDetailView(generic.DetailView):
         return context
 
 
-class CompanyInfoCreate(CreateView):
+class CompanyInfoCreate(PermissionRequiredMixin, CreateView):
     model = models.Company_Info
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.add_company_info'
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoCreate, self).get_context_data(**kwargs)
@@ -82,10 +83,11 @@ class CompanyInfoCreate(CreateView):
         return context
 
 
-class CompanyInfoUpdate(UpdateView):
+class CompanyInfoUpdate(PermissionRequiredMixin, UpdateView):
     model = models.Company_Info
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.change_company_info'
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoUpdate, self).get_context_data(**kwargs)
@@ -93,11 +95,12 @@ class CompanyInfoUpdate(UpdateView):
         return context
 
 
-class CompanyInfoDelete(DeleteView):
+class CompanyInfoDelete(PermissionRequiredMixin, DeleteView):
     model = models.Company_Info
     fields = ['name']
     template_name = 'generic_confirm_delete.html'
     success_url = reverse_lazy('company-list')
+    permission_required = 'basic_management.delete_company_info'
 
     def get_context_data(self, **kwargs):
         context = super(CompanyInfoDelete, self).get_context_data(**kwargs)
@@ -143,10 +146,13 @@ def employee_search(request):
         return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
-class EmployeeInfoCreate(CreateView):
+
+class EmployeeInfoCreate(PermissionRequiredMixin, CreateView):
+
     model = models.Employee_Info
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.add_employee_info'
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeInfoCreate, self).get_context_data(**kwargs)
@@ -154,10 +160,11 @@ class EmployeeInfoCreate(CreateView):
         return context
 
 
-class EmployeeInfoUpdate(UpdateView):
+class EmployeeInfoUpdate(PermissionRequiredMixin, UpdateView):
     model = models.Employee_Info
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.change_employee_info'
 
     def get_context_data(self, **kwargs):
         context = super(EmployeeInfoUpdate, self).get_context_data(**kwargs)
@@ -165,10 +172,11 @@ class EmployeeInfoUpdate(UpdateView):
         return context
 
 
-class EmployeeInfoDelete(DeleteView):
+class EmployeeInfoDelete(PermissionRequiredMixin, DeleteView):
     model = models.Employee_Info
     fields = ['name']
     success_url = reverse_lazy('Employee-list')
+    permission_required = 'basic_management.delete_employee_info'
 
     template_name = 'generic_confirm_delete.html'
 
@@ -194,10 +202,25 @@ def Client_search(request):
         return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
 
 
-class ClientInfoCreate(CreateView):
+class ClientInfoForm(forms.ModelForm):
+
+    current = datetime.datetime.now()
+    birthday = forms.DateField(
+        widget=forms.extras.SelectDateWidget(
+            years=range(current.year - 150, current.year + 1)
+        )
+    )
+
+    class Meta:
+        model = models.Client_Info
+        fields = '__all__'
+
+
+class ClientInfoCreate(PermissionRequiredMixin, CreateView):
     model = models.Client_Info
-    fields = '__all__'
     template_name = 'generic_form.html'
+    form_class = ClientInfoForm
+    permission_required = 'basic_management.add_client_info'
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoCreate, self).get_context_data(**kwargs)
@@ -205,10 +228,9 @@ class ClientInfoCreate(CreateView):
         return context
 
 
-class ClientInfoUpdate(UpdateView):
-    model = models.Client_Info
-    fields = '__all__'
-    template_name = 'generic_form.html'
+class ClientInfoUpdate(ClientInfoCreate, UpdateView):
+
+    permission_required = 'basic_management.change_client_info'
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoUpdate, self).get_context_data(**kwargs)
@@ -216,17 +238,18 @@ class ClientInfoUpdate(UpdateView):
         return context
 
 
-class ClientInfoDelete(DeleteView):
+class ClientInfoDelete(PermissionRequiredMixin, DeleteView):
     model = models.Client_Info
     fields = ['name']
     success_url = reverse_lazy('client_info-list')
-
+    permission_required = 'basic_management.delete_client_info'
     template_name = 'generic_confirm_delete.html'
 
     def get_context_data(self, **kwargs):
         context = super(ClientInfoDelete, self).get_context_data(**kwargs)
         context['table_name'] = 'Client info'
         return context
+
 
 # =======Product=======================================
 
@@ -253,10 +276,11 @@ def product_search(request):
         return render(request, 'basic_management/product_Informations_search.html', {'Product_list': Product_list})
 
 
-class ProductInformationCreate(CreateView):
+class ProductInformationCreate(PermissionRequiredMixin, CreateView):
     model = models.Product_Information
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.add_product_information'
 
     def get_context_data(self, **kwargs):
         context = super(ProductInformationCreate,
@@ -265,10 +289,11 @@ class ProductInformationCreate(CreateView):
         return context
 
 
-class ProductInformationUpdate(UpdateView):
+class ProductInformationUpdate(PermissionRequiredMixin, UpdateView):
     model = models.Product_Information
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.change_product_information'
 
     def get_context_data(self, **kwargs):
         context = super(ProductInformationUpdate,
@@ -277,10 +302,11 @@ class ProductInformationUpdate(UpdateView):
         return context
 
 
-class ProductInformationDelete(DeleteView):
+class ProductInformationDelete(PermissionRequiredMixin, DeleteView):
     model = models.Product_Information
     fields = ['name']
     success_url = reverse_lazy('product_information-list')
+    permission_required = 'basic_management.delete_product_information'
 
     template_name = 'generic_confirm_delete.html'
 
@@ -305,10 +331,11 @@ def Categories_search(request):
         return render(request, 'basic_management/Categories_search.html', {'Categories_list': Categories_list})
 
 
-class CategoriesCreate(CreateView):
+class CategoriesCreate(PermissionRequiredMixin, CreateView):
     model = models.Categorie
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.add_categorie'
 
     def get_context_data(self, **kwargs):
         context = super(CategoriesCreate, self).get_context_data(**kwargs)
@@ -316,10 +343,11 @@ class CategoriesCreate(CreateView):
         return context
 
 
-class CategoriesUpdate(UpdateView):
+class CategoriesUpdate(PermissionRequiredMixin, UpdateView):
     model = models.Categorie
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.change_categorie'
 
     def get_context_data(self, **kwargs):
         context = super(CategoriesUpdate, self).get_context_data(**kwargs)
@@ -327,12 +355,12 @@ class CategoriesUpdate(UpdateView):
         return context
 
 
-class CategorieDelete(DeleteView):
+class CategorieDelete(PermissionRequiredMixin, DeleteView):
     model = models.Categorie
     fields = ['name']
     success_url = reverse_lazy('categories-list')
-
     template_name = 'generic_confirm_delete.html'
+    permission_required = 'basic_management.delete_categorie'
 
     def get_context_data(self, **kwargs):
         context = super(CategorieDelete, self).get_context_data(**kwargs)
@@ -361,10 +389,31 @@ def Manufacturer_search(request):
         return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
 
 
-class ManufacturerInformationCreate(CreateView):
+def Manufacturer_search(request):
+    Manufacturer_Info = models.Manufacturer_Information
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                name__contains=name)
+        if key == '2':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                phonenumber__contains=name)
+        if key == '3':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                person_in_charge__contains=name)
+        if key == '4':
+            Manufacturer_list = Manufacturer_Info.objects.filter(
+                Total_capital__contains=name)
+        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
+
+
+class ManufacturerInformationCreate(PermissionRequiredMixin, CreateView):
     model = models.Manufacturer_Information
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.add_manufacturer_information'
 
     def get_context_data(self, **kwargs):
         context = super(ManufacturerInformationCreate,
@@ -373,10 +422,11 @@ class ManufacturerInformationCreate(CreateView):
         return context
 
 
-class ManufacturerInformationUpdate(UpdateView):
+class ManufacturerInformationUpdate(PermissionRequiredMixin, UpdateView):
     model = models.Manufacturer_Information
     fields = '__all__'
     template_name = 'generic_form.html'
+    permission_required = 'basic_management.change_manufacturer_information'
 
     def get_context_data(self, **kwargs):
         context = super(ManufacturerInformationUpdate,
@@ -385,11 +435,11 @@ class ManufacturerInformationUpdate(UpdateView):
         return context
 
 
-class ManufacturerInformationDelete(DeleteView):
+class ManufacturerInformationDelete(PermissionRequiredMixin, DeleteView):
     model = models.Manufacturer_Information
     fields = ['name']
     success_url = reverse_lazy('manufacturer_information-list')
-
+    permission_required = 'basic_management.delete_manufacturer_information'
     template_name = 'generic_confirm_delete.html'
 
     def get_context_data(self, **kwargs):
@@ -397,3 +447,17 @@ class ManufacturerInformationDelete(DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Manufacturer information info'
         return context
+
+
+def Client_search(request):
+    client_Info = models.Client_Info
+    name = request.GET.get('name')
+    if 'key' in request.GET and request.GET['key'] != '':
+        key = request.GET.get('key')
+        if key == '1':
+            client_list = client_Info.objects.filter(name__contains=name)
+        if key == '2':
+            client_list = client_Info.objects.filter(
+                phonenumber__contains=name)
+
+        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

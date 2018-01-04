@@ -3,7 +3,9 @@
 {% block title %}List company info{% endblock %} 
 
 {% block create_button %}
+{% if perms.basic_management.add_product_information %}
 <a href="{% url 'product_information-create' %}" target="_blank">Create product information</a>
+{% endif %}
 {% endblock %} 
 
 {% block table %}
@@ -28,8 +30,6 @@
         <th>Product height</th>
         <th>Product weight</th>
         <th>Product price</th>
-        <th>Update</th>
-        <th>Delete</th>
     </tr>
     {% for obj in objects %}
     <tr>
@@ -39,12 +39,16 @@
         <td>{{obj.height}}</td>
         <td>{{obj.weight}}</td>
         <td>{{obj.price}}</td>
+        {% if perms.basic_management.change_product_information %}
         <td>
             <a href="{% url 'product_information-update' pk=obj.id %}" target="_blank">Update</a>
         </td>
+        {% endif %}
+        {% if perms.basic_management.delete_product_information %}
         <td>
             <a href="{% url 'product_information-delete' pk=obj.id %}" target="_blank">Delete</a>
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

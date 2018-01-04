@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-07 16:37:09
+# Last modified: 2017-12-11 22:14:57
 from django.db import models
 from django.urls import reverse
 from m_models.models import AuthUser
@@ -44,8 +44,14 @@ class Employee_Info(models.Model):
     gender = models.CharField('性別', max_length=6, choices=EMP_gender)
 
     birthday = models.DateField('生日', )
-    comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING,verbose_name='所屬公司',)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING,verbose_name='帳號',blank=True,null=True)
+
+    comp_id = models.ForeignKey(
+        Company_Info,
+        models.DO_NOTHING,
+        verbose_name='所屬公司',
+    )
+    user = models.ForeignKey(
+        AuthUser, models.DO_NOTHING, verbose_name='帳號', blank=True, null=True)
 
     class Mate:
         db_table = 'Employee_Info'

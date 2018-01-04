@@ -1,22 +1,22 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 17:02:02
+# Last modified: 2017-12-15 15:00:33
 
 """myweb URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
+The `urlpatterns` list routes URLs to views. For more information please see: 2017-12-11 22:15:19
+    https: 2017-12-11 22:15:19
+Examples: 2017-12-11 22:15:19
 Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+    1. Add an import: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    1. Add an import: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+    1. Import the include() function: 2017-12-11 22:15:19
+    2. Add a URL to urlpatterns: 2017-12-11 22:15:19
 """
 
 # from framework
@@ -63,7 +63,8 @@ urlpatterns += [
         login_required(views.CompanyInfoDelete.as_view()),
         name='company-delete'),
     url(r'^company/$',
-        login_required(views.CompanyInfoListView.as_view()),
+        login_required(views.generic_list), {'model': models.Company_Info,
+                                             'table_name': 'Company info'},
         name='company-list'),
     url(r'^company/(?P<pk>\d+)$',
         login_required(views.CompanyDetailView.as_view()),
