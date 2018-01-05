@@ -18,6 +18,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
@@ -86,7 +87,11 @@
                 x.className = x.className.replace(" w3-show", "");
             }
         }
-    </script> {% block CSS %}{% endblock %}
+    </script>
+    {% block CSS %}{% endblock %}
+    <script>
+    {% block javascript %}{% endblock %}
+    </script>
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 
@@ -135,7 +140,7 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-            <a class="dropdown-item" href="#">訂貨維護</a>
+            <a class="dropdown-item" href="{% url 'order_info-list' %}">訂貨維護</a>
             <a class="dropdown-item" href="#">出貨維護</a>
             <a class="dropdown-item" href="#">退貨處理</a>
             <div class="dropdown-divider"></div>
