@@ -1,0 +1,36 @@
+{% extends 'generic_list_base.html' %}
+{% block title %}List order info{% endblock %}
+{% block create_button %}
+{% if perms.sales_management.add_order_info %}
+<a href="{% url 'order_info-create' %}" target="_blank">Create order info</a>
+{% endif %}
+{% endblock %}
+
+{% block table %}
+    <table>
+        <tr>
+        <th>Client id</th>
+        <th>Invoice number</th>
+        <th>Date</th>
+        {% if perms.basic_management.change_order_info %}
+        <th>Update</th>
+        {% endif %}
+        {% if perms.basic_management.delete_order_info %}
+        <th>Delete</th>
+        {% endif %}
+        </tr>
+        {% for object in objects %}
+        <tr>
+        <td><a href="{{object.get_absolute_url}}" target="_blank">{{object.client_id}}</a></td>
+        <td>{{object.invoice_number}}</td>
+        <td>{{object.date}}</td>
+        {% if perms.sale_management.change_order_info %}
+        <td><a href="{% url 'order_info-update' pk=object.id %}" target="_blank">Update</a></td>
+        {% endif %}
+        {% if perms.sales_management.delete_order_info %}
+        <td><a href="{% url 'order_info-delete' pk=object.id %}" target="_blank">Delete</a></td>
+        {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
