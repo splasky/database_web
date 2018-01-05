@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories{% endblock %} 
+{% block CSS %}
+<script type="text/javascript">
+	function count(x){
+		
+	}
+
+</script>
+{% endblock %}
+
+{% block content %}
+  <form action="{% url 'test'  %}" method="get">
+      {% csrf_token %}
+      123
+      <select name="key">
+      	{% for i in employee_list %}
+        <option value="{{i.id}}">{{i.name}}</option>
+        {% endfor %}
+      </select> 
+        <input type="text" name="name" id='price' placeholder="輸入">
+        <input type="text" name="name" id='unit' placeholder="輸入">
+        <input type="text" name="name" id='amount' placeholder="輸入">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+{% endblock %}
