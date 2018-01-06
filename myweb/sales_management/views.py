@@ -6,6 +6,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django import forms
 from django.forms import extras
@@ -17,7 +18,7 @@ from sales_management.models import Order_Info, Order_Detail
 from basic_management.models import Product_Information, Client_Info
 
 
-def create_order_form_submit(request):
+def order_form_submit(request):
     print(len(request.POST))
     print(request.POST.getlist('product_name[]'))
     print(request.POST.getlist('price[]'))
@@ -37,7 +38,7 @@ def create_order_form_submit(request):
     return JsonResponse(test)
 
 
-class create_order_form(forms.Form):
+class order_form(forms.Form):
     current = datetime.datetime.now()
 
     client = forms.ChoiceField(
@@ -51,13 +52,9 @@ class create_order_form(forms.Form):
     total = forms.DecimalField(label='合計', max_digits=20, decimal_places=4)
 
 
-class update_order_form(create_order_form):
-    order_id = forms.CharField(label='訂單編號')
-
-
 def order_create(request):
     if request.method == 'POST':
-        return_form = create_order_form(request.POST)
+        return_form = order_form(request.POST)
         if return_form.is_valid():
             client = Client_Info.objects.get(
                 id=return_form.cleaned_data['client'])
@@ -90,7 +87,7 @@ def order_create(request):
 
             return HttpResponseRedirect(reverse_lazy('order_info-list'))
     else:
-        form = create_order_form()
+        form = order_form()
         table_name = "Order create"
         product_list = Product_Information.objects.order_by('name')
         return render(request, 'sales_management/order_infos_create.html', locals())
