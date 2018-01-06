@@ -20,7 +20,7 @@ urlpatterns = [
         login_required(views.order_update),
         name='order_info-update'),
     url(r'order/(?P<pk>\d+)/delete/$',
-        login_required(views.order_delete),
+        login_required(views.OrderDelete.as_view()),
         name='order_info-delete'),
     url(r'^order/$',
         login_required(generic_list),
@@ -28,10 +28,9 @@ urlpatterns = [
         name='order_info-list'),
     # url(r'^order/search/$',
     #     login_required(views.employee_search),
-    #     name='employee-search'),
-    url(r'^order/(?P<pk>\d+)$',
-        login_required(views.order_info_detail),
-        name='order_info-detail'),
-    url(r'^create_order_ajax/$', views.create_order_form_submit, name='create_order-ajax'),
+    url(r'order_detail/(?P<pk>\d+)/delete/$',
+        login_required(views.OrderDetailDelete.as_view()),
+        name='order_detail-delete'),#     name='employee-search'),
+    url(r'^create_order_ajax/$', views.order_form_submit, name='create_order-ajax'),
 ]
 
