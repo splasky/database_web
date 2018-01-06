@@ -94,12 +94,73 @@ def order_create(request):
 
 
 def order_update(request, pk):
-    pass
+    if request.method == 'POST':
+        return_form = order_form(request.POST)
+        if return_form.is_valid():
+            Order_Info.objects.filter(pk=pk).update(
+                client_id=Client_Info.objects.get(
+                    id=return_form.cleaned_data['client']),
+                estimated_shipping_date=return_form.cleaned_data['estimated_shipping_date'],
+                delivery_address=return_form.cleaned_data['delivery_address'],
+                total=return_form.cleaned_data['total']
+            )
+
+            len_details = len(request.POST.getlist('key[]'))
+            for i in range(len_details):
+                key = request.POST.getlist('key[]')[i]
+                price = request.POST.getlist('price[]')[i]
+                amount = request.POST.getlist('amount[]')[i]
+                subtotal = request.POST.getlist('subtotal[]')[i]
+                remark = request.POST.getlist('remark[]')[i]
+                detail_id = request.POST.getlist('id[]')[i]
+                print(detail_id)
+                product = Product_Information.objects.get(id=key)
+                order_detail = Order_Detail.objects.filter(pk=detail_id).update(
+                    product_id=product,
+                    price=price,
+                    num_of_product=amount,
+                    subtotal=subtotal,
+                    remark=remark
+                )
+
+        return HttpResponseRedirect(reverse_lazy('order_info-list'))
+    else:
+        order_info = Order_Info.objects.get(id=pk)
+        form = order_form(initial={
+            'client': order_info.client_id,
+            'estimated_shipping_date': order_info.estimated_shipping_date,
+            'delivery_address': order_info.delivery_address,
+            'total': order_info.total
+        })
+        table_name = "Order update"
+        product_list = Product_Information.objects.order_by('name')
+
+        order_details = Order_Detail.objects.filter(order_id=pk)
+        return render(request, 'sales_management/order_infos_update.html', locals())
 
 
-def order_delete(request, pk):
-    pass
+class OrderDelete(PermissionRequiredMixin, DeleteView):
+    model = Order_Info
+    template_name = 'generic_confirm_delete.html'
+    success_url = reverse_lazy('order_info-list')
+    permission_required = 'sales_management.delete_order_info'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Order info'
+        return context
 
 
-def order_info_detail(request, pk):
-    pass
+class OrderDetailDelete(PermissionRequiredMixin, DeleteView):
+    model = Order_Detail
+    template_name = 'generic_confirm_delete.html'
+    permission_required = 'sales_management.delete_order_detail'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailDelete, self).get_context_data(**kwargs)
+        context['table_name'] = 'Order detail'
+        return context
+
+    def get_success_url(self):
+        order = self.object.order_id
+        return reverse_lazy('order_info-update', kwargs={'pk': order.id})
