@@ -20,7 +20,7 @@
             <td>
                 <select name="key[]">
                     {% for i in product_list %}
-                    <option value="{{i.id}}" {% if i.id == j.product_id %} selected{% endif %}>{{i.name}}</option>
+                    <option value="{{i.id}}"{% if i.id == j.product_id.id %} selected{% endif %}>{{i.name}}</option>
                     {% endfor %}
                 </select>
             </td>
