@@ -24,7 +24,7 @@ class Order_Info(models.Model):
         db_table = 'Order_Info'
 
     def get_absolute_url(self):
-        return reverse('order_info-detail', args=[str(self.id)])
+        return reverse('order_info-update', args=[str(self.id)])
 
     def __str__(self):
         return '訂貨單號:{}'.format(self.id)
@@ -87,7 +87,6 @@ class Order_Detail(Details_base):
 
     class Mate:
         db_table = 'Order_Details'
-
 
 class Sales_Detail(Details_base):
 
