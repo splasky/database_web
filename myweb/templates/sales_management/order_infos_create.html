@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block javascript %}
 <!-- <script type="text/javascript"> -->
-var intId=0;
+var intId=1;
 function add_new_data() {
     var num = document.getElementById("order_details_table").rows.length;
     intId=num;
@@ -46,7 +46,7 @@ function add_new_data() {
 
 
 function remove_data() {
-
+    intId--
     var num = document.getElementById("order_details_table").rows.length;
     if(num > 2)
     {
@@ -54,6 +54,7 @@ function remove_data() {
      document.getElementById("order_details_table").deleteRow(-1);
     }
     total_price();
+
 }
 
 $.ajaxSetup({
