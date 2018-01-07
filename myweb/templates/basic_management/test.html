@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories{% endblock %} 
+{% block CSS %}
+<script type="text/javascript">
+	var intId=0;
+	function c(Id){
+			// var price=$(this).next().val();
+	    	// var price=$(this).siblings('#price').val();
+	    	// var num =$(this).siblings('#num').val();
+	    	// var num=$(this).prev();
+	    	var price =$('tr#'+Id).find('#price').val();
+	    	var num = $('tr#'+Id).find('.num').val();
+	    	var amount =price*num;
+	    	
+	    	// $('tr.fieldwrapper').find('.amount').val(amount);
+	    	$('tr#'+Id).find('.amount').val(amount);
+	    	total_price();
+	    }
+	function total_price(){
+		var total_price=0
+		for (i=1;i<=intId;i++){
+		if ($('tr#'+i).length!=0){
+		var price=$('tr#'+i).find('.amount').val();
+		total_price=parseInt(total_price)+parseInt(price);
+		}
+
+		}
+		$('#total_price').val(total_price);
+	}
+
+	$(document).ready(function() {
+		
+	    $("#add").click(function() {
+	    		// var lastField = $("#buildyourform div:last");
+	      //   var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+	        intId++;
+	        var fieldWrapper = $("<tr class=\"fieldwrapper\" id=" + intId + "/>");
+	        fieldWrapper.data("idx", intId);
+	        var fName = $("<td><input type=\"text\" class=\"fieldname\" /> </td>");
+	        var fName1 = $("<td><input type=\"text\" class=\"fieldname\"  /> </td>");
+	        var num = $("<td><input type=\"text\" class=\"num\"  onchange=\"c("+ intId+")\" /> </td>");
+	        var price = $("<td><input type=\"text\" id=\"price\"  onchange=\"c("+ intId+")\" /> </td>");
+	        var amount = $("<td><input type=\"text\" class=\"amount\" onchange=\"total_price()\" /> </td>");
+	        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
+	        removeButton.click(function() {
+	            $(this).parent().remove();
+	            
+	            total_price();
+	        });
+	        fieldWrapper.append(fName);
+	        fieldWrapper.append(fName1);
+	        fieldWrapper.append(num);
+	        fieldWrapper.append(price);
+	        fieldWrapper.append(amount);
+	        
+	        fieldWrapper.append(removeButton);
+	        
+	        $("#buildyourform table").append(fieldWrapper);
+	    });
+
+	    	
+
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<form id="buildyourform">
+		<legend>Build your own form!</legend>
+		<table class="table table-bordered " >
+	<tr>
+			
+			<th>品名</th>
+			<th>單位</th>
+			<th>數量</th>
+			<th>單價</th>
+			<th>金額</th>
+			<th>備註</th>
+    	</tr>
+    	</table>
+	</form>
+	
+	<input type="button" value="Add a field" class="add" id="add" />
+
+  <form action="{% url 'test'  %}" method="get">
+      {% csrf_token %}
+      123
+      <select name="key">
+      	{% for i in employee_list %}
+        <option value="{{i.id}}">{{i.name}}</option>
+        {% endfor %}
+      </select> 
+        
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <input type="text" name="" id="total_price">
+{% endblock %}

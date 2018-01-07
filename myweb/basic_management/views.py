@@ -21,6 +21,15 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 import datetime
 
 
+def test(request):
+    Employee_Info = models.Employee_Info
+    employee_list = Employee_Info.objects.order_by('name')
+    return render(request, 'basic_management/test.html', {'employee_list': employee_list})
+
+# def test2(request):
+
+
+
 @login_required
 def generic_list(request, model, table_name=''):
     objects = model.objects.all()
@@ -43,6 +52,7 @@ def generic_detail(request, pk, model, table_name=''):
                   locals())
 
 # =======Company=======================================
+
 
 class CompanyDetailView(generic.DetailView):
     model = models.Company_Info
@@ -114,7 +124,6 @@ def employee_search(request):
         employee_list = employee_list.filter(name__contains=name).filter(comp_id__name__contains=comp_id).filter(
             phonenumber__contains=phone).filter(user__username__contains=user)
     return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
-
 
 
 class EmployeeInfoCreate(PermissionRequiredMixin, CreateView):

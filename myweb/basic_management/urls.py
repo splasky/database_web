@@ -48,6 +48,9 @@ urlpatterns = [
         login_required(views.generic_detail),
         {'model': models.Employee_Info, 'table_name': 'Employee_Info'},
         name='employee-detail'),
+    url(r'^test/',
+        login_required(views.test),
+        name='test'),
 ]
 
 urlpatterns += [
