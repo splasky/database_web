@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'basic_management',
     'm_models',
+    'Goods_management',
     'sales_management',
     'grappelli',
     'django.contrib.admin',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -138,8 +140,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_DIRS={
-    os.path.join(BASE_DIR,'static'),
+STATIC_DIRS = {
+    os.path.join(BASE_DIR, 'static'),
 }
 
 STATIC_ROOT = 'static'

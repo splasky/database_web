@@ -13,12 +13,15 @@
 {% block table %}
 		<form action="{% url 'client-search'  %}" method="get">
 			{% csrf_token %}
-			<select name="key">
+			<!-- <select name="key">
 				<option value="1">客戶名稱</option>
 				<option value="2">電話</option>
 				
-			</select>	
+			</select>	 -->
+            客戶名稱
 				<input type="text" name="name" id='name' placeholder="輸入">
+                電話
+                <input type="text" name="phone" id='name' placeholder="輸入">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
 

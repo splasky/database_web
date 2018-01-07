@@ -18,6 +18,8 @@ class AuthGroup(models.Model):
         managed = False
         db_table = 'auth_group'
 
+    def __str__(self):
+        return self.name
 
 class AuthGroupPermissions(models.Model):
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
@@ -103,6 +105,9 @@ class DjangoContentType(models.Model):
         managed = False
         db_table = 'django_content_type'
         unique_together = (('app_label', 'model'),)
+
+    def __str__(self):
+        return self.app_label
 
 
 class DjangoMigrations(models.Model):

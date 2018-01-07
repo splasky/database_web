@@ -11,14 +11,17 @@
 {% block table %}
 <form action="{% url 'product_information-search'  %}" method="get">
       {% csrf_token %}
-      <select name="key">
-        <option value="1">產品名稱</option>
-        <option value="2">高度</option>
-        <option value="3">重量</option>
-        <option value="4">價錢</option>
-        <option value="5">商品分類</option>
-      </select> 
+  
+        產品名稱
         <input type="text" name="name" id='name' placeholder="輸入">
+        高度
+        <input type="text" name="height" id='name' placeholder="輸入">
+        重量
+        <input type="text" name="weight" id='name' placeholder="輸入">
+        價錢
+        <input type="text" name="price" id='name' placeholder="輸入">
+        商品分類
+        <input type="text" name="categories_id" id='name' placeholder="輸入">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
 

@@ -21,6 +21,15 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 import datetime
 
 
+def test(request):
+    Employee_Info = models.Employee_Info
+    employee_list = Employee_Info.objects.order_by('name')
+    return render(request, 'basic_management/test.html', {'employee_list': employee_list})
+
+# def test2(request):
+
+
+
 @login_required
 def generic_list(request, model, table_name=''):
     objects = model.objects.all()
@@ -42,39 +51,8 @@ def generic_detail(request, pk, model, table_name=''):
                       model.__name__.lower()),
                   locals())
 
-
-def employee_search(request):
-    Employee_Info = models.Employee_Info
-    name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            employee_list = Employee_Info.objects.filter(name__contains=name)
-        if key == '2':
-            employee_list = Employee_Info.objects.filter(
-                comp_id__name__contains=name)
-        if key == '3':
-            employee_list = Employee_Info.objects.filter(
-                user__username__contains=name)
-        if key == '4':
-            employee_list = Employee_Info.objects.filter(
-                phonenumber__contains=name)
-
-        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
-
-
-# class searchview(generic.ListView):
-#     model = Employee_Info
-#     template_name = 'basic_management/employee_info_search.html'
-#     context_object_name = 'employee_list'
-
-
-#     def get_context_data(self, **kwargs):
-#         context = super(searchview, self).get_context_data(**kwargs)
-#         context['employee_list'] = Employee_Info.objects.filter(name=pk)
-#         return context
-
 # =======Company=======================================
+
 
 class CompanyDetailView(generic.DetailView):
     model = models.Company_Info
@@ -126,42 +104,30 @@ class CompanyInfoDelete(PermissionRequiredMixin, DeleteView):
 def company_search(request):
     company_Info = models.Company_Info
     name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            company_list = company_Info.objects.filter(name__contains=name)
-        if key == '2':
-            company_list = company_Info.objects.filter(
-                person_in_charge__contains=name)
-        if key == '3':
-            company_list = company_Info.objects.filter(
-                phonenumbe__contains=name)
-
-        return render(request, 'basic_management/company_info_search.html', {'company_list': company_list})
+    person_in_charge = request.GET.get('person_in_charge')
+    phone = request.GET.get('phone')
+    company_list = company_Info.objects.filter(
+        person_in_charge__contains=person_in_charge).filter(name__contains=name).filter(phonenumber__contains=phone)
+    return render(request, 'basic_management/company_info_search.html', {'company_list': company_list})
 # =======employee=======================================
 
 
 def employee_search(request):
     Employee_Info = models.Employee_Info
     name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            employee_list = Employee_Info.objects.filter(name__contains=name)
-        if key == '2':
-            employee_list = Employee_Info.objects.filter(
-                comp_id__name__contains=name)
-        if key == '3':
-            employee_list = Employee_Info.objects.filter(
-                user__username__contains=name)
-        if key == '4':
-            employee_list = Employee_Info.objects.filter(
-                phonenumber__contains=name)
-
-        return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
+    comp_id = request.GET.get('comp_id')
+    user = request.GET.get('user')
+    phone = request.GET.get('phone')
+    employee_list = Employee_Info.objects.filter(name__contains=name).filter(
+        comp_id__name__contains=comp_id).filter(phonenumber__contains=phone)
+    if 'user' in request.GET and request.GET['user'] != '':
+        employee_list = employee_list.filter(name__contains=name).filter(comp_id__name__contains=comp_id).filter(
+            phonenumber__contains=phone).filter(user__username__contains=user)
+    return render(request, 'basic_management/employee_info_search.html', {'employee_list': employee_list})
 
 
 class EmployeeInfoCreate(PermissionRequiredMixin, CreateView):
+
     model = models.Employee_Info
     fields = '__all__'
     template_name = 'generic_form.html'
@@ -204,15 +170,10 @@ class EmployeeInfoDelete(PermissionRequiredMixin, DeleteView):
 def Client_search(request):
     client_Info = models.Client_Info
     name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            client_list = client_Info.objects.filter(name__contains=name)
-        if key == '2':
-            client_list = client_Info.objects.filter(
-                phonenumber__contains=name)
-
-        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
+    phone = request.GET.get('phone')
+    client_list = client_Info.objects.filter(
+        name__contains=name).filter(phonenumber__contains=phone)
+    return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})
 
 
 class ClientInfoForm(forms.ModelForm):
@@ -270,23 +231,13 @@ class ClientInfoDelete(PermissionRequiredMixin, DeleteView):
 def product_search(request):
     Product_Info = models.Product_Information
     name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            Product_list = Product_Info.objects.filter(name__contains=name)
-        if key == '2':
-            Product_list = Product_Info.objects.filter(
-                height__contains=name)
-        if key == '3':
-            Product_list = Product_Info.objects.filter(
-                weight__contains=name)
-        if key == '4':
-            Product_list = Product_Info.objects.filter(
-                price__contains=name)
-        if key == '5':
-            Product_list = Product_Info.objects.filter(
-                categories_id__name__contains=name)
-        return render(request, 'basic_management/product_Informations_search.html', {'Product_list': Product_list})
+    height = request.GET.get('height')
+    weight = request.GET.get('weight')
+    price = request.GET.get('price')
+    categories_id = request.GET.get('categories_id')
+    Product_list = Product_Info.objects.filter(categories_id__name__contains=categories_id).filter(
+        price__contains=price).filter(weight__contains=weight).filter(height__contains=height).filter(name__contains=name)
+    return render(request, 'basic_management/product_Informations_search.html', {'Product_list': Product_list})
 
 
 class ProductInformationCreate(PermissionRequiredMixin, CreateView):
@@ -385,41 +336,12 @@ class CategorieDelete(PermissionRequiredMixin, DeleteView):
 def Manufacturer_search(request):
     Manufacturer_Info = models.Manufacturer_Information
     name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                name__contains=name)
-        if key == '2':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                phonenumber__contains=name)
-        if key == '3':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                person_in_charge__contains=name)
-        if key == '4':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                Total_capital__contains=name)
-        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
-
-
-def Manufacturer_search(request):
-    Manufacturer_Info = models.Manufacturer_Information
-    name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                name__contains=name)
-        if key == '2':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                phonenumber__contains=name)
-        if key == '3':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                person_in_charge__contains=name)
-        if key == '4':
-            Manufacturer_list = Manufacturer_Info.objects.filter(
-                Total_capital__contains=name)
-        return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
+    phone = request.GET.get('phone')
+    person_in_charge = request.GET.get('person_in_charge')
+    total = request.GET.get('total')
+    Manufacturer_list = Manufacturer_Info.objects.filter(Total_capital__contains=name).filter(
+        person_in_charge__contains=person_in_charge).filter(phonenumber__contains=phone).filter(name__contains=name)
+    return render(request, 'basic_management/Manufacturer_Informations_search.html', {'Manufacturer_list': Manufacturer_list})
 
 
 class ManufacturerInformationCreate(PermissionRequiredMixin, CreateView):
@@ -460,17 +382,3 @@ class ManufacturerInformationDelete(PermissionRequiredMixin, DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Manufacturer information info'
         return context
-
-
-def Client_search(request):
-    client_Info = models.Client_Info
-    name = request.GET.get('name')
-    if 'key' in request.GET and request.GET['key'] != '':
-        key = request.GET.get('key')
-        if key == '1':
-            client_list = client_Info.objects.filter(name__contains=name)
-        if key == '2':
-            client_list = client_Info.objects.filter(
-                phonenumber__contains=name)
-
-        return render(request, 'basic_management/client_info_list_search.html', {'client_list': client_list})

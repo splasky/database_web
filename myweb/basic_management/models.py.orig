@@ -1,0 +1,102 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2017-11-23 19:24:52
+from django.db import models
+
+
+class Company_Info(models.Model):
+    comp_name = models.CharField(max_length=100)
+    comp_address = models.CharField(max_length=200)
+    comp_phonenumber = models.CharField(max_length=200)
+    comp_EIN = models.CharField(max_length=50)
+    comp_person_in_charge = models.CharField(max_length=20)
+    comp_NUM_employee = models.IntegerField()
+    comp_email = models.EmailField(max_length=254)
+    comp_introduction = models.TextField(blank=True, null=True)
+
+    class Mate:
+<<<<<<< HEAD
+        db_table = 'company_info'
+
+
+class Employee_Info(models.Model):
+=======
+        db_table = 'Company_Info'
+
+
+class Employee_Info(models.Model):
+    M = 'male'
+    F = 'female'
+
+>>>>>>> 8e4dc09... change models
+    emp_name = models.CharField(max_length=100)
+    emp_address = models.CharField(max_length=200)
+    emp_email = models.EmailField(max_length=200, null=True)
+    emp_phonenumber = models.CharField(max_length=200)
+    EMP_gender = ((M, 'male'), (F, 'female'))
+    emp_gender = models.CharField(max_length=2, choices=EMP_gender)
+
+    emp_birthday = models.DateField()
+    comp_id = models.ForeignKey(Company_Info, models.DO_NOTHING)
+
+    class Mate:
+<<<<<<< HEAD
+        db_table = 'employee_info'
+
+
+class Client_Info(models.Model):
+=======
+        db_table = 'Employee_Info'
+
+
+class Client_Info(models.Model):
+    M = 'male'
+    F = 'female'
+
+>>>>>>> 8e4dc09... change models
+    client_name = models.CharField(max_length=100)
+    client_address = models.CharField(max_length=200)
+    client_email = models.EmailField(max_length=200, null=True)
+    client_phonenumber = models.CharField(max_length=200)
+    CLIENT_gender = ((M, 'male'), (F, 'female'))
+    client_gender = models.CharField(max_length=2, choices=CLIENT_gender)
+    client_birthday = models.DateField()
+
+    class Mate:
+<<<<<<< HEAD
+        db_table = 'client_info'
+=======
+        db_table = 'Client_Info'
+>>>>>>> 8e4dc09... change models
+
+
+class Categorie(models.Model):
+
+    """Merchandise Categories"""
+    Categorie_name = models.CharField(max_length=100)
+
+    class Mate:
+        db_table = 'categories'
+
+
+class Product_Information(models.Model):
+
+    """Product's information"""
+    Product_name = models.CharField(max_length=100)
+    Hight = models.FloatField()
+    Weight = models.FloatField()
+    Categories_id = models.ForeignKey(Categorie, on_delete=models.CASCADE)
+
+    class Mate:
+        db_table = 'product_information'
+
+
+class Manufacturer_Information(Company_Info):
+
+    """Manufacturer's information"""
+    Uniform_numbers = models.CharField(max_length=100)
+    Total_capital = models.IntegerField()
+
+    class Mate:
+        db_table = 'manufacturer information'

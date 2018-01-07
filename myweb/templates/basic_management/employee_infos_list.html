@@ -12,15 +12,22 @@
 {% block table %}
         <form action="{% url 'employee-search'  %}" method="get">
             {% csrf_token %}
-            <select name="key">
+           <!--  <select name="key">
                 <option value="1">員工名稱</option>
                 <option value="2">公司</option>
                 <option value="3">帳號</option>
                 <option value="4">電話</option>
 
                 
-            </select>   
+            </select>    -->
+                員工名稱
                 <input type="text" name="name" id='name' placeholder="輸入">
+                公司
+                <input type="text" name="comp_id" id='name' placeholder="輸入">
+                帳號
+                <input type="text" name="user" id='name' placeholder="輸入">
+                電話
+                <input type="text" name="phone" id='name' placeholder="輸入">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 
 
