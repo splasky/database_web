@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-15 15:01:11
+# Last modified: 2018-01-05 10:02:51
 
 # -*- coding: utf-8 -*-
 
@@ -30,14 +30,16 @@ from myweb.views import index, register
 from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
+from sales_management import views
+
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^basic_management/', include('basic_management.urls')),
+    url(r'^sales_management/', include('sales_management.urls')),
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
-
 ]

@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+{% block title %} {{ table_name }} {% endblock %} 
+{% block content %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <table id="order_details_table">
+        <tr>
+            <th>商品名稱</th>
+            <th>售價</th>
+            <th>數量</th>
+            <th>小計</th>
+            <th>備註</th>
+        </tr>
+        {% for j in order_details %}
+        <tr>
+            <td>
+                <select name="key[]">
+                    {% for i in product_list %}
+                    <option value="{{i.id}}"{% if i.id == j.product_id.id %} selected{% endif %}>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <input type="text" name="price[]" class="product_price" size=12 value="{{j.price}}">
+            </td>
+            <td>
+                <input type="text" name="amount[]" class="product_amount" size=12 value="{{j.num_of_product}}">
+            </td>
+            <td>
+                <input type="text" name="subtotal[]" class="product_subtotal" size=12 value="{{j.subtotal}}">
+            </td>
+            <td>
+                <input type="text" name="remark[]" size=12 value="{{j.remark}}">
+            </td>
+            {% if perms.sales_management.delete_order_info %}
+            <td>
+                <a href="{% url 'order_detail-delete' pk=j.id %}" target="_blank">Delete</a>
+            </td>
+            {% endif %}
+            <td>
+                <input type="hidden" name="id[]" value="{{ j.id }}">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Update"/>
+</form>
+{% if perms.sales_management.delete_order_info %}
+<a href="{% url 'order_info-delete' pk=pk %}" target="_blank">Delete</a>
+{% endif %} 
+{% endblock %}

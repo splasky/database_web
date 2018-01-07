@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-11-23 16:19:39
+# Last modified: 2018-01-03 20:49:40
 
 """
 Django settings for myweb project.
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'basic_management',
     'm_models',
     'Goods_management',
+    'sales_management',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
