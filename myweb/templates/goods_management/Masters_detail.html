@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Details of client{% endblock %}
+
+{% block content %}
+
+<h2>{{table_name}}</h2>
+
+    {% if object %}
+    <p><strong>廠商:</strong>{{ object.Manufacturer_Info }}</p>
+    <p><strong>填寫日期:</strong>{{ object.date }}</p>
+    <p><strong>處理人員:</strong>{{ object.staff }}</p>
+    <p><strong>聯絡人:</strong>{{ object.contact_person }}</p>
+    <p><strong>聯絡電話:</strong>{{ object.contact_person_phone }}</p>
+    <p><strong>備註:</strong>{{ object.remarks }}</p>
+    <p><strong>地址:</strong>{{ object.address }}</p>
+    <p><strong>進退貨狀態:</strong>{{ object.status }}</p>
+    
+    {% else %}
+        <p>No detail of client.</p>
+    {% endif %}
+    
+    {% if perms.basic_management.add_master %}
+    <a href="{% url 'Master_info-create' %}" target="_blank">Create new Purchase</a>
+    {% endif %}
+{% endblock %}

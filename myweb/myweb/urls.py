@@ -31,12 +31,17 @@ from django.contrib.auth.decorators import login_required
 # create by us
 from myweb.views import index, register
 
+from sales_management import views
+from Goods_management import views
+
+
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^basic_management/', include('basic_management.urls')),
     url(r'^sales_management/', include('sales_management.urls')),
+    url(r'^Goods_management/', include('Goods_management.urls')),
     url(r'^stock/', include('stock.urls')),
     url(r'^accounts/register/$', register, name='register'),
     url(r'^$', login_required(index), name='index'),

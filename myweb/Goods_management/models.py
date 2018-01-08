@@ -10,13 +10,15 @@ from basic_management.models import Categorie
 
 class Master(models.Model):
     # 廠商(名稱、地址、電話)
+    T = 'Purchase'
+    F = 'Returns'
     Manufacturer_Info = models.ForeignKey(
         Manufacturer_Information,
         models.DO_NOTHING,
         verbose_name='廠商',)
 
     # 時間
-    date = models.DateTimeField('進貨日期',)
+    date = models.DateTimeField('填寫日期',)
     # 經辦人# 驗收人
     # Applicant_staff# Acceptance_staff
     staff = models.ForeignKey(
@@ -28,6 +30,18 @@ class Master(models.Model):
     contact_person_phone = models.IntegerField('聯絡電話',)
     remarks = models.TextField('備註', max_length=200, blank=True, null=True)
     address = models.CharField('地址', max_length=200)
+    choice = ((T, '進貨'), (F, '退貨'))
+    status = models.CharField('進退貨狀態', max_length=16,
+                              choices=choice, blank=True)
+
+    class Mate:
+        db_table = 'Master_Info'
+
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular instance of the model.
+        """
+        return reverse('master-detail', args=[str(self.id)])
 
 
 class Detail(models.Model):
@@ -51,6 +65,12 @@ class Detail(models.Model):
     # 總金額
     total_amount = models.FloatField('總金額',)
 
+    class Mate:
+        db_table = 'Detail_Info'
+
+    def get_absolute_url(self):
+        return reverse('detail_info-update', args=[str(self.id)])
+
 
 class Purchase_Info(models.Model):
 
@@ -64,3 +84,9 @@ class Purchase_Info(models.Model):
         models.DO_NOTHING,
         verbose_name='單身',
     )
+
+    class Mate:
+        db_table = 'Purchase_Info'
+
+    def get_absolute_url(self):
+        return reverse('purchase_info-update', args=[str(self.id)])
