@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-04 16:48:30
+# Last modified: 2018-01-08 20:59:20
 
 # from framework
 from django.conf.urls import url, include
@@ -24,13 +24,9 @@ urlpatterns = [
         name='order_info-delete'),
     url(r'^order/$',
         login_required(generic_list),
-        {'app': 'sales_management', 'model': models.Order_Info, 'table_name': 'Order_Info'},
+        {'app': 'sales_management', 'model': models.Order_Info, 'table_name': 'Order info'},
         name='order_info-list'),
-    # url(r'^order/search/$',
-    #     login_required(views.employee_search),
     url(r'order_detail/(?P<pk>\d+)/delete/$',
         login_required(views.OrderDetailDelete.as_view()),
-        name='order_detail-delete'),#     name='employee-search'),
-    url(r'^create_order_ajax/$', views.order_form_submit, name='create_order-ajax'),
+        name='order_detail-delete'),
 ]
-

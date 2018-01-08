@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-08 18:42:40
+# Last modified: 2018-01-08 20:46:21
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -16,26 +16,6 @@ import random
 
 from sales_management.models import Order_Info, Order_Detail
 from basic_management.models import Product_Information, Client_Info
-
-
-def order_form_submit(request):
-    print(len(request.POST))
-    print(request.POST.getlist('product_name[]'))
-    print(request.POST.getlist('price[]'))
-    print(request.POST.getlist('amount[]'))
-    print(request.POST.getlist('subtotal[]'))
-    print(request.POST.getlist('remark[]'))
-    #  b = list(map(int, request.POST.getlist('b[]')))
-
-    is_ajax = False
-    if request.is_ajax():
-        is_ajax = True
-
-    test = {'POST': 'POST',
-            'array': [1, 2, 3, 4],
-            'is_ajax': is_ajax,
-            }
-    return JsonResponse(test)
 
 
 class order_form(forms.Form):

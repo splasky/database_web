@@ -18,32 +18,31 @@ function add_new_data() {
     Td.innerHTML='<input name="remark[]" type="text" size="12">';
 }
 
-    function c(Id){
-            // var price=$(this).next().val();
-            // var price=$(this).siblings('#price').val();
-            // var num =$(this).siblings('#num').val();
-            // var num=$(this).prev();
-            var price =$('tr').find('#price'+Id).val();
-            var num = $('tr').find('#amount'+Id).val();
-            var amount =price*num;
-            
-            // $('tr.fieldwrapper').find('.amount').val(amount);
-            $('tr').find('#subtotal'+Id).val(amount);
-            total_price();
-        }
-    function total_price(){
-        var total_price=0
-        for (i=1;i<=intId;i++){
+function c(Id){
+        // var price=$(this).next().val();
+        // var price=$(this).siblings('#price').val();
+        // var num =$(this).siblings('#num').val();
+        // var num=$(this).prev();
+        var price =$('tr').find('#price'+Id).val();
+        var num = $('tr').find('#amount'+Id).val();
+        var amount =price*num;
         
-        var price=$('#subtotal'+i).val();
-        total_price=parseInt(total_price)+parseInt(price);
-        }
+        // $('tr.fieldwrapper').find('.amount').val(amount);
+        $('tr').find('#subtotal'+Id).val(amount);
+        total_price();
+}
 
-        
-        $('#id_total').val(total_price);
+function total_price(){
+    var total_price=0
+    for (i=1;i<=intId;i++){
+    
+    var price=$('#subtotal'+i).val();
+    total_price=parseInt(total_price)+parseInt(price);
     }
 
-
+    
+    $('#id_total').val(total_price);
+}
 
 function remove_data() {
     intId--
@@ -54,58 +53,12 @@ function remove_data() {
      document.getElementById("order_details_table").deleteRow(-1);
     }
     total_price();
-
 }
 
 $.ajaxSetup({
     data:{
         csrfmiddlewaretoken:'{{ csrf_token }}'
     },
-});
-
-$(document).ready(function(){
-    $("#ajax_post_test").submit(function(){
-
-        var table_product_name = [];
-        var table_price=[]
-        var table_amount=[]
-        var table_subtotal=[]
-        var table_remark=[]
-
-        var len = document.getElementById("order_details_table").rows.length;
-        console.log(len)
-        var table = document.getElementById("order_details_table");
-
-        for(var i =0;i<len-1;i++){
-            table_product_name.push(table.querySelectorAll('[name="product_name[]"]')[i].value)
-            table_price.push(table.querySelectorAll('[name="price[]"]')[i].value)
-            table_amount.push(table.querySelectorAll('[name="amount[]"]')[i].value)
-            table_subtotal.push(table.querySelectorAll('[name="subtotal[]"]')[i].value)
-            table_remark.push(table.querySelectorAll('[name="remark[]"]')[i].value)
-        }
-
-        console.log(table_product_name);
-        console.log(table_price);
-        console.log(table_amount);
-        console.log(table_subtotal);
-        console.log(table_remark);
-
-        $.ajax({
-                url:"{% url 'create_order-ajax' %}",
-                data:{
-                    "product_name":table_product_name,
-                    "price":table_price,
-                    "amount":table_amount,
-                    "subtotal":table_subtotal,
-                    "remark":table_remark
-                },
-                success:function(data){
-                    window.location.replace("{% url 'order_info-list' %}")
-                },
-                type:"POST",
-                dataType: "json"
-        });
-    });
 });
 
 {% endblock %}
