@@ -1,0 +1,38 @@
+{% extends 'generic_list_base.html' %}
+{% block title %}List Master info{% endblock %}
+{% block create_button %}
+{% if perms.Goods_management.add_master %}
+<a href="{% url 'Master_info-create' %}" target="_blank">Create Master info</a>
+{% endif %}
+<div>
+   <form action="{% url 'Master-search'  %}" method="get">
+      {% csrf_token %}
+        編號
+        <input type="text" name="name" id='name' placeholder="輸入">
+        客戶
+        <input type="text" name="client" id='name' placeholder="輸入">
+        統編
+        <input type="text" name="invoice_number" id='name' placeholder="輸入">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</div>
+{% endblock %}
+
+{% block table %}
+
+    <table>
+        <tr>
+        <th>廠商</th>
+        <th>經辦人</th>
+        <th>Date</th>
+
+        </tr>
+        {% for object in objects %}
+        <tr>
+        <td><a href="{{object.get_absolute_url}}" target="_blank">{{object.Manufacturer_Info}}</a></td>
+        <td>{{object.staff}}</td>
+        <td>{{object.date}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
