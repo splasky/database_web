@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block CSS %}
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
+{% endblock %}
+
+{% block title %}basic management{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+	
+	<div class="div-menu">
+		<h2>銷貨狀態</h2>
+		<form action="" method="get"></form>
+		<table class="table table-bordered " >
+		<tr>
+			
+			<th>編號</th>
+			<th>商品</th>			
+			<th>數量</th>
+			
+
+		</tr>
+		{%for e in stock_list%}
+		<tr>
+
+			<td><a href="/stock/stock/{{e.id}}/update/">{{e.id}}</a></td>
+			
+			<td>{{e.product}}</td>		
+			<td>{{e.quantity}}</td>
+			
+
+
+		</tr>
+		{% endfor %}
+
+		</table>
+
+	</div>
+
+	<a href="{% url 'stock_info-list' %}">返回列表</a>
+
+
+
+</div>
+
+{% endblock %}
