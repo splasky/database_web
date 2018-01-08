@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-05 14:21:55
+# Last modified: 2018-01-08 18:42:40
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -58,6 +58,7 @@ class order_form(forms.Form):
         label='預計出貨日期',
         widget=forms.extras.SelectDateWidget()
     )
+    invoice_number = forms.CharField(label='統一編號', max_length=20)
     delivery_address = forms.CharField(label='送貨地址', max_length=200)
     total = forms.DecimalField(label='合計', max_digits=20, decimal_places=4)
 
@@ -70,7 +71,7 @@ def order_create(request):
                 id=return_form.cleaned_data['client'])
             order_info = Order_Info(
                 client_id=client,
-                invoice_number=random.randrange(0, 1000000, 6),
+                invoice_number=return_form.cleaned_data['invoice_number'],
                 date=datetime.datetime.now(),
                 estimated_shipping_date=return_form.cleaned_data[
                     'estimated_shipping_date'],
@@ -97,6 +98,8 @@ def order_create(request):
                 )
 
             return HttpResponseRedirect(reverse_lazy('order_info-list'))
+        else:
+            return render(request, 'sales_management/order_infos_create.html', locals())
     else:
         form = order_form()
         table_name = "Order create"
@@ -114,7 +117,8 @@ def order_update(request, pk):
                 estimated_shipping_date=return_form.cleaned_data[
                     'estimated_shipping_date'],
                 delivery_address=return_form.cleaned_data['delivery_address'],
-                total=return_form.cleaned_data['total']
+                total=return_form.cleaned_data['total'],
+                invoice_number=return_form.cleaned_data['invoice_number']
             )
 
             len_details = len(request.POST.getlist('key[]'))
@@ -125,7 +129,6 @@ def order_update(request, pk):
                 subtotal = request.POST.getlist('subtotal[]')[i]
                 remark = request.POST.getlist('remark[]')[i]
                 detail_id = request.POST.getlist('id[]')[i]
-                print(detail_id)
                 product = Product_Information.objects.get(id=key)
                 order_detail = Order_Detail.objects.filter(pk=detail_id).update(
                     product_id=product,
@@ -142,7 +145,8 @@ def order_update(request, pk):
             'client': order_info.client_id,
             'estimated_shipping_date': order_info.estimated_shipping_date,
             'delivery_address': order_info.delivery_address,
-            'total': order_info.total
+            'total': order_info.total,
+            'invoice_number': order_info.invoice_number
         })
         table_name = "Order update"
         product_list = Product_Information.objects.order_by('name')

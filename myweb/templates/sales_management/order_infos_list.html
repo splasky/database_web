@@ -21,19 +21,16 @@
 
     <table>
         <tr>
-        <th>Client id</th>
+        <th>Client name</th>
         <th>Invoice number</th>
         <th>Date</th>
-        {% if perms.basic_management.change_order_info %}
-        <th>Update</th>
-        {% endif %}
-        {% if perms.basic_management.delete_order_info %}
+        {% if perms.sales_management.delete_order_info %}
         <th>Delete</th>
         {% endif %}
         </tr>
         {% for object in objects %}
         <tr>
-        <td><a href="{{object.get_absolute_url}}" target="_blank">{{object.client_id}}</a></td>
+            <td><a {% if perms.sales_management.change_order_info %} href="{{object.get_absolute_url}}{% endif %}" target="_blank">{{object.client_id}}</a></td>
         <td>{{object.invoice_number}}</td>
         <td>{{object.date}}</td>
         {% if perms.sales_management.delete_order_info %}

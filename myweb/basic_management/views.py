@@ -1,33 +1,26 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-15 14:58:41
+# Last modified: 2018-01-08 19:33:49
 
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
-from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django import template
-from django import forms
-from django.forms import extras
-from templates import basic_management
-from basic_management import models
-from django.views.generic.list import ListView
-from django import template
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.shortcuts import render
+from django.forms import extras
+from django import forms
+# TODO::use generic deatil
+from django.views import generic
 import datetime
+
+from basic_management import models
 
 
 def test(request):
     Employee_Info = models.Employee_Info
     employee_list = Employee_Info.objects.order_by('name')
     return render(request, 'basic_management/test.html', {'employee_list': employee_list})
-
-# def test2(request):
-
 
 
 @login_required

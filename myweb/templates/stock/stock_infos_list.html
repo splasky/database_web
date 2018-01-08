@@ -1,0 +1,30 @@
+{% extends 'generic_list_base.html' %}
+{% block title %}{{ table_name }}{% endblock %}
+{% block create_button %}
+{% if perms.stock.add_stock_info %}
+<a href="{% url 'stock_info-create' %}" target="_blank">Create stock info</a>
+{% endif %}
+{% endblock %}
+
+{% block table %}
+    <table>
+        <tr>
+        <th>id</th>
+        <th>商品</th>
+        <th>數量</th>
+        {% if perms.stock.delete_stock_info %}
+        <th>Delete</th>
+        {% endif %}
+        </tr>
+        {% for object in objects %}
+        <tr>
+            <td><a {% if perms.stock.change_stock_info %} href="{{object.get_absolute_url}}{% endif %}" target="_blank">{{object.id}}</a></td>
+        <td>{{object.product}}</td>
+        <td>{{object.quantity}}</td>
+        {% if perms.stock.delete_stock_info %}
+        <td><a href="{% url 'stock_info-delete' pk=object.id %}" target="_blank">Delete</a></td>
+        {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
