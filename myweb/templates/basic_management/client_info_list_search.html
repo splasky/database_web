@@ -30,7 +30,7 @@
 		{%for c in client_list%}
 		<tr>
 
-			<td>{{c.name}}</td>
+			<td><a href="/basic_management/client_info/{{c.id}}">{{c.name}}</a></td>
 			<td>{{c.address}}</td>
 			<td>{{c.email}}</td>
 			<td>{{c.phonenumber}}</td>
