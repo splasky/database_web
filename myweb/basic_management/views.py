@@ -1,14 +1,15 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-08 19:13:30
+# Last modified: 2018-01-08 19:33:49
 
-from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django import forms
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.shortcuts import render
+from django.forms import extras
+from django import forms
 # TODO::use generic deatil
 from django.views import generic
 import datetime
