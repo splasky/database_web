@@ -14,7 +14,7 @@ from utils.util import generic_list,generic_detail
 
 urlpatterns = [
     url(r'goods/create/$',
-        login_required(views.Master_create),
+        login_required(views.Master_create.as_view()),
         name='Master_info-create'),
     url(r'goods/$',
         login_required(generic_list),

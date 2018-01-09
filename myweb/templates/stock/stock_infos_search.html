@@ -14,28 +14,24 @@
 <div class="container">
 	
 	<div class="div-menu">
-		<h2>產品列表</h2>
+		<h2>銷貨狀態</h2>
 		<form action="" method="get"></form>
 		<table class="table table-bordered " >
 		<tr>
 			
-			<th>產品名稱</th>
-			<th>高度</th>
-			<th>重量</th>
-			<th>價錢</th>
-			<th>商品分類</th>
-	
+			<th>編號</th>
+			<th>商品</th>			
+			<th>數量</th>
+			
 
 		</tr>
-		{%for e in Product_list%}
+		{%for e in stock_list%}
 		<tr>
 
-			<td><a href="/basic_management/product_information/{{e.id}}">{{e.name}}</a></td>
-			<td>{{e.height}}</td>
-			<td>{{e.weight}}</td>
-			<td>{{e.price}}</td>
-			<td>{{e.categories_id}}</td>
+			<td><a href="/stock/stock/{{e.id}}/update/">{{e.id}}</a></td>
 			
+			<td>{{e.product}}</td>		
+			<td>{{e.quantity}}</td>
 			
 
 
@@ -46,7 +42,7 @@
 
 	</div>
 
-	<a href="{% url 'product_information-list' %}">返回列表</a>
+	<a href="{% url 'stock_info-list' %}">返回列表</a>
 
 
 
