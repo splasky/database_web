@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-05 14:21:55
+# Last modified: 2018-01-09 09:41:03
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -37,9 +37,10 @@ class MasterForm(forms.Form):
 
 class Master_create(FormView):
     form_class = MasterForm
-    template_name = 'Goods_management/Masters_create.html'
+    template_name = 'goods_management/Masters_create.html'
     success_url = 'goods/create/'
-    model=Product_Information
+    model = Product_Information
+
     def form_valid(self, form):
         Master.objects.create(
             Manufacturer=Manufacturer_Information.objects.get(
@@ -58,7 +59,6 @@ class Master_create(FormView):
 
         )
         return self.render_to_response(self.get_context_data())
-
 
     # if request.method == 'POST':
     #     return_form = MasterForm(requset.POST)

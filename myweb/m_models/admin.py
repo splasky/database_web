@@ -1,3 +1,8 @@
+#! /usr/bin/python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+# Last modified: 2018-01-09 09:55:42
+
 # -*- coding:utf-8 -*-
 
 from django.contrib import admin
@@ -49,11 +54,11 @@ class DjangoContentTypeAdmin(admin.ModelAdmin):
 
 # admin.site.register(AuthGroup, AuthGroupAdmin)
 admin.site.register(AuthGroupPermissions, AuthGroupPermissionsAdmin)
-admin.site.register(AuthPermission, AuthPermissionAdmin)
+#  admin.site.register(AuthPermission, AuthPermissionAdmin)
 # admin.site.register(AuthUser, AuthUserAdmin)
 # admin.site.register(AuthUserGroups, AuthUserGroupsAdmin)
 admin.site.register(AuthUserUserPermissions, AuthUserUserPermissionsAdmin)
 # admin.site.register(DjangoAdminLog, DjangoAdminLogAdmin)
-admin.site.register(DjangoContentType, DjangoContentTypeAdmin)
+#  admin.site.register(DjangoContentType, DjangoContentTypeAdmin)
 # admin.site.register(DjangoMigrations, DjangoMigrationsAdmin)
 # admin.site.register(DjangoSession, DjangoSessionAdmin)

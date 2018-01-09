@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-06 17:52:48
+# Last modified: 2018-01-09 09:54:16
 
 from django.contrib import admin
 from basic_management.models import *
@@ -38,9 +38,9 @@ class Manufacturer_InformationAdmin(Company_InfoAdmin):
     pass
 
 
-admin.site.register(Company_Info, Company_InfoAdmin)
-admin.site.register(Employee_Info, Employee_InfoAdmin)
-admin.site.register(Client_Info, Client_InfoAdmin)
-admin.site.register(Categorie, CategorieAdmin)
-admin.site.register(Product_Information, Product_InformationAdmin)
-admin.site.register(Manufacturer_Information, Manufacturer_InformationAdmin)
+#  admin.site.register(Company_Info, Company_InfoAdmin)
+#  admin.site.register(Employee_Info, Employee_InfoAdmin)
+#  admin.site.register(Client_Info, Client_InfoAdmin)
+#  admin.site.register(Categorie, CategorieAdmin)
+#  admin.site.register(Product_Information, Product_InformationAdmin)
+#  admin.site.register(Manufacturer_Information, Manufacturer_InformationAdmin)

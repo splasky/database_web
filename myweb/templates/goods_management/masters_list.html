@@ -5,6 +5,7 @@
 <a href="{% url 'Master_info-create' %}" target="_blank">Create Master info</a>
 {% endif %}
 <div>
+   {% comment %}
    <form action="{% url 'Master-search'  %}" method="get">
       {% csrf_token %}
         編號
@@ -14,6 +15,8 @@
         統編
         <input type="text" name="invoice_number" id='name' placeholder="輸入">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   </form>
+   {% endcomment %}
 </div>
 {% endblock %}
 
