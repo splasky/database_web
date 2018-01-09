@@ -18,6 +18,15 @@ from sales_management.models import Order_Info, Order_Detail
 from basic_management.models import Product_Information, Client_Info
 
 
+def order_search(request):
+
+    name = request.GET.get('name')
+    client = request.GET.get('client')
+    invoice_number = request.GET.get('invoice_number')
+    order_list = Order_Info.objects.filter(
+        client_id__name__contains=client).filter(id__contains=name).filter(invoice_number__contains=invoice_number)
+    return render(request, 'sales_management/order_infos_search.html', {'order_list': order_list})
+
 class order_form(forms.Form):
     current = datetime.datetime.now()
 
@@ -43,7 +52,8 @@ def order_create(request):
                 client_id=client,
                 invoice_number=return_form.cleaned_data['invoice_number'],
                 date=datetime.datetime.now(),
-                estimated_shipping_date=return_form.cleaned_data['estimated_shipping_date'],
+                estimated_shipping_date=return_form.cleaned_data[
+                    'estimated_shipping_date'],
                 delivery_address=return_form.cleaned_data['delivery_address'],
                 total=return_form.cleaned_data['total']
             )
@@ -83,7 +93,8 @@ def order_update(request, pk):
             Order_Info.objects.filter(pk=pk).update(
                 client_id=Client_Info.objects.get(
                     id=return_form.cleaned_data['client']),
-                estimated_shipping_date=return_form.cleaned_data['estimated_shipping_date'],
+                estimated_shipping_date=return_form.cleaned_data[
+                    'estimated_shipping_date'],
                 delivery_address=return_form.cleaned_data['delivery_address'],
                 total=return_form.cleaned_data['total'],
                 invoice_number=return_form.cleaned_data['invoice_number']

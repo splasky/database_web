@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block CSS %}
+{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'employee.css' %}">
+{% endblock %}
+
+{% block title %}basic management{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+	
+	<div class="div-menu">
+		<h2>銷貨狀態</h2>
+		<form action="" method="get"></form>
+		<table class="table table-bordered " >
+		<tr>
+			
+			<th>編號</th>
+			<th>客戶</th>			
+			<th>統編</th>
+			<th>出貨日</th>
+			<th>地址</th>
+			<th>金額</th>
+
+		</tr>
+		{%for e in order_list%}
+		<tr>
+
+			<td><a href="/sales_management/order/{{e.id}}/update/">{{e.id}}</a></td>
+			<td>{{e.client_id}}</td>
+			<td>{{e.invoice_number}}</td>		
+			<td>{{e.estimated_shipping_date}}</td>
+			<td>{{e.delivery_address}}</td>
+			<td>{{e.total}}</td>
+
+
+		</tr>
+		{% endfor %}
+
+		</table>
+
+	</div>
+
+	<a href="{% url 'order_info-list' %}">返回列表</a>
+
+
+
+</div>
+
+{% endblock %}

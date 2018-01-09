@@ -4,9 +4,21 @@
 {% if perms.sales_management.add_order_info %}
 <a href="{% url 'order_info-create' %}" target="_blank">Create order info</a>
 {% endif %}
+<div>
+   <form action="{% url 'order-search'  %}" method="get">
+      {% csrf_token %}
+        編號
+        <input type="text" name="name" id='name' placeholder="輸入">
+        客戶
+        <input type="text" name="client" id='name' placeholder="輸入">
+        統編
+        <input type="text" name="invoice_number" id='name' placeholder="輸入">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</div>
 {% endblock %}
 
 {% block table %}
+
     <table>
         <tr>
         <th>Client name</th>
