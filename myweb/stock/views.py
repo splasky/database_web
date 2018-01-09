@@ -13,6 +13,16 @@ import datetime
 from stock import models
 
 
+def stock_search(request):
+    stock = models.Stock_Info
+    name = request.GET.get('name')
+    s_id = request.GET.get('id')
+
+    stock_list = stock.objects.filter(
+        product__name__contains=name).filter(id__contains=s_id)
+    return render(request, 'stock/stock_infos_search.html', {'stock_list': stock_list})
+
+
 class StockInfoCreate(PermissionRequiredMixin, CreateView):
     model = models.Stock_Info
     fields = "__all__"

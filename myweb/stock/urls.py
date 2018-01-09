@@ -26,6 +26,10 @@ urlpatterns = [
         login_required(generic_list),
         {'app': 'stock', 'model': models.Stock_Info, 'table_name': 'Stock info'},
         name='stock_info-list'),
+    url(r'stock/search/$',
+        login_required(views.stock_search),
+        name='stock_info-search',
+        )
     # url(r'^order/search/$',
     #     login_required(views.employee_search),
 ]
