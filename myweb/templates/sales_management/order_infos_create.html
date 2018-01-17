@@ -1,28 +1,9 @@
 {% extends 'base.html' %}
 {% block javascript %}
-<!-- <script type="text/javascript"> -->
-var intId=1;
-    {% comment %}
-function add_new_data() {
-    var num = document.getElementById("order_details_table").rows.length;
-    intId=num;
-    var Tr = document.getElementById("order_details_table").insertRow(num);
-    Td = Tr.insertCell(Tr.cells.length);
-    Td.innerHTML='<select name="key[]"> {% for i in product_list %} <option value="{{i.id}}">{{i.name}}</option> {% endfor %} </select> ';
-    Td = Tr.insertCell(Tr.cells.length);
-    Td.innerHTML='<input name="price[]" type="text" size="12" class="product_price" id="price'+intId+'" onchange="c('+intId+')" value="0">';
-    Td = Tr.insertCell(Tr.cells.length);
-    Td.innerHTML='<input name="amount[]" type="text" size="12" class="product_amount" id="amount'+intId+'" onchange="c('+intId+')" value="0">';
-    Td = Tr.insertCell(Tr.cells.length);
-    Td.innerHTML='<input name="subtotal[]" type="text" size="12" class="product_subtotal" id="subtotal'+intId+'" onchange="total_price()" value="0">';
-    Td = Tr.insertCell(Tr.cells.length);
-    Td.innerHTML='<input name="remark[]" type="text" size="12">';
-}
-    {% endcomment %}
 
 $(document).ready(function(){
     $('.menu-item-add').click(function (e) {
-        <!-- e.preventDefault(); -->
+        e.preventDefault();
 
         var lastElement = $('.menu-item:last');
         var totalForms = $('#id_form-TOTAL_FORMS');
@@ -49,29 +30,35 @@ $(document).ready(function(){
         totalForms.val(total + 1);
         newElement.insertAfter(lastElement);
     });
-});
 
-function c(Id){
+    $('.price, .quantity').change(function(){
         // var price=$(this).next().val();
         // var price=$(this).siblings('#price').val();
         // var num =$(this).siblings('#num').val();
         // var num=$(this).prev();
-        var price =$('tr').find('#price'+Id).val();
-        var num = $('tr').find('#amount'+Id).val();
-        var amount =price*num;
+        console.log(this);
+        var price = $(this).siblings('.price').val();
+        var quantity = $(this).siblings('.quantity').val();
+        var subtotal = parseInt(price)*parseInt(quantity);
+        console.log(subtotal);
 
         // $('tr.fieldwrapper').find('.amount').val(amount);
-        $('tr').find('#subtotal'+Id).val(amount);
+        $(this).siblings('.subtotal').val(subtotal);
         total_price();
-}
+    });
+
+    $('.subtotal').change(function(){
+        total_price();
+    });
+});
 
 function total_price(){
-    var total_price=0
-    for (i=1;i<=intId;i++){
-    var price=$('#subtotal'+i).val();
-    total_price=parseInt(total_price)+parseInt(price);
-    }
-    $('#id_total').val(total_price);
+    var sum = 0;
+    $('.subtotal').each(function() {
+    sum += Number($(this).val());
+    });
+
+    $('input[name="total"]').val(sum);
 }
 
 function remove_data() {
@@ -118,36 +105,7 @@ $.ajaxSetup({
         <td>{{ form.invoice_number }}</td>
         </tr>
     </table>
-    {% comment %}
-    <table id="order_details_table">
-        <tr>
-            <th>商品名稱</th>
-            <th>售價</th>
-            <th>數量</th>
-            <th>小計</th>
-            <th>備註</th>
-        </tr>
-        <tr >
-        <div class="menu-item form-group">
-            <td>
-                {{ form.details_form.product }}
-            </td>
-            <td>
-                {{ form.details_form.price }}
-            </td>
-            <td>
-                {{ form.details_form.quantity }}
-            </td>
-            <td>
-                {{ form.details_form.subtotal }}
-            </td>
-            <td>
-                {{ form.details_form.remark }}
-            </td>
-        </div>
-        </tr>
-    </table>
-    {% endcomment %}
+
 	{{ menu_item_formset.management_form }}
     {% for form in menu_item_formset %}
     <div class="menu-item form-group">

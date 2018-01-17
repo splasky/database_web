@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-17 16:59:42
+# Last modified: 2018-01-17 17:52:54
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -36,9 +36,14 @@ def product_list_dropdown():
 
 class order_details_form(forms.Form):
     product = product_list_dropdown()
-    price = forms.IntegerField(label="售價", min_value=0, initial=0)
-    quantity = forms.IntegerField(label="數量", min_value=0, initial=0)
-    subtotal = forms.IntegerField(label="小計", min_value=0, initial=0)
+    price = forms.IntegerField(label="售價", min_value=0,
+                               initial=0,
+                               widget=forms.NumberInput(attrs={'class': 'price'}))
+    quantity = forms.IntegerField(label="數量", min_value=0,
+                                  initial=0,
+                                  widget=forms.NumberInput(attrs={'class': 'quantity'}))
+    subtotal = forms.IntegerField(label="小計", min_value=0, initial=0,
+                                  widget=forms.NumberInput(attrs={'class': 'subtotal'}))
     remark = forms.CharField(label="備註")
 
 
