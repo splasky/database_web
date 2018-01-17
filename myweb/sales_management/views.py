@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-08 20:46:21
+# Last modified: 2018-01-17 16:59:42
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -16,6 +16,7 @@ import random
 
 from sales_management.models import Order_Info, Order_Detail
 from basic_management.models import Product_Information, Client_Info
+from django.forms import formset_factory
 
 
 def order_search(request):
@@ -26,6 +27,20 @@ def order_search(request):
     order_list = Order_Info.objects.filter(
         client_id__name__contains=client).filter(id__contains=name).filter(invoice_number__contains=invoice_number)
     return render(request, 'sales_management/order_infos_search.html', {'order_list': order_list})
+
+
+def product_list_dropdown():
+    return forms.ModelChoiceField(label="商品名稱",
+                                  queryset=Product_Information.objects.order_by('name'))
+
+
+class order_details_form(forms.Form):
+    product = product_list_dropdown()
+    price = forms.IntegerField(label="售價", min_value=0, initial=0)
+    quantity = forms.IntegerField(label="數量", min_value=0, initial=0)
+    subtotal = forms.IntegerField(label="小計", min_value=0, initial=0)
+    remark = forms.CharField(label="備註")
+
 
 class order_form(forms.Form):
     current = datetime.datetime.now()
@@ -39,10 +54,17 @@ class order_form(forms.Form):
     )
     invoice_number = forms.CharField(label='統一編號', max_length=20)
     delivery_address = forms.CharField(label='送貨地址', max_length=200)
-    total = forms.DecimalField(label='合計', max_digits=20, decimal_places=4)
+    total = forms.DecimalField(label='合計',
+                               max_digits=20,
+                               decimal_places=4,
+                               initial=0)
+
+    details_form = order_details_form()
 
 
 def order_create(request):
+    menu_item_formset = formset_factory(
+        order_details_form, extra=2, min_num=1)
     if request.method == 'POST':
         return_form = order_form(request.POST)
         if return_form.is_valid():
@@ -82,7 +104,6 @@ def order_create(request):
     else:
         form = order_form()
         table_name = "Order create"
-        product_list = Product_Information.objects.order_by('name')
         return render(request, 'sales_management/order_infos_create.html', locals())
 
 

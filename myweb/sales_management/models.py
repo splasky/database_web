@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-28 20:54:42
+# Last modified: 2018-01-16 12:17:03
 
 from django.db import models
 from django.urls import reverse
@@ -74,7 +74,7 @@ class Details_base(models.Model):
     price = models.IntegerField(verbose_name='售價')
     num_of_product = models.IntegerField(verbose_name='數量')
     subtotal = models.IntegerField(verbose_name='小計')
-    remark = models.TextField(verbose_name='備註')
+    remark = models.TextField(verbose_name='備註', null=True)
 
     class Mate:
         abstract = True
@@ -87,6 +87,7 @@ class Order_Detail(Details_base):
 
     class Mate:
         db_table = 'Order_Details'
+
 
 class Sales_Detail(Details_base):
 
