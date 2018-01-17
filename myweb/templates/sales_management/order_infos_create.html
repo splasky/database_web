@@ -32,18 +32,13 @@ $(document).ready(function(){
     });
 
     $('.price, .quantity').change(function(){
-        // var price=$(this).next().val();
-        // var price=$(this).siblings('#price').val();
-        // var num =$(this).siblings('#num').val();
-        // var num=$(this).prev();
-        console.log(this);
-        var price = $(this).siblings('.price').val();
-        var quantity = $(this).siblings('.quantity').val();
-        var subtotal = parseInt(price)*parseInt(quantity);
-        console.log(subtotal);
+        $('.menu-item').each(function(){
+            var price = jQuery(this).children('.price').val();
+            var quantity = jQuery(this).children('.quantity').val();
+            var subtotal = parseInt(price)*parseInt(quantity);
+            jQuery(this).children('.subtotal').val(subtotal);
+        });
 
-        // $('tr.fieldwrapper').find('.amount').val(amount);
-        $(this).siblings('.subtotal').val(subtotal);
         total_price();
     });
 
