@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-17 17:52:54
+# Last modified: 2018-01-17 19:52:48
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -31,7 +31,8 @@ def order_search(request):
 
 def product_list_dropdown():
     return forms.ModelChoiceField(label="商品名稱",
-                                  queryset=Product_Information.objects.order_by('name'))
+                                  queryset=Product_Information.objects.order_by('name'),
+                                  widget=forms.Select(attrs={'class': 'product'}))
 
 
 class order_details_form(forms.Form):

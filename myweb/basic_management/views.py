@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-08 19:33:49
+# Last modified: 2018-01-17 20:09:23
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -9,8 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.forms import extras
+from django.http import JsonResponse
 from django import forms
-# TODO::use generic deatil
+# TODO::use generic detail
 from django.views import generic
 import datetime
 
@@ -375,3 +376,9 @@ class ManufacturerInformationDelete(PermissionRequiredMixin, DeleteView):
                         self).get_context_data(**kwargs)
         context['table_name'] = 'Manufacturer information info'
         return context
+
+
+def product_price_request(request):
+    price = models.Product_Information.objects.get(
+        pk=request.GET['product_id']).price
+    return JsonResponse({'price': price})

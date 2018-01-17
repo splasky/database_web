@@ -45,6 +45,19 @@ $(document).ready(function(){
     $('.subtotal').change(function(){
         total_price();
     });
+
+    $('.product').change(function(){
+        var product_id = $(this).val();
+        var price = jQuery(this).siblings(".price");
+
+        $.ajax({
+            method:"GET",
+            url:"{% url 'product_price_request' %}",
+            data:{"product_id":product_id}
+            }).done(function(data){
+               price.val(data["price"]);
+            });
+    });
 });
 
 function total_price(){

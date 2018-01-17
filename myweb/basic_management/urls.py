@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2017-12-15 15:00:33
+# Last modified: 2018-01-17 20:02:34
 
 """myweb URL Configuration
 
@@ -163,4 +163,10 @@ urlpatterns += [
     url(r'manufacturer_information/search/$',
         login_required(views.Manufacturer_search),
         name='manufacturer_information-search'),
+]
+
+urlpatterns += [
+    url(r'^product_price_request/$',
+        views.product_price_request,
+        name='product_price_request'),
 ]
