@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-17 19:52:48
+# Last modified: 2018-01-19 12:46:00
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -25,8 +25,11 @@ def order_search(request):
     client = request.GET.get('client')
     invoice_number = request.GET.get('invoice_number')
     order_list = Order_Info.objects.filter(
-        client_id__name__contains=client).filter(id__contains=name).filter(invoice_number__contains=invoice_number)
-    return render(request, 'sales_management/order_infos_search.html', {'order_list': order_list})
+        client_id__name__contains=client).filter(id__contains=name).filter(
+        invoice_number__contains=invoice_number)
+    return render(request,
+                  'sales_management/order_infos_search.html',
+                  {'order_list': order_list})
 
 
 def product_list_dropdown():
@@ -39,13 +42,16 @@ class order_details_form(forms.Form):
     product = product_list_dropdown()
     price = forms.IntegerField(label="售價", min_value=0,
                                initial=0,
-                               widget=forms.NumberInput(attrs={'class': 'price'}))
+                               widget=forms.NumberInput(
+                                   attrs={'class': 'price'}))
     quantity = forms.IntegerField(label="數量", min_value=0,
                                   initial=0,
-                                  widget=forms.NumberInput(attrs={'class': 'quantity'}))
+                                  widget=forms.NumberInput(
+                                      attrs={'class': 'quantity'}))
     subtotal = forms.IntegerField(label="小計", min_value=0, initial=0,
-                                  widget=forms.NumberInput(attrs={'class': 'subtotal'}))
-    remark = forms.CharField(label="備註")
+                                  widget=forms.NumberInput(
+                                      attrs={'class': 'subtotal'}))
+    remark = forms.CharField(label="備註", required=False)
 
 
 class order_form(forms.Form):
@@ -58,7 +64,7 @@ class order_form(forms.Form):
         label='預計出貨日期',
         widget=forms.extras.SelectDateWidget()
     )
-    invoice_number = forms.CharField(label='統一編號', max_length=20)
+    invoice_number = forms.CharField(label='統一編號', max_length=10)
     delivery_address = forms.CharField(label='送貨地址', max_length=200)
     total = forms.DecimalField(label='合計',
                                max_digits=20,
@@ -69,11 +75,22 @@ class order_form(forms.Form):
 
 
 def order_create(request):
+
     menu_item_formset = formset_factory(
-        order_details_form, extra=2, min_num=1)
+        order_details_form,
+        extra=2, min_num=1
+    )
+
+    form = order_form()
+    table_name = "Order create"
+
     if request.method == 'POST':
+
         return_form = order_form(request.POST)
-        if return_form.is_valid():
+        order_formset = menu_item_formset(request.POST, request.FILES)
+
+        if return_form.is_valid() and order_formset.is_valid():
+
             client = Client_Info.objects.get(
                 id=return_form.cleaned_data['client'])
             order_info = Order_Info(
@@ -86,31 +103,22 @@ def order_create(request):
                 total=return_form.cleaned_data['total']
             )
             order_info.save()
-            len_details = len(request.POST.getlist('key[]'))
 
-            for i in range(len_details):
-                key = request.POST.getlist('key[]')[i]
-                price = request.POST.getlist('price[]')[i]
-                amount = request.POST.getlist('amount[]')[i]
-                subtotal = request.POST.getlist('subtotal[]')[i]
-                remark = request.POST.getlist('remark[]')[i]
-                product = Product_Information.objects.get(id=key)
-                order_detail = Order_Detail.objects.create(
-                    product_id=product,
-                    price=price,
-                    num_of_product=amount,
-                    subtotal=subtotal,
-                    remark=remark,
+            for form in order_formset:
+                Order_Detail.objects.create(
+                    product_id=form.cleaned_data['product'],
+                    price=form.cleaned_data['price'],
+                    num_of_product=form.cleaned_data['quantity'],
+                    subtotal=form.cleaned_data['subtotal'],
+                    remark=form.cleaned_data['remark'],
                     order_id=order_info
                 )
 
             return HttpResponseRedirect(reverse_lazy('order_info-list'))
-        else:
-            return render(request, 'sales_management/order_infos_create.html', locals())
-    else:
-        form = order_form()
-        table_name = "Order create"
-        return render(request, 'sales_management/order_infos_create.html', locals())
+
+    return render(request,
+                  'sales_management/order_infos_create.html',
+                  locals())
 
 
 def order_update(request, pk):

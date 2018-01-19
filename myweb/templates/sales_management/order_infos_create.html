@@ -54,9 +54,9 @@ $(document).ready(function(){
             method:"GET",
             url:"{% url 'product_price_request' %}",
             data:{"product_id":product_id}
-            }).done(function(data){
+        }).done(function(data){
                price.val(data["price"]);
-            });
+        });
     });
 });
 
@@ -93,7 +93,7 @@ $.ajaxSetup({
 {% block title %}{{ table_name }}{% endblock %}
 {% block content %}
 
-<form action="" method="post">
+<form action="{% url 'order_info-create' %}" method="post">
     {% csrf_token %}
     <table>
         <tr>
@@ -125,7 +125,7 @@ $.ajaxSetup({
     <br>
     <label>合計</label> {{ form.total }}
     <br>
-    <input type="submit" value="Submit" id="ajax_post_test"/>
+    <input type="submit" value="Submit"/>
     </tr>
 </form>
 
