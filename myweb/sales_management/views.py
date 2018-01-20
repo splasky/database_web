@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-19 12:46:00
+# Last modified: 2018-01-20 20:36:26
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -32,14 +32,13 @@ def order_search(request):
                   {'order_list': order_list})
 
 
-def product_list_dropdown():
-    return forms.ModelChoiceField(label="商品名稱",
-                                  queryset=Product_Information.objects.order_by('name'),
-                                  widget=forms.Select(attrs={'class': 'product'}))
-
-
 class order_details_form(forms.Form):
-    product = product_list_dropdown()
+
+    product_id_id = forms.ModelChoiceField(label="商品名稱",
+                                           queryset=Product_Information.objects.order_by(
+                                               'name'),
+                                           widget=forms.Select(attrs={'class': 'product'}))
+
     price = forms.IntegerField(label="售價", min_value=0,
                                initial=0,
                                widget=forms.NumberInput(
@@ -70,8 +69,6 @@ class order_form(forms.Form):
                                max_digits=20,
                                decimal_places=4,
                                initial=0)
-
-    details_form = order_details_form()
 
 
 def order_create(request):
@@ -114,7 +111,7 @@ def order_create(request):
                     order_id=order_info
                 )
 
-            return HttpResponseRedirect(reverse_lazy('order_info-list'))
+        return HttpResponseRedirect(reverse_lazy('order_info-list'))
 
     return render(request,
                   'sales_management/order_infos_create.html',
