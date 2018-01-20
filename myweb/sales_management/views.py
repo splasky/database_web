@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-# Last modified: 2018-01-20 20:36:26
+# Last modified: 2018-01-20 21:43:49
 
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -43,14 +43,18 @@ class order_details_form(forms.Form):
                                initial=0,
                                widget=forms.NumberInput(
                                    attrs={'class': 'price'}))
-    quantity = forms.IntegerField(label="數量", min_value=0,
-                                  initial=0,
-                                  widget=forms.NumberInput(
-                                      attrs={'class': 'quantity'}))
+    num_of_product = forms.IntegerField(label="數量", min_value=0,
+                                        initial=0,
+                                        widget=forms.NumberInput(
+                                            attrs={'class': 'quantity'}))
     subtotal = forms.IntegerField(label="小計", min_value=0, initial=0,
                                   widget=forms.NumberInput(
                                       attrs={'class': 'subtotal'}))
     remark = forms.CharField(label="備註", required=False)
+
+
+class order_detail_update_form(order_details_form):
+    id = forms.CharField()
 
 
 class order_form(forms.Form):
@@ -103,9 +107,9 @@ def order_create(request):
 
             for form in order_formset:
                 Order_Detail.objects.create(
-                    product_id=form.cleaned_data['product'],
+                    product_id=form.cleaned_data['product_id_id'],
                     price=form.cleaned_data['price'],
-                    num_of_product=form.cleaned_data['quantity'],
+                    num_of_product=form.cleaned_data['num_of_product'],
                     subtotal=form.cleaned_data['subtotal'],
                     remark=form.cleaned_data['remark'],
                     order_id=order_info
@@ -119,8 +123,16 @@ def order_create(request):
 
 
 def order_update(request, pk):
+
+    table_name = "Order update"
+
     if request.method == 'POST':
         return_form = order_form(request.POST)
+        formsets = formset_factory(
+            order_detail_update_form
+        )
+        order_formset = formsets(request.POST, request.FILES)
+
         if return_form.is_valid():
             Order_Info.objects.filter(pk=pk).update(
                 client_id=Client_Info.objects.get(
@@ -132,21 +144,17 @@ def order_update(request, pk):
                 invoice_number=return_form.cleaned_data['invoice_number']
             )
 
-            len_details = len(request.POST.getlist('key[]'))
-            for i in range(len_details):
-                key = request.POST.getlist('key[]')[i]
-                price = request.POST.getlist('price[]')[i]
-                amount = request.POST.getlist('amount[]')[i]
-                subtotal = request.POST.getlist('subtotal[]')[i]
-                remark = request.POST.getlist('remark[]')[i]
-                detail_id = request.POST.getlist('id[]')[i]
-                product = Product_Information.objects.get(id=key)
+        if order_formset.is_valid():
+            for form in order_formset:
+                if not form.cleaned_data:
+                    break
+                detail_id = form.cleaned_data.get('id')
                 order_detail = Order_Detail.objects.filter(pk=detail_id).update(
-                    product_id=product,
-                    price=price,
-                    num_of_product=amount,
-                    subtotal=subtotal,
-                    remark=remark
+                    product_id=form.cleaned_data['product_id_id'],
+                    price=form.cleaned_data['price'],
+                    num_of_product=form.cleaned_data['num_of_product'],
+                    subtotal=form.cleaned_data['subtotal'],
+                    remark=form.cleaned_data['remark']
                 )
 
         return HttpResponseRedirect(reverse_lazy('order_info-list'))
@@ -159,10 +167,13 @@ def order_update(request, pk):
             'total': order_info.total,
             'invoice_number': order_info.invoice_number
         })
-        table_name = "Order update"
-        product_list = Product_Information.objects.order_by('name')
 
-        order_details = Order_Detail.objects.filter(order_id=pk)
+        order_details = Order_Detail.objects.filter(order_id=pk).values()
+        formsets = formset_factory(
+            order_detail_update_form, min_num=1
+        )
+        menu_item_formset = formsets(initial=order_details)
+
         return render(request, 'sales_management/order_infos_update.html', locals())
 
 
